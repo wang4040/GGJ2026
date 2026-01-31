@@ -18,36 +18,40 @@ public class IsolationRoom : MonoBehaviour
 
     void Start()
     {
-        
+        if (IsActive)
+        {
+            Count_BuildingClicked = TotalBuildingClicks;
+        }
+        else
+        {
+            Count_BuildingClicked = 0;
+        }
     }
 
-    void Update()
-    {
-        
-    }
+    void Update() { }
 
     public bool StartIsolate(PatientBehaviour patientB)
     {
         if (patientB != null)
         {
-            Destroy(patientB.gameObject);
-            StartCoroutine(Isolate());
+            patientB.Data.InIsolation();
+            IsIsolating = true;
             return true;
         }
-        Debug.LogWarning(
-            $"Patient {patientB.Data.Id} cannot be isolated in this isolation room."
-        );
+        Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
         return false;
     }
 
-    private IEnumerator Isolate()
+    private bool EndIsolate(PatientBehaviour patientB)
     {
-        // start isolation process
-        IsIsolating = true;
-        yield return new WaitForSeconds(SingleIsolationDuration);
-        // isolation complete
-        IsIsolating = false;
-        //IsolationRoomManager.Instance.RegisterSucessfulIsolation();
+        if (patientB != null)
+        {
+            patientB.Data.OutIsolation();
+            IsIsolating = false;
+            return true;
+        }
+        Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,13 +66,32 @@ public class IsolationRoom : MonoBehaviour
                 return;
             }
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
-            if (patientB != null)
+            if (StartIsolate(patientB))
             {
-                StartIsolate(patientB);
+                Debug.Log(
+                    $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
+                );
             }
-            else
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!IsActive)
+            return;
+        if (other.CompareTag("Child") || other.CompareTag("Old"))
+        {
+            if (!IsIsolating)
             {
-                Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
+                Debug.LogWarning("Isolation room is empty.");
+                return;
+            }
+            PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
+            if (EndIsolate(patientB))
+            {
+                Debug.Log(
+                    $"Patient {patientB.Data.Id} ended isolation in Isolation Room #{Index}."
+                );
             }
         }
     }
@@ -88,17 +111,17 @@ public class IsolationRoom : MonoBehaviour
             $"Isolation Room #{Index}\n"
             + $"Active: {IsActive}\n"
             // + $"Building: {Count_BuildingClicked}/{TotalBuildingClicks}\n"
-            + $"Isolating: {IsIsolating}";
+            + $"Is Isolating: {IsIsolating}\n";
 
         GUIStyle style = new GUIStyle();
-        style.normal.textColor = IsIsolating ? Color.red : (IsActive ? Color.green : Color.gray);
+        style.normal.textColor = IsIsolating ? Color.yellow : (IsActive ? Color.blue : Color.gray);
         style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = 12;
 
         Handles.Label(labelPos, info, style);
 
         // Draw a sphere to indicate status
-        Gizmos.color = IsIsolating ? Color.red : (IsActive ? Color.green : Color.gray);
+        Gizmos.color = IsIsolating ? Color.yellow : (IsActive ? Color.blue : Color.gray);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 #endif

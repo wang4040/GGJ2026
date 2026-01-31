@@ -19,7 +19,14 @@ public class IncineratorRoom : MonoBehaviour
 
     void Start()
     {
-        
+        if (IsActive)
+        {
+            Count_BuildingClicked = TotalBuildingClicks;
+        }
+        else
+        {
+            Count_BuildingClicked = 0;
+        }
     }
 
     void Update() { }
@@ -33,9 +40,7 @@ public class IncineratorRoom : MonoBehaviour
             StartCoroutine(Incinerate());
             return true;
         }
-        Debug.LogWarning(
-            $"Patient {patientB.Data.Id} cannot be incinerated in this incinerator room."
-        );
+        Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
         return false;
     }
 
@@ -62,13 +67,11 @@ public class IncineratorRoom : MonoBehaviour
                 return;
             }
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
-            if (patientB != null)
+            if (StartIncinerate(patientB))
             {
-                StartIncinerate(patientB);
-            }
-            else
-            {
-                Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
+                Debug.Log(
+                    $"Patient {patientB.Data.Id} started incineration in Incinerator Room #{Index}."
+                );
             }
         }
     }
@@ -87,14 +90,14 @@ public class IncineratorRoom : MonoBehaviour
             + $"Is Incinerating: {IsIncinerating}";
 
         GUIStyle style = new GUIStyle();
-        style.normal.textColor = IsIncinerating ? Color.red : (IsActive ? Color.green : Color.gray);
+        style.normal.textColor = IsIncinerating ? Color.yellow : (IsActive ? Color.red : Color.gray);
         style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = 12;
 
         Handles.Label(labelPos, info, style);
 
         // Draw a sphere to indicate status
-        Gizmos.color = IsIncinerating ? Color.red : (IsActive ? Color.green : Color.gray);
+        Gizmos.color = IsIncinerating ? Color.yellow : (IsActive ? Color.red : Color.gray);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 #endif
