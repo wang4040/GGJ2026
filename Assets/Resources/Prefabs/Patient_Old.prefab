@@ -123,8 +123,8 @@ GameObject:
   - component: {fileID: 1253622074629941151}
   - component: {fileID: 2994910632727758986}
   m_Layer: 0
-  m_Name: ChildSample
-  m_TagString: Child
+  m_Name: Patient_Old
+  m_TagString: Old
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -96,6 +96,19 @@ public class IsolationRoom : MonoBehaviour
         }
     }
 
+    public void ClickBuilding()
+    {
+        if (IsActive)
+            return;
+
+        Count_BuildingClicked++;
+        if (Count_BuildingClicked >= TotalBuildingClicks)
+        {
+            IsActive = true;
+            Debug.Log($"Isolation Room #{Index} has been activated.");
+        }
+    }
+
     public float GetBuildingRate()
     {
         return (float)Count_BuildingClicked / (float)TotalBuildingClicks;
