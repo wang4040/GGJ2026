@@ -38,9 +38,6 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
 
-    [Header("Unity Events")]
-    public UnityEvent UpdatePatientState;
-
     #region Main Game Loop
     private void Start() { }
 
