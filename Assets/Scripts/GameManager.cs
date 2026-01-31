@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
 
+    public Material OutlineMaterial2D;
+
     #region Main Game Loop
     private void Start()
     {
