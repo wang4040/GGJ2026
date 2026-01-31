@@ -43,12 +43,9 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
 
-    [Header("Unity Events")]
-    public UnityEvent OnPatientStateChanged; // Fired when any patient's state changes
-
     [Header("Parameters")]
     public Material OutlineMaterial2D;
-    public float HallInfectionRate = 0.3f; 
+    public float HallInfectionRate = 0.3f;
 
     #region Main Game Loop
     private void Start()
@@ -68,7 +65,6 @@ public class GameManager : MonoBehaviour // Singleton
     void HandlePatientLevelChanged(int patientId, Level oldLevel, Level newLevel)
     {
         // A patient's level changed - notify listeners
-        OnPatientStateChanged?.Invoke();
     }
 
     void HandlePatientExploded(int patientId)
@@ -83,11 +79,6 @@ public class GameManager : MonoBehaviour // Singleton
         if (isTimerRunning)
         {
             globalTimer += Time.deltaTime;
-            // if (globalTimer >= UpdateInterval)
-            // {
-            //     globalTimer = 0f;
-            //     UpdatePatientState?.Invoke();
-            // }
         }
     }
 
