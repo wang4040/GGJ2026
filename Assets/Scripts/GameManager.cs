@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum GameState
@@ -36,6 +37,9 @@ public class GameManager : MonoBehaviour // Singleton
     [Header("Patient Settings")]
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
+
+    [Header("Unity Events")]
+    public UnityEvent UpdatePatientState;
 
     #region Main Game Loop
     private void Start() { }
