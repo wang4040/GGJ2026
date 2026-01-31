@@ -14,8 +14,9 @@ namespace PatientSystem
         Slight = 1,
         Medium = 2,
         Severe = 3,
-        Exploded = 4,
-        Incinerating = 5
+        Crazy = 4,
+        Exploded = 5,
+        Incinerating = 6,
     }
 
     public enum InfectionStage
