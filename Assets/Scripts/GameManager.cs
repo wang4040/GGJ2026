@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour // Singleton
     public GameState CurrentState = GameState.MainMenu;
 
     [Header("Patient Settings")]
-    public GameObject PatientPrefab;
+    public GameObject ChildPrefab;
+    public GameObject OldPrefab;
 
     #region Main Game Loop
     private void Start()
@@ -66,20 +67,24 @@ public class GameManager : MonoBehaviour // Singleton
     #endregion
 
     #region Patient Management
-    public void RegisterPatient(int count = 1)
+    public void RegisterPatient(GameObject prefab, int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
-            Instantiate(PatientPrefab);
+            Instantiate(prefab);
         }
     }
     #endregion
 
     public void Testing()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            RegisterPatient();
+            RegisterPatient(ChildPrefab);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            RegisterPatient(OldPrefab);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
