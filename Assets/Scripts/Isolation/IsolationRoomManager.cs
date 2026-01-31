@@ -15,15 +15,21 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
         {
             Destroy(gameObject);
         }
+
+        IsolationRoom.Capacity = RoomCapacity;
+        IsolationRoom.SingleIsolationDuration = SingleIsolationDuration;
+        IsolationRoom.TotalBuildingClicks = RoomBuildingClicks;
     }
 
-    void Start()
-    {
-        
-    }
+    [Header("Parameters")]
+    public int RoomCapacity = 1;
+    public float SingleIsolationDuration = 2f;
+    public int RoomBuildingClicks = 20;
 
-    void Update()
-    {
-        
-    }
+    [Header("State")]
+    public int Count_Isolated = 0;
+
+    void Start() { }
+
+    void Update() { }
 }

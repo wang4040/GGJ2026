@@ -16,6 +16,10 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
         {
             Destroy(gameObject);
         }
+
+        IncineratorRoom.Capacity = RoomCapacity;
+        IncineratorRoom.SingleIncineratorDuration = SingleIncineratorDuration;
+        IncineratorRoom.TotalBuildingClicks = RoomBuildingClicks;
     }
 
     [Header("Parameters")]
@@ -28,9 +32,7 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
 
     void Start()
     {
-        IncineratorRoom.Capacity = RoomCapacity;
-        IncineratorRoom.SingleIncineratorDuration = SingleIncineratorDuration;
-        IncineratorRoom.TotalBuildingClicks = RoomBuildingClicks;
+        
     }
 
     void Update() { }

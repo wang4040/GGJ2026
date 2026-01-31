@@ -38,10 +38,7 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject OldPrefab;
 
     #region Main Game Loop
-    private void Start()
-    {
-        
-    }
+    private void Start() { }
 
     private void Update()
     {
@@ -49,15 +46,9 @@ public class GameManager : MonoBehaviour // Singleton
             Testing();
     }
 
-    public void StartGame()
-    {
-        
-    }
+    public void StartGame() { }
 
-    public void EndGame()
-    {
-        
-    }
+    public void EndGame() { }
 
     public void ResetGame()
     {
