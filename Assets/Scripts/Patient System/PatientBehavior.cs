@@ -1,6 +1,5 @@
 using UnityEngine;
 using PatientSystem;
-using System.Collections;
 
 public class PatientBehaviour : MonoBehaviour
 {
@@ -30,37 +29,6 @@ public class PatientBehaviour : MonoBehaviour
 
         // Create the patient data
         Data = new Patient(type, initialLevel);
-    }
-
-    void OnEnable()
-    {
-        PatientEvents.OnLevelChanged += HandleLevelChanged;
-    }
-
-    void OnDisable()
-    {
-        PatientEvents.OnLevelChanged -= HandleLevelChanged;
-    }
-
-    private void HandleLevelChanged(int id, Level oldLevel, Level newLevel)
-    {
-        // Only handle our own level changes
-        if (Data == null || id != Data.Id)
-            return;
-
-        if (newLevel == Level.Incinerating)
-        {
-            StartCoroutine(IncinerationCoroutine());
-        }
-    }
-
-    private IEnumerator IncinerationCoroutine()
-    {
-        yield return new WaitForSeconds(Data.IncinerationTime);
-        
-        Data.FinishIncineration();
-        Patient.Remove(Data.Id);
-        Destroy(gameObject);
     }
 
     void OnDestroy()

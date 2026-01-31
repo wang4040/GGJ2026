@@ -22,7 +22,6 @@ namespace PatientSystem
         public static float DefaultChildTimer = 10f;       // Time between infection ticks for children
         public static float DefaultOldTimer = 10f;         // Time between infection ticks for old
         public static float DefaultGracePeriod = 8f;       // Time before severe patient can explode
-        public static float DefaultIncinerationTime = 5f;  // Time to complete incineration
         public static float DefaultMaskMultiplier = 0.5f;  // Mask reduces infection chance by 50%
 
         // ----------------------------------------------------
@@ -50,7 +49,6 @@ namespace PatientSystem
         public bool IsInIncinerator { get; private set; } = false;
         public float TimerDuration { get; set; }
         public float GracePeriod { get; set; }
-        public float IncinerationTime { get; set; }
         public float MaskMultiplier { get; set; }
         public Room Room { get; set; } = Room.Hall;
 
@@ -116,7 +114,6 @@ namespace PatientSystem
 
             // Apply default values
             GracePeriod = DefaultGracePeriod;
-            IncinerationTime = DefaultIncinerationTime;
             MaskMultiplier = DefaultMaskMultiplier;
 
             // Register in global patient registry
@@ -224,10 +221,7 @@ namespace PatientSystem
         // Dragging
         // ----------------------------------------------------
         public void OnDragging()
-        {
-            if (IsInIncinerator || currentLevel >= Level.Incinerating)
-                return;
-            
+        {   
             IsDragging = true;
         }
 
@@ -292,7 +286,7 @@ namespace PatientSystem
             Room = Room.Incinerator;
             IsInIncinerator = true;
             IsDragging = false;
-            Incinerate();  
+            PatientEvents.Incinerated(Id);
         }
 
         // ----------------------------------------------------
@@ -306,22 +300,6 @@ namespace PatientSystem
             {
                 GracePeriodDone = true;
             }
-        }
-
-        // Start incinerating the patient. Returns false if already dead.
-        public bool Incinerate()
-        {
-            if (currentLevel == Level.Incinerating)
-                return false;  // Already incinerating
-
-            Level = Level.Incinerating;
-            return true;
-        }
-
-        // Called when incineration completes
-        public void FinishIncineration()
-        {
-            PatientEvents.Incinerated(Id); 
         }
 
         public override string ToString()
