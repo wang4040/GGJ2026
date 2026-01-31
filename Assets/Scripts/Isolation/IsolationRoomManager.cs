@@ -25,6 +25,7 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     public int RoomCapacity = 1;
     public float SingleIsolationDuration = 2f;
     public int RoomBuildingClicks = 20;
+    public float InfectionRate = 0.1f; // Lower infection rate in isolation
 
     [Header("State")]
     public int Count_Isolated = 0;

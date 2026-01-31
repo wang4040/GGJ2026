@@ -190,17 +190,30 @@ namespace PatientSystem
         // Increase infection level by one. Returns false if unable to increase.
         public bool IncreaseLevel()
         {
-            // Can't go higher than exploded
             if (currentLevel >= Level.Exploded)
                 return false;
 
-            // Severe patients must wait for grace period before exploding
-            if (currentLevel == Level.Severe && !GracePeriodDone)
-                return false;
+            // Severe patients must wait for grace period, then explode (skip Crazy)
+            if (currentLevel == Level.Severe)
+            {
+                if (!GracePeriodDone)
+                    return false;
+                
+                Level = Level.Exploded;
+                return true;
+            }
+
+            // Crazy patients explode immediately
+            if (currentLevel == Level.Crazy)
+            {
+                Level = Level.Exploded;
+                return true;
+            }
 
             Level = currentLevel + 1;
             return true;
         }
+
 
         // Decrease infection level by one. Returns false if unable to decrease.
         public bool DecreaseLevel()
@@ -287,6 +300,77 @@ namespace PatientSystem
             IsInIncinerator = true;
             IsDragging = false;
             PatientEvents.Incinerated(Id);
+        }
+
+        // ----------------------------------------------------
+        // Infection Tick Calculator
+        // ----------------------------------------------------
+
+        /// <summary>
+        /// Processes an infection tick for this patient.
+        /// 1. Roll against room infection rate to see if patient is "exposed" this tick
+        /// 2. If exposed: roll against worseRate to get worse
+        /// 3. If NOT exposed: roll against recoveryRate to get better
+        /// </summary>
+        public InfectionStage ProcessInfectionTick(float roomInfectionRate, float worseRate = 0.5f, float recoveryRate = 0.3f)
+        {
+            // Already dead, no processing
+            if (currentLevel == Level.Exploded || IsInIncinerator)
+                return InfectionStage.NoChange;
+
+            // Calculate effective exposure chance
+            float effectiveExposureChance = GetInfectionChance(roomInfectionRate);
+
+            // Roll to see if patient is exposed this tick
+            float exposureRoll = UnityEngine.Random.value;
+            bool isExposed = exposureRoll < effectiveExposureChance;
+
+            if (isExposed)
+            {
+                // Patient is exposed - roll to see if they get worse
+                float worseRoll = UnityEngine.Random.value;
+                if (worseRoll < worseRate)
+                {
+                    if (IncreaseLevel())
+                        return InfectionStage.Worse;
+                }
+            }
+            else
+            {
+                // Patient is not exposed - roll to see if they recover
+                if (currentLevel > Level.Normal)
+                {
+                    float recoveryRoll = UnityEngine.Random.value;
+                    if (recoveryRoll < recoveryRate)
+                    {
+                        if (DecreaseLevel())
+                            return InfectionStage.Better;
+                    }
+                }
+            }
+
+            return InfectionStage.NoChange;
+        }
+
+        public float CalculateHealth()
+        {
+            switch (currentLevel)
+            {
+                case Level.Normal:
+                    return 100f;
+                case Level.Slight:
+                    return 80f;
+                case Level.Medium:
+                    return 60f;
+                case Level.Severe:
+                    return 40f;
+                case Level.Crazy:
+                    return 20f;
+                case Level.Exploded:
+                    return 0f;
+                default:
+                    return 0f;
+            }
         }
 
         // ----------------------------------------------------
