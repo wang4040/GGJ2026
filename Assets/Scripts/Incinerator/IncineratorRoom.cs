@@ -6,16 +6,16 @@ using UnityEditor;
 
 public class IncineratorRoom : MonoBehaviour
 {
-    public static int Capacity = 2;
+    public static int Capacity = 1;
     public static int TotalBuildingClicks = 20;
     public static float SingleIncineratorDuration = 2f;
 
     [Header("Instance State")]
     public int Index = 0;
+    public bool IsActive = true;
     public int Count_IncineratedPatients = 0;
-    public int Count_BuildingClicked = 0;
-    public bool isActive = true;
-    public bool isIncinerating = false;
+    public int Count_BuildingClicked = 0; // may not be used
+    public bool IsIncinerating = false;
 
     void Start()
     {
@@ -42,21 +42,21 @@ public class IncineratorRoom : MonoBehaviour
     private IEnumerator Incinerate()
     {
         // start incineration process
-        isIncinerating = true;
+        IsIncinerating = true;
         yield return new WaitForSeconds(SingleIncineratorDuration);
 
         // incineration complete
-        isIncinerating = false;
+        IsIncinerating = false;
         IncineratorRoomManager.Instance.RegisterSucessfulIncineration();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isActive)
+        if (!IsActive)
             return;
         if (other.CompareTag("Child") || other.CompareTag("Old"))
         {
-            if (isIncinerating)
+            if (IsIncinerating)
             {
                 Debug.LogWarning("Incinerator is currently busy.");
                 return;
@@ -81,20 +81,20 @@ public class IncineratorRoom : MonoBehaviour
 
         string info =
             $"Incinerator #{Index}\n"
-            + $"Incinerated: {Count_IncineratedPatients}\n"
-            + $"Building: {Count_BuildingClicked}/{TotalBuildingClicks}\n"
-            + $"Active: {isActive}\n"
-            + $"Incinerating: {isIncinerating}";
+            + $"Active: {IsActive}\n"
+            + $"Number of Incinerated: {Count_IncineratedPatients}\n"
+            // + $"Building: {Count_BuildingClicked}/{TotalBuildingClicks}\n"
+            + $"Is Incinerating: {IsIncinerating}";
 
         GUIStyle style = new GUIStyle();
-        style.normal.textColor = isIncinerating ? Color.red : (isActive ? Color.green : Color.gray);
+        style.normal.textColor = IsIncinerating ? Color.red : (IsActive ? Color.green : Color.gray);
         style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = 12;
 
         Handles.Label(labelPos, info, style);
 
         // Draw a sphere to indicate status
-        Gizmos.color = isIncinerating ? Color.red : (isActive ? Color.green : Color.gray);
+        Gizmos.color = IsIncinerating ? Color.red : (IsActive ? Color.green : Color.gray);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 #endif
