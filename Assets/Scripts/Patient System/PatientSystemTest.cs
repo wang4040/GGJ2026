@@ -16,6 +16,18 @@ public class PatientSystemTest : MonoBehaviour
         PatientEvents.OnExploded += (id) =>
             Debug.Log($"Patient {id} EXPLODED!");
 
+        // Find all patients in scene
+        PatientBehaviour[] patients = FindObjectsOfType<PatientBehaviour>();
+        Debug.Log($"Found {patients.Length} patients in scene");
+
+        foreach (var pb in patients)
+        {
+            Debug.Log($"Found: {pb.Data}");
+            
+            // Test: increase each patient's level
+            pb.Data.IncreaseLevel();
+        }
+
         // Create test patients
         Patient child = new Patient(PatientType.Child, Level.Normal);
         Patient old = new Patient(PatientType.Old, Level.Slight);

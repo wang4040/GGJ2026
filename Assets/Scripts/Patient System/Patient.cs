@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace PatientSystem
 {
@@ -45,6 +46,8 @@ namespace PatientSystem
         public PatientType Type { get; private set; }
         public bool HasMask { get; private set; }
         public bool GracePeriodDone { get; private set; }
+        public bool IsDragging { get; private set; } = false;
+        public bool IsInIncinerator { get; private set; } = false;
         public float TimerDuration { get; set; }
         public float GracePeriod { get; set; }
         public float IncinerationTime { get; set; }
@@ -167,6 +170,12 @@ namespace PatientSystem
             return true;
         }
 
+        public bool RemoveMask()
+        {
+            HasMask = false;
+            return true;
+        }
+
         // Calculate infection chance based on room rate and mask status
         public float GetInfectionChance(float roomRate)
         {
@@ -212,6 +221,22 @@ namespace PatientSystem
         }
 
         // ----------------------------------------------------
+        // Dragging
+        // ----------------------------------------------------
+        public void OnDragging()
+        {
+            if (IsInIncinerator || currentLevel >= Level.Incinerating)
+                return;
+            
+            IsDragging = true;
+        }
+
+        public void StopDragging()
+        {
+            IsDragging = false;
+        }
+
+        // ----------------------------------------------------
         // Room Registry
         // ----------------------------------------------------
         public static List<Patient> GetInfectedInRoom(Room room)
@@ -242,6 +267,32 @@ namespace PatientSystem
             }
 
             return result;
+        }
+
+        public void InIsolation()
+        {
+            if (IsInIncinerator)
+                return;
+            
+            Room = Room.Isolation;
+            StopDragging();
+        }
+
+        public void OutIsolation()
+        {
+            if (IsInIncinerator)
+                return;
+            
+            Room = Room.Hall;
+            StopDragging();
+        }
+
+        public void Incineration()
+        {
+            Room = Room.Incinerator;
+            IsInIncinerator = true;
+            IsDragging = false;
+            Incinerate();  
         }
 
         // ----------------------------------------------------
