@@ -6,6 +6,7 @@ namespace PatientSystem
     {
         public static event Action<int, Level, Level> OnLevelChanged;
         public static event Action<int> OnExploded;
+        public static event Action<int> OnIncinerated;
 
         public static void LevelChanged(int id, Level oldLevel, Level newLevel)
         {
@@ -15,6 +16,11 @@ namespace PatientSystem
         public static void Exploded(int id)
         {
             OnExploded?.Invoke(id);
+        }
+
+        public static void Incinerated(int id)
+        {
+            OnIncinerated?.Invoke(id);
         }
 
         public static void ClearAll()

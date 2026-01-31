@@ -311,8 +311,8 @@ namespace PatientSystem
         // Start incinerating the patient. Returns false if already dead.
         public bool Incinerate()
         {
-            if (currentLevel >= Level.Exploded)
-                return false;
+            if (currentLevel == Level.Incinerating)
+                return false;  // Already incinerating
 
             Level = Level.Incinerating;
             return true;
@@ -321,6 +321,7 @@ namespace PatientSystem
         // Called when incineration completes
         public void FinishIncineration()
         {
+            PatientEvents.Incinerated(Id); 
         }
 
         public override string ToString()
