@@ -7,9 +7,9 @@ namespace PatientSystem
     // ----------------------------------------------------
     public enum Room
     {
-        Hall,
-        Isolation,
-        Incinerator
+        Hall, // place where normal patients stay.
+        Isolation, // place where infected patients are isolated.
+        Incinerator, // place where patients are burned.
     }
 
     public class Patient
@@ -18,11 +18,11 @@ namespace PatientSystem
         // Default Configuration Values
         // ----------------------------------------------------
 
-        public static float DefaultChildTimer = 10f;       // Time between infection ticks for children
-        public static float DefaultOldTimer = 10f;         // Time between infection ticks for old
-        public static float DefaultGracePeriod = 8f;       // Time before severe patient can explode
-        public static float DefaultIncinerationTime = 5f;  // Time to complete incineration
-        public static float DefaultMaskMultiplier = 0.5f;  // Mask reduces infection chance by 50%
+        public float DefaultChildTimer = 10f; // Time between infection ticks for children
+        public float DefaultOldTimer = 10f; // Time between infection ticks for old
+        public static float DefaultGracePeriod = 8f; // Time before severe patient can explode
+        public static float DefaultIncinerationTime = 5f; // Time to complete incineration
+        public static float DefaultMaskMultiplier = 0.5f; // Mask reduces infection chance by 50%
 
         // ----------------------------------------------------
         // Patient Registry
