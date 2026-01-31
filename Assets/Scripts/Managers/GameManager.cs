@@ -8,7 +8,7 @@ public enum GameState
     GameOver,
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour // Singleton
 {
     public static GameManager Instance;
 
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     [Header("Patient Settings")]
     public GameObject PatientPrefab;
 
+    #region Main Game Loop
     private void Start()
     {
         
@@ -62,19 +63,23 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void AddPatient(int count = 1)
+    #endregion
+
+    #region Patient Management
+    public void RegisterPatient(int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
             Instantiate(PatientPrefab);
         }
     }
+    #endregion
 
     public void Testing()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            AddPatient();
+            RegisterPatient();
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
