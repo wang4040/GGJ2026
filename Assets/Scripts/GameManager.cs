@@ -34,15 +34,20 @@ public class GameManager : MonoBehaviour // Singleton
 #endif
     public GameState CurrentState = GameState.MainMenu;
 
+    [SerializeField]
+    private float globalTimer = 0f;
+    private bool isTimerRunning = false;
+
     [Header("Patient Settings")]
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
 
-    [Header("Unity Events")]
+    [HideInInspector]
     public UnityEvent UpdatePatientState;
 
     [Header("Parameters")]
     public Material OutlineMaterial2D;
+    public float UpdateInterval = 5f;
 
     #region Main Game Loop
     private void Start() { }
@@ -51,11 +56,27 @@ public class GameManager : MonoBehaviour // Singleton
     {
         if (IsDebugMode)
             Testing();
+        if (isTimerRunning)
+        {
+            globalTimer += Time.deltaTime;
+            if (globalTimer >= UpdateInterval)
+            {
+                globalTimer = 0f;
+                UpdatePatientState?.Invoke();
+            }
+        }
     }
 
-    public void StartGame() { }
+    public void StartGame()
+    {
+        isTimerRunning = true;
+        globalTimer = 0f;
+    }
 
-    public void EndGame() { }
+    public void EndGame()
+    {
+        isTimerRunning = false;
+    }
 
     public void ResetGame()
     {
