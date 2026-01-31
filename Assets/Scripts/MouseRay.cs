@@ -85,7 +85,13 @@ public class MouseRay : MonoBehaviour
                 currOutline = null;
             }
         }
-        
+        else
+        {
+            // Not hovering over anything, remove outline
+            currOutline?.RemoveOutline();
+            currOutline = null;
+        }
+
         // While holding, keep moving the dragged object with the mouse
         if (isDragging && draggedTransform != null)
         {
