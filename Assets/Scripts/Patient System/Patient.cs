@@ -8,9 +8,9 @@ namespace PatientSystem
     // ----------------------------------------------------
     public enum Room
     {
-        Hall,
-        Isolation,
-        Incinerator
+        Hall, // place where normal patients stay.
+        Isolation, // place where infected patients are isolated.
+        Incinerator, // place where patients are burned.
     }
 
     public class Patient
