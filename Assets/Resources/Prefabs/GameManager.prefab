@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1757058416671822070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7906023614652847002}
+  - component: {fileID: 8883832043283172243}
+  - component: {fileID: 1400679303325860048}
+  - component: {fileID: 591372283005257651}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7906023614652847002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757058416671822070}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8883832043283172243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757058416671822070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc34a38763ea884b96eb57bff249ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsDebugMode: 1
+  CurrentState: 0
+  ChildPrefab: {fileID: 2663772822605082589, guid: 5af6cbe7708e1364f945214fafa6f7db, type: 3}
+  OldPrefab: {fileID: 2663772822605082589, guid: 4692ab4e8d099684c983019ad250fb73, type: 3}
+  UpdatePatientState:
+    m_PersistentCalls:
+      m_Calls: []
+  OutlineMaterial2D: {fileID: 0}
+--- !u!114 &1400679303325860048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757058416671822070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a622fc7ed5927ab44acb4d741e1dcfa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomCapacity: 1
+  SingleIsolationDuration: 2
+  RoomBuildingClicks: 20
+  Count_Isolated: 0
+--- !u!114 &591372283005257651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757058416671822070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1278b4a6aa563334bbb071e247a93dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomCapacity: 1
+  SingleIncineratorDuration: 2
+  RoomBuildingClicks: 20
+  Count_Incinerated: 0

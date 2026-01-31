@@ -272,7 +272,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   maxDistance: 100
   dragDistance: 15
   debugRay: 1
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 363836451}
   - component: {fileID: 363836454}
   - component: {fileID: 363836455}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Patient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 939370173}
   - component: {fileID: 939370175}
   - component: {fileID: 939370174}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: images_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   destroyOnRelease: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   maxDistance: 100
 --- !u!224 &8542423762956616058 stripped
 RectTransform:
