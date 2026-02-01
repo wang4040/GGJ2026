@@ -48,12 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDebugMode: 1
   CurrentState: 0
+  globalTimer: 0
   ChildPrefab: {fileID: 2663772822605082589, guid: 5af6cbe7708e1364f945214fafa6f7db, type: 3}
   OldPrefab: {fileID: 2663772822605082589, guid: 4692ab4e8d099684c983019ad250fb73, type: 3}
-  UpdatePatientState:
-    m_PersistentCalls:
-      m_Calls: []
-  OutlineMaterial2D: {fileID: 0}
+  OutlineMaterial2D: {fileID: 2100000, guid: 1d384c4e37f1ea543a5e70d9c769e3fb, type: 2}
+  HallInfectionRate: 0.3
 --- !u!114 &1400679303325860048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,9 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a622fc7ed5927ab44acb4d741e1dcfa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsolationRooms:
+  - {fileID: 0}
   RoomCapacity: 1
   SingleIsolationDuration: 2
   RoomBuildingClicks: 20
+  InfectionRate: 0.1
   Count_Isolated: 0
 --- !u!114 &591372283005257651
 MonoBehaviour:
@@ -82,6 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1278b4a6aa563334bbb071e247a93dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IncineratorRooms:
+  - {fileID: 0}
   RoomCapacity: 1
   SingleIncineratorDuration: 2
   RoomBuildingClicks: 20

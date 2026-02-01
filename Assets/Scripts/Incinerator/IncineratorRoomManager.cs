@@ -4,7 +4,7 @@ using UnityEngine;
 public class IncineratorRoomManager : MonoBehaviour // Singleton
 {
     public static IncineratorRoomManager Instance;
-
+    public IncineratorRoom[] IncineratorRooms;
     void Awake()
     {
         if (Instance == null)
@@ -32,7 +32,11 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
 
     void Start()
     {
-        
+        IncineratorRooms = FindObjectsByType<IncineratorRoom>(FindObjectsSortMode.None);
+        for (int i = 0; i < IncineratorRooms.Length; i++)
+        {
+            IncineratorRooms[i].Index = i;
+        }
     }
 
     void Update() { }

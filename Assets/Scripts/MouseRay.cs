@@ -21,7 +21,7 @@ public class MouseRay : MonoBehaviour
     private Rigidbody draggedRigidbody;
     private bool draggedWasKinematic;
     private bool isDragging;
-    private OutlinePatient currOutline;
+    private OutlinePatient currPatientOutline;
 
     // World Y value locked while dragging
     private float lockedY;
@@ -43,21 +43,31 @@ public class MouseRay : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance, layerMask))
         {
+            // Hovering over patient
             if (hitInfo.collider.gameObject.GetComponent<PatientBehaviour>() != null)
             {
-                if (currOutline != hitInfo.collider.gameObject.GetComponent<OutlinePatient>())
+                if (currPatientOutline != null && currPatientOutline != hitInfo.collider.gameObject.GetComponent<OutlinePatient>())
                 {
                     // New outline target, remove old outline
-                    currOutline?.RemoveOutline();
-                    currOutline = null;
+                    currPatientOutline?.RemoveOutline();
+                    currPatientOutline = null;
                 }
-                currOutline = hitInfo.collider.gameObject.GetComponent<OutlinePatient>();
-                currOutline?.OutlineObject();
+                currPatientOutline = hitInfo.collider.gameObject.GetComponent<OutlinePatient>();
+                currPatientOutline?.OutlineObject();
                 if (Input.GetMouseButtonDown(0))
                 {
                     // Start dragging this transform
                     draggedTransform = hitInfo.collider.transform;
                     draggedTransform.GetComponent<PatientBehaviour>().Data.OnDragging();
+
+                    foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
+                    {
+                        room.GetComponent<OutlinePatient>()?.OutlineObject();
+                    }
+                    foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+                    {
+                        room.GetComponent<OutlinePatient>()?.OutlineObject();
+                    }
 
                     // Lock Y to current world Y of the object
                     lockedY = draggedTransform.position.y;
@@ -78,18 +88,31 @@ public class MouseRay : MonoBehaviour
                     isDragging = true;
                 }
             }
-            else
+            else // Moved off a patient, remove outline
             {
-                // Not hovering over a patient, remove outline
-                currOutline?.RemoveOutline();
-                currOutline = null;
+                if (currPatientOutline != null)
+                {
+                    currPatientOutline.RemoveOutline();
+                    currPatientOutline = null;
+                }
+            }
+
+            //  Hovering over isolation room
+            if (hitInfo.collider.gameObject.GetComponent<IsolationRoom>() != null)
+            {
+                if (Input.GetMouseButtonDown(0) && !isDragging)
+                {
+                    hitInfo.collider.gameObject.GetComponent<IsolationRoom>().ClickBuilding();
+                }
             }
         }
-        else
+        else // Not hovering over anything, remove outline
         {
-            // Not hovering over anything, remove outline
-            currOutline?.RemoveOutline();
-            currOutline = null;
+            if (currPatientOutline != null)
+            {
+                currPatientOutline?.RemoveOutline();
+                currPatientOutline = null;
+            }
         }
 
         // While holding, keep moving the dragged object with the mouse
@@ -108,9 +131,9 @@ public class MouseRay : MonoBehaviour
         }
 
         // End drag on mouse up
-        if (Input.GetMouseButtonUp(0) && isDragging)
+        if (Input.GetMouseButtonUp(0) && isDragging && draggedTransform != null)
         {
-            draggedTransform.GetComponent<PatientBehaviour>().Data.StopDragging();
+            draggedTransform.GetComponent<PatientBehaviour>()?.Data.StopDragging();
             EndDrag();
         }
     }
@@ -143,6 +166,15 @@ public class MouseRay : MonoBehaviour
 
     private void EndDrag()
     {
+        foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
+        {
+            room.GetComponent<OutlinePatient>()?.RemoveOutline();
+        }
+        foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+        {
+            room.GetComponent<OutlinePatient>()?.RemoveOutline();
+        }
+
         if (draggedRigidbody != null)
         {
             draggedRigidbody.isKinematic = draggedWasKinematic;

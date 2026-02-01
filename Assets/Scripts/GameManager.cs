@@ -2,6 +2,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using PatientSystem;
+using System.Collections.Generic;
+
+public struct BigGameEvent 
+{ 
+    public int Index;
+    public int Num_newPatients;
+    public int Num_newSeverePatients;
+}
 
 public enum GameState
 {
@@ -34,6 +42,8 @@ public class GameManager : MonoBehaviour // Singleton
     public bool IsDebugMode = false;
 #endif
     public GameState CurrentState = GameState.MainMenu;
+    public List<BigGameEvent> BigGameEvents;
+    public int CurrentBigEventIndex = 0;
 
     [SerializeField]
     private float globalTimer = 0f;
@@ -43,12 +53,10 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
 
-    [Header("Unity Events")]
-    public UnityEvent OnPatientStateChanged; // Fired when any patient's state changes
-
     [Header("Parameters")]
     public Material OutlineMaterial2D;
-    public float HallInfectionRate = 0.3f; 
+    public float BigEventInterval = 5f;
+    public float HallInfectionRate = 0.3f;
 
     #region Main Game Loop
     private void Start()
@@ -56,6 +64,10 @@ public class GameManager : MonoBehaviour // Singleton
         // Subscribe to patient events
         PatientEvents.OnLevelChanged += HandlePatientLevelChanged;
         PatientEvents.OnExploded += HandlePatientExploded;
+        if (BigGameEvents == null)
+        {
+            BigGameEvents = new List<BigGameEvent>();
+        }
     }
 
     private void OnDestroy()
@@ -68,7 +80,6 @@ public class GameManager : MonoBehaviour // Singleton
     void HandlePatientLevelChanged(int patientId, Level oldLevel, Level newLevel)
     {
         // A patient's level changed - notify listeners
-        OnPatientStateChanged?.Invoke();
     }
 
     void HandlePatientExploded(int patientId)
@@ -83,11 +94,16 @@ public class GameManager : MonoBehaviour // Singleton
         if (isTimerRunning)
         {
             globalTimer += Time.deltaTime;
-            // if (globalTimer >= UpdateInterval)
-            // {
-            //     globalTimer = 0f;
-            //     UpdatePatientState?.Invoke();
-            // }
+            if (globalTimer >= BigEventInterval)
+            {
+                //BigGameEventManager.Instance.TriggerBigGameEvent(CurrentBigEventIndex);
+                globalTimer = 0f;
+                CurrentBigEventIndex++;
+                if (CurrentBigEventIndex >= BigGameEvents.Count)
+                {
+                    CurrentBigEventIndex = 0;
+                }
+            }
         }
     }
 
