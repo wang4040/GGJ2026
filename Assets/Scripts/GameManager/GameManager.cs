@@ -19,6 +19,7 @@ public struct BigGameEvent
 public enum GameState
 {
     MainMenu,
+    Tutorial,
     Playing,
     GameOver,
 }
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour // Singleton
     private bool isTimerRunning = false;
 
     [Header("Patient Settings")]
+    public int PatientsInScene = 0;
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
     public Transform PatientSpawnPoint;
@@ -110,9 +112,10 @@ public class GameManager : MonoBehaviour // Singleton
 
     private void Update()
     {
+        PatientsInScene = Patient.GetAllPatients().Count;
         if (IsDebugMode)
             Testing();
-        if (isTimerRunning && BigGameEvents.Count > 0)
+        if (isTimerRunning && CurrentState == GameState.Playing && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
             if (globalTimer % DayInterval < Time.deltaTime)
@@ -136,6 +139,23 @@ public class GameManager : MonoBehaviour // Singleton
                 }
             }
         }
+
+        if (isTimerRunning && CurrentState == GameState.Tutorial)
+        {
+            globalTimer += Time.deltaTime;
+        }
+    }
+
+    public void StartTutorial()
+    {
+        isTimerRunning = true;
+        globalTimer = 0f;
+        CurrentState = GameState.Tutorial;
+    }
+
+    public void EndTutorial()
+    {
+        ResetGame();
     }
 
     public void StartGame()
