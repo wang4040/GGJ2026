@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour // Singleton
 #endif
     public GameState CurrentState = GameState.MainMenu;
     public float DayInterval = 10f;
+    public int DayCount = 0;
     public int NumNewPatientsPerDay = 5;
     public float BigEventInterval = 20f;
     public List<BigGameEvent> BigGameEvents;
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour // Singleton
 
     [Header("Tutorial Settings")]
     public float TutorialPatientInterval = 5f;
+    public float MaxTutorialDuration = 90f;
     public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
         new TutorialSample { Description = "Normal Infection", PatientLevel = Level.Normal },
         new TutorialSample { Description = "Slight Infection", PatientLevel = Level.Slight },
@@ -129,7 +131,14 @@ public class GameManager : MonoBehaviour // Singleton
     {
         PatientsInScene = Patient.GetAllPatients().Count;
         if (IsDebugMode)
+        {
             Testing();
+        }
+
+        if (globalTimer % DayInterval < Time.deltaTime)
+        {
+            DayCount++;
+        }
         if (isTimerRunning && CurrentState == GameState.Playing && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
@@ -158,6 +167,10 @@ public class GameManager : MonoBehaviour // Singleton
         if (isTimerRunning && CurrentState == GameState.Tutorial)
         {
             globalTimer += Time.deltaTime;
+            if (globalTimer >= MaxTutorialDuration || PatientsInScene == 0)
+            {
+                EndTutorial();
+            }
         }
     }
 
