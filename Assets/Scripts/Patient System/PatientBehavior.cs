@@ -16,6 +16,10 @@ public class PatientBehaviour : MonoBehaviour
     // Timer for infection ticks
     private float tickTimer;
 
+    // Grace period timer for Crazy patients
+    private float gracePeriodTimer;
+    private bool isInGracePeriod = false;
+
     void Awake()
     {
         // Determine type from tag
@@ -58,7 +62,35 @@ public class PatientBehaviour : MonoBehaviour
         if (Data == null || Data.Level == Level.Exploded || Data.IsInIncinerator)
             return;
 
-        // Countdown timer
+        // Handle grace period for Crazy patients
+        if (Data.Level == Level.Crazy)
+        {
+            if (!isInGracePeriod)
+            {
+                // Start grace period when becoming Crazy
+                isInGracePeriod = true;
+                gracePeriodTimer = Data.GracePeriod;
+                Debug.Log($"[GRACE] Patient {Data.Id} entered Crazy state, grace period started ({Data.GracePeriod}s)");
+            }
+
+            // Countdown grace period
+            gracePeriodTimer -= Time.deltaTime;
+
+            if (gracePeriodTimer <= 0f)
+            {
+                // Grace period over - explode!
+                Debug.Log($"[GRACE] Patient {Data.Id} grace period ended - EXPLODING!");
+                Data.Level = Level.Exploded;
+                return;
+            }
+        }
+        else
+        {
+            // Reset grace period state if not Crazy
+            isInGracePeriod = false;
+        }
+
+        // Countdown infection timer
         tickTimer -= Time.deltaTime;
 
         if (tickTimer <= 0f)
