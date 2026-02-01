@@ -720,11 +720,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1fe3a0faed332947859b147bd42af04, type: 3}
---- !u!4 &1445883601 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7906023614652847002, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-  m_PrefabInstance: {fileID: 972474975679371378}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1624553837
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,37 +978,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1873240287
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1873240288}
-  m_Layer: 0
-  m_Name: PatientSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1873240288
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873240287}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 6.33, z: -19.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1445883601}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2127318462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1144,14 +1108,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 591372283005257651, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: IncineratorRooms.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400679303325860048, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: IsolationRooms.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1757058416671822070, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1196,128 +1152,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: OldPrefab
-      value: 
-      objectReference: {fileID: 8960250627986795746, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: ChildPrefab
-      value: 
-      objectReference: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: PatientSpawnPoint
-      value: 
-      objectReference: {fileID: 1873240288}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: StartingInfectionLevel
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].Index
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].Index
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].Index
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].Num_newPatients
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].Num_newPatients
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].IntervalToNextEvent
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].IntervalToNextEvent
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].IntervalToNextEvent
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].IntervalToNextEvent
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].NumNewNormalPatients
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].NumNewSlightPatients
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].NumNewMediumPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].NumNewNormalPatients
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].NumNewSlightPatients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewMediumPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewNormalPatients
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewSeverePatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewSlightPatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewMediumPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewNormalPatients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewSeverePatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewSlightPatients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].Num_newSeverePatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].Num_newSeverePatients
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7906023614652847002, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1873240288}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
 --- !u!1001 &3045995923705085206
