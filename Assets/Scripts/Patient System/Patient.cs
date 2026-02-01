@@ -23,6 +23,7 @@ namespace PatientSystem
         public static float DefaultOldTimer = 5f; // Time between infection ticks for old
         public static float DefaultGracePeriod = 10f; // Time before severe patient can explode
         public static float DefaultMaskMultiplier = 0.5f; // Mask reduces infection chance by 50%
+        public static float DefaultMaskDuration = 10f; // How long the mask lasts before wearing off
 
         // ----------------------------------------------------
         // Patient Registry
@@ -50,6 +51,8 @@ namespace PatientSystem
         public float TimerDuration { get; set; }
         public float GracePeriod { get; set; }
         public float MaskMultiplier { get; set; }
+        public float MaskDuration { get; set; }
+        public float MaskTimer { get; set; } = 0f; // Tracks remaining mask time
         public Room Room { get; set; } = Room.Hall;
 
         // Current infection level with event notifications
@@ -115,6 +118,7 @@ namespace PatientSystem
             // Apply default values
             GracePeriod = DefaultGracePeriod;
             MaskMultiplier = DefaultMaskMultiplier;
+            MaskDuration = DefaultMaskDuration;
 
             // Register in global patient registry
             allPatients[Id] = this;
@@ -168,6 +172,7 @@ namespace PatientSystem
                 return false;
 
             HasMask = true;
+            MaskTimer = MaskDuration; // Start the mask timer
             return true;
         }
 
