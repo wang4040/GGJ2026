@@ -44,7 +44,7 @@ Animator:
   m_GameObject: {fileID: 4402346212046830760}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a85b6bc42ae2dbb4ebaea94c71a22c46, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9eae0443744f62040bd378857e5897dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 7129166766482210317}
   m_Layer: 3
   m_Name: PatientOld
-  m_TagString: Old
+  m_TagString: Child
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,7 +393,7 @@ PrefabInstance:
     - target: {fileID: 7385521332798163343, guid: 32a14f9ae8c92e543aed86f0fd52cc28, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 06ce378dd47ec7f48b3f1d8a981bdca7, type: 2}
+      objectReference: {fileID: 9100000, guid: c96e55c71d23f144ebf135a0a346e1bb, type: 2}
     - target: {fileID: 7873629924373656271, guid: 32a14f9ae8c92e543aed86f0fd52cc28, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.7248

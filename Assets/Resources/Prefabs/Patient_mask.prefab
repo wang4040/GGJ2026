@@ -145,7 +145,7 @@ Animator:
   m_GameObject: {fileID: 2606567207091643671}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9eae0443744f62040bd378857e5897dd, type: 2}
+  m_Controller: {fileID: 9100000, guid: a85b6bc42ae2dbb4ebaea94c71a22c46, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -328,8 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialLevel: 0
   wander: {fileID: 5670272650143223903}
-  childMaskAnimator: {fileID: 9100000, guid: 9eae0443744f62040bd378857e5897dd, type: 2}
-  oldMaskAnimator: {fileID: 9100000, guid: a85b6bc42ae2dbb4ebaea94c71a22c46, type: 2}
+  CurrentRoom: 0
 --- !u!114 &5591100123693968695
 MonoBehaviour:
   m_ObjectHideFlags: 0
