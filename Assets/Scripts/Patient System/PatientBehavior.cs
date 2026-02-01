@@ -13,6 +13,9 @@ public class PatientBehaviour : MonoBehaviour
     [SerializeField]
     private Level initialLevel = Level.Normal;
 
+    [SerializeField]
+    private PatientWander wander;
+
     // Timer for infection ticks
     private float tickTimer;
 
@@ -36,6 +39,11 @@ public class PatientBehaviour : MonoBehaviour
 
         // Create the patient data
         Data = new Patient(type, initialLevel);
+        wander = GetComponent<PatientWander>();
+        if (wander)
+        {
+            wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
+        }
     }
 
     void OnDestroy()

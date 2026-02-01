@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour // Singleton
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
     public Transform PatientSpawnPoint;
+    public float WanderPatientProportion = 0.4f;
 
     [Header("Parameters")]
     public Material OutlineMaterial2D;
