@@ -155,6 +155,7 @@ public class MouseRay : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging && draggedTransform != null)
         {
             draggedTransform.GetComponent<PatientBehaviour>()?.Data.StopDragging();
+            draggedTransform.GetComponent<IsolationRoomDetector>()?.GetClosestIsolationRoom();
             EndDrag();
         }
     }
