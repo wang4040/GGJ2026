@@ -332,7 +332,7 @@ MonoBehaviour:
     m_Bits: 72
   maxDistance: 100
   dragDistance: 15
-  debugRay: 1
+  debugRay: 0
 --- !u!1 &213257999
 GameObject:
   m_ObjectHideFlags: 0

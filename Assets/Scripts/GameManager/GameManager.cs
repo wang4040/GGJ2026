@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public struct BigGameEvent
 {
-    public int Index;
     public int NumNewNormalPatients;
     public int NumNewSlightPatients;
     public int NumNewMediumPatients;
@@ -16,9 +15,17 @@ public struct BigGameEvent
     public float IntervalToNextEvent;
 }
 
+[System.Serializable]
+public struct TutorialSample
+{
+    public string Description;
+    public Level PatientLevel;
+}
+
 public enum GameState
 {
     MainMenu,
+    Tutorial,
     Playing,
     GameOver,
 }
@@ -58,6 +65,7 @@ public class GameManager : MonoBehaviour // Singleton
     private bool isTimerRunning = false;
 
     [Header("Patient Settings")]
+    public int PatientsInScene = 0;
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
     public Transform PatientSpawnPoint;
@@ -73,6 +81,15 @@ public class GameManager : MonoBehaviour // Singleton
     public float GracePeriod = 8f;
     public float MaskMultiplier = 0.5f;
     public Level StartingInfectionLevel = Level.Normal;
+
+    [Header("Tutorial Settings")]
+    public float TutorialPatientInterval = 5f;
+    public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
+        new TutorialSample { Description = "Normal Infection", PatientLevel = Level.Normal },
+        new TutorialSample { Description = "Slight Infection", PatientLevel = Level.Slight },
+        new TutorialSample { Description = "Medium Infection", PatientLevel = Level.Medium },
+        new TutorialSample { Description = "Severe Infection", PatientLevel = Level.Severe },
+    };
 
     #region Main Game Loop
     private void Start()
@@ -110,9 +127,10 @@ public class GameManager : MonoBehaviour // Singleton
 
     private void Update()
     {
+        PatientsInScene = Patient.GetAllPatients().Count;
         if (IsDebugMode)
             Testing();
-        if (isTimerRunning && BigGameEvents.Count > 0)
+        if (isTimerRunning && CurrentState == GameState.Playing && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
             if (globalTimer % DayInterval < Time.deltaTime)
@@ -136,6 +154,36 @@ public class GameManager : MonoBehaviour // Singleton
                 }
             }
         }
+
+        if (isTimerRunning && CurrentState == GameState.Tutorial)
+        {
+            globalTimer += Time.deltaTime;
+        }
+    }
+
+    public void StartTutorial()
+    {
+        isTimerRunning = true;
+        globalTimer = 0f;
+        CurrentState = GameState.Tutorial;
+        StartCoroutine(TutorialPatientSpawn());
+    }
+
+    private IEnumerator TutorialPatientSpawn()
+    {
+        for (int i = 0; i < TutorialPatientLevels.Length; i++)
+        {
+            RegisterPatient(TutorialPatientLevels[i].PatientLevel);
+            if (i < TutorialPatientLevels.Length - 1)
+            {
+                yield return new WaitForSeconds(TutorialPatientInterval);
+            }
+        }
+    }
+
+    public void EndTutorial()
+    {
+        ResetGame();
     }
 
     public void StartGame()
