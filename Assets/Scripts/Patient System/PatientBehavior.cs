@@ -73,13 +73,13 @@ public class PatientBehaviour : MonoBehaviour
         switch (room)
         {
             case Room.Hall:
-                return GameManager.Instance.HallInfectionRate;
+                return GameManager.Instance != null ? GameManager.Instance.HallInfectionRate : 0.3f;
             case Room.Isolation:
-                return IsolationRoomManager.Instance.InfectionRate;
+                return IsolationRoomManager.Instance != null ? IsolationRoomManager.Instance.InfectionRate : 0.1f;
             case Room.Incinerator:
-                return 0f; // No infection in incinerator
+                return 0f;
             default:
-                return GameManager.Instance.HallInfectionRate;
+                return GameManager.Instance != null ? GameManager.Instance.HallInfectionRate : 0.3f;
         }
     }
 }

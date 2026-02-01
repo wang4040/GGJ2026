@@ -306,13 +306,49 @@ namespace PatientSystem
         // Infection Tick Calculator
         // ----------------------------------------------------
 
+        public float GetWorseRate()
+        {
+            switch (currentLevel)
+            {
+                case Level.Normal:
+                    return 0.3f;  // 30% chance to get infected
+                case Level.Slight:
+                    return 0.4f;  
+                case Level.Medium:
+                    return 0.5f;  
+                case Level.Severe:
+                    return 0.7f;  
+                case Level.Crazy:
+                    return 0.9f;  // 90% chance to explode
+                default:
+                    return 0.5f;
+            }
+        }
+
+        public float GetRecoveryRate()
+        {
+            switch (currentLevel)
+            {
+                case Level.Slight:
+                    return 0.5f;  // 50% chance to recover
+                case Level.Medium:
+                    return 0.3f;  
+                case Level.Severe:
+                    return 0.15f; 
+                case Level.Crazy:
+                    return 0.05f; 
+                default:
+                    return 0f;    // Normal can't recover further
+            }
+        }
+
         /// <summary>
         /// Processes an infection tick for this patient.
         /// 1. Roll against room infection rate to see if patient is "exposed" this tick
-        /// 2. If exposed: roll against worseRate to get worse
-        /// 3. If NOT exposed: roll against recoveryRate to get better
+        /// 2. If exposed: roll against level-based worseRate to get worse
+        /// 3. If NOT exposed: roll against level-based recoveryRate to get better
         /// </summary>
-        public InfectionStage ProcessInfectionTick(float roomInfectionRate, float worseRate = 0.5f, float recoveryRate = 0.3f)
+        public InfectionStage ProcessInfectionTick(float roomInfectionRate)
         {
             // Already dead, no processing
             if (currentLevel == Level.Exploded || IsInIncinerator)
@@ -327,9 +363,9 @@ namespace PatientSystem
 
             if (isExposed)
             {
-                // Patient is exposed - roll to see if they get worse
+                // Patient is exposed - roll to see if they get worse (level-dependent)
                 float worseRoll = UnityEngine.Random.value;
-                if (worseRoll < worseRate)
+                if (worseRoll < GetWorseRate())
                 {
                     if (IncreaseLevel())
                         return InfectionStage.Worse;
@@ -337,11 +373,11 @@ namespace PatientSystem
             }
             else
             {
-                // Patient is not exposed - roll to see if they recover
+                // Patient is not exposed - roll to see if they recover (level-dependent)
                 if (currentLevel > Level.Normal)
                 {
                     float recoveryRoll = UnityEngine.Random.value;
-                    if (recoveryRoll < recoveryRate)
+                    if (recoveryRoll < GetRecoveryRate())
                     {
                         if (DecreaseLevel())
                             return InfectionStage.Better;

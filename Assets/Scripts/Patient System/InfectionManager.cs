@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 
 public class InfectionManager : MonoBehaviour
 {
-
     [SerializeField] private float explosionRadius = 5f;
 
     void OnEnable()
@@ -14,7 +13,7 @@ public class InfectionManager : MonoBehaviour
 
     }
 
-    void OnDsable()
+    void OnDisable()
     {
         PatientEvents.OnExploded -= HandleExplosion;
     }
