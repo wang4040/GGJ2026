@@ -1,5 +1,8 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -21,15 +24,30 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [Tooltip("Maximum distance for the raycast.")]
     public float maxDistance = 100f;
 
+    [Tooltip("Number of clicks before mask is generated")]
+    public int clicksPerMask = 10;
+
+    [Tooltip("Number of masks per generation")]
+    public int masksPerSuccess = 10;
+    public int startingMasks = 5;
+
+    public TextMeshProUGUI maskCountText;
+    public Transform fillImage;
+
     private Canvas parentCanvas;
     private GameObject currentInstance;
     private bool isDragging;
+
+    private int maskCount = 0;
+    private int maskClickCount = 0;
 
     void Start()
     {
         if (targetCamera == null)
             targetCamera = Camera.main;
         parentCanvas = GetComponentInParent<Canvas>();
+        maskCount = startingMasks;
+        maskCountText.text = maskCount.ToString();
     }
 
     void Update()
@@ -55,7 +73,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        if (prefab == null)
+        if (prefab == null || maskCount <= 0)
             return;
 
         if (targetCamera == null)
@@ -99,6 +117,8 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 // Apply mask to patient
                 PatientBehaviour patient = hitInfo.collider.gameObject.GetComponent<PatientBehaviour>();
                 patient.Data.ApplyMask();
+                maskCount--;
+                maskCountText.text = maskCount.ToString();
             }
         }
 
@@ -107,6 +127,11 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Destroy(currentInstance);
         }
         currentInstance = null;
+
+        if (maskCount <= 0)
+        {
+            GetComponent<Image>().color = Color.gray; // Indicate no masks left;
+        }
     }
 
     // Positions the currentInstance under the mouse as a UI element when possible.
@@ -143,6 +168,32 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 ? targetCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, distanceFromCamera))
                 : new Vector3(screenPos.x, screenPos.y, distanceFromCamera);
             currentInstance.transform.position = worldPos;
+        }
+    }
+
+    public void AddMasks(int count)
+    {
+        maskCount += count;
+        maskCountText.text = maskCount.ToString();
+        if (maskCount > 0)
+        {
+            GetComponent<Image>().color = Color.white; // Indicate masks are available
+        }
+    }
+
+    public void MaskClicked()
+    {
+        maskClickCount++;
+        if (maskClickCount == clicksPerMask)
+        {
+            maskClickCount = 0;
+            AddMasks(masksPerSuccess);
+
+        }
+        if (fillImage != null)
+        {
+            Vector3 newScale = new Vector3(fillImage.localScale.x, 1f - (float) maskClickCount / (float) clicksPerMask, fillImage.localScale.z);
+            fillImage.localScale = newScale;
         }
     }
 }
