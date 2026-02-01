@@ -93,7 +93,7 @@ public class MouseRay : MonoBehaviour
             // Hovering over isolation room
             else if (hitInfo.collider.gameObject.GetComponent<IsolationRoom>() != null && !hitInfo.collider.gameObject.GetComponent<IsolationRoom>().IsActive)
             {
-                Debug.Log("Hovering over inactive isolation room.");
+                //Debug.Log("Hovering over inactive isolation room.");
                 if (currIsolationOutline != null && currIsolationOutline != hitInfo.collider.gameObject.GetComponent<OutlinePatient>())
                 {
                     // New outline target, remove old outline

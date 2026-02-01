@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLevel: 0
-  wander: {fileID: 0}
+  wander: {fileID: 6192383168866507360}
 --- !u!114 &6578685948958016864
 MonoBehaviour:
   m_ObjectHideFlags: 0

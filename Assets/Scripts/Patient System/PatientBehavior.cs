@@ -34,21 +34,6 @@ public class PatientBehaviour : MonoBehaviour
         // Get animator reference
         animator = GetComponentInChildren<Animator>();
         lastAnimatorLevel = initialLevel;
-    }
-
-    void OnDestroy()
-    {
-        // Remove from registry when GameObject is destroyed
-        if (Data != null)
-        {
-            Patient.Remove(Data.Id);
-        }
-    }
-
-    void Start()
-    {
-
-
         // Determine type from tag
         PatientType type;
         if (CompareTag("Child"))
@@ -78,13 +63,26 @@ public class PatientBehaviour : MonoBehaviour
         tickTimer = Data.TimerDuration;
     }
 
+    void OnDestroy()
+    {
+        // Remove from registry when GameObject is destroyed
+        if (Data != null)
+        {
+            Patient.Remove(Data.Id);
+        }
+    }
+
+    void Start() { }
+
     void Update()
     {
         if (Data == null)
             return;
 
         // Update animator level parameter when level changes (including Exploded for explosion animation)
-        if (animator != null /*&& Data.Level != lastAnimatorLevel*/)
+        if (
+            animator != null /*&& Data.Level != lastAnimatorLevel*/
+        )
         {
             animator.SetInteger("level", (int)Data.Level);
             lastAnimatorLevel = Data.Level;
@@ -102,7 +100,9 @@ public class PatientBehaviour : MonoBehaviour
                 // Start grace period when becoming Crazy
                 isInGracePeriod = true;
                 gracePeriodTimer = Data.GracePeriod;
-                Debug.Log($"[GRACE] Patient {Data.Id} entered Crazy state, grace period started ({Data.GracePeriod}s)");
+                Debug.Log(
+                    $"[GRACE] Patient {Data.Id} entered Crazy state, grace period started ({Data.GracePeriod}s)"
+                );
             }
 
             // Countdown grace period

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using PatientSystem;
 using UnityEngine;
@@ -163,6 +164,7 @@ public class GameManager : MonoBehaviour // Singleton
             PatientSpawnPoint.position,
             PatientSpawnPoint.rotation
         );
+
         Patient newPatient = initedPatientObj.GetComponent<PatientBehaviour>().Data;
         newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
         newPatient.TimerDuration = TimerDuration;
@@ -177,32 +179,30 @@ public class GameManager : MonoBehaviour // Singleton
             rb.AddForce(PatientSpawnPoint.forward * 2f, ForceMode.Impulse);
         }
     }
-    public void RegisterSomePatients(int count = 1)
+    public void RegisterSomePatients(int count = 1, Level level = Level.Normal)
+    {
+        StartCoroutine(RegisterPatientsWithDelay(count, level));
+    }
+
+    private IEnumerator RegisterPatientsWithDelay(int count, Level level)
     {
         for (int i = 0; i < count; i++)
         {
-            RegisterPatient(StartingInfectionLevel);
+            RegisterPatient(level);
+            if (i < count - 1) // Don't wait after the last one
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 
     public void RegisterPatientForBigEvent(BigGameEvent bigEvent)
     {
-        for (int i = 0; i < bigEvent.NumNewNormalPatients; i++)
-        {
-            RegisterPatient(Level.Normal);
-        }
-        for (int i = 0; i < bigEvent.NumNewSlightPatients; i++)
-        {
-            RegisterPatient(Level.Slight);
-        }
-        for (int i = 0; i < bigEvent.NumNewMediumPatients; i++)
-        {
-            RegisterPatient(Level.Medium);
-        }
-        for (int i = 0; i < bigEvent.NumNewSeverePatients; i++)
-        {
-            RegisterPatient(Level.Severe);
-        }
+        RegisterSomePatients(bigEvent.NumNewNormalPatients, Level.Normal);
+        RegisterSomePatients(bigEvent.NumNewSlightPatients, Level.Slight);
+        RegisterSomePatients(bigEvent.NumNewMediumPatients, Level.Medium);
+        RegisterSomePatients(bigEvent.NumNewSeverePatients, Level.Severe);
+        
     }
     #endregion
 
