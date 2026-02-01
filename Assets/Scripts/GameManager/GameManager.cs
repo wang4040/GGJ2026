@@ -117,19 +117,23 @@ public class GameManager : MonoBehaviour // Singleton
             globalTimer += Time.deltaTime;
             if (globalTimer % DayInterval < Time.deltaTime)
             {
-                RegisterSomePatients(NumNewPatientsPerDay);
-            }
-
-            if (globalTimer >= BigEventInterval)
-            {
-                RegisterPatientForBigEvent(BigGameEvents[CurrentBigEventIndex]);
-                BigEventInterval = BigGameEvents[CurrentBigEventIndex].IntervalToNextEvent;
-                CurrentBigEventIndex++;
-                if (CurrentBigEventIndex >= BigGameEvents.Count)
+                if (globalTimer >= BigEventInterval)
                 {
-                    CurrentBigEventIndex = 0;
+                    RegisterPatientForBigEvent(BigGameEvents[CurrentBigEventIndex]);
+                    BigEventInterval = BigGameEvents[CurrentBigEventIndex].IntervalToNextEvent;
+                    CurrentBigEventIndex++;
+                    if (CurrentBigEventIndex >= BigGameEvents.Count)
+                    {
+                        CurrentBigEventIndex = 0;
+                    }
+                    globalTimer = 0f;
+                    Debug.Log("Big event triggered.");
                 }
-                globalTimer = 0f;
+                else
+                {
+                    RegisterSomePatients(NumNewPatientsPerDay, StartingInfectionLevel);
+                    Debug.Log("Normal patient influx triggered.");
+                }
             }
         }
     }

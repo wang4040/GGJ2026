@@ -51,28 +51,28 @@ MonoBehaviour:
   CurrentState: 0
   DayInterval: 10
   NumNewPatientsPerDay: 5
-  BigEventInterval: 10
+  BigEventInterval: 20
   BigGameEvents:
   - Index: 0
-    NumNewNormalPatients: 0
+    NumNewNormalPatients: 5
     NumNewSlightPatients: 4
     NumNewMediumPatients: 0
     NumNewSeverePatients: 0
     IntervalToNextEvent: 20
   - Index: 1
-    NumNewNormalPatients: 0
+    NumNewNormalPatients: 5
     NumNewSlightPatients: 3
     NumNewMediumPatients: 2
     NumNewSeverePatients: 0
     IntervalToNextEvent: 20
   - Index: 1
-    NumNewNormalPatients: 0
+    NumNewNormalPatients: 4
     NumNewSlightPatients: 1
     NumNewMediumPatients: 2
     NumNewSeverePatients: 1
     IntervalToNextEvent: 20
   - Index: 1
-    NumNewNormalPatients: 0
+    NumNewNormalPatients: 4
     NumNewSlightPatients: 3
     NumNewMediumPatients: 2
     NumNewSeverePatients: 2
