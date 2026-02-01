@@ -649,6 +649,22 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[0].NumNewNormalPatients
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[1].NumNewNormalPatients
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[2].NumNewNormalPatients
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[3].NumNewNormalPatients
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: BigGameEvents.Array.data[3].NumNewSeverePatients
       value: 2
       objectReference: {fileID: 0}
