@@ -177,8 +177,8 @@ public class PatientWander : MonoBehaviour
 
         foreach (PatientBehaviour p in allPatients)
         {
-            // Don't target self, and only target patients that can be bitten (level 0, 1, 2)
-            if (p != patientBehaviour && p.Data != null && p.Data.CanBeBitten)
+            // Don't target self, only target patients that can be bitten, and not in Isolation room
+            if (p != patientBehaviour && p.Data != null && p.Data.CanBeBitten && p.Data.Room != Room.Isolation)
             {
                 validTargets.Add(p);
             }
