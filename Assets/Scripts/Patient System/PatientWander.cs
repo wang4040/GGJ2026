@@ -1,6 +1,7 @@
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using PatientSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -20,20 +21,44 @@ public class PatientWander : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 2f;
+    public float crazyMoveSpeed = 4f;
+
+    [Header("Bite Settings")]
+    public float biteRadius = 1f;
 
     private Vector3 targetPosition;
     private float stateTimer;
     private bool isWandering;
 
+    // Chase mode for Crazy patients
+    private PatientBehaviour patientBehaviour;
+    private PatientBehaviour chaseTarget;
+    private bool isChasing = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        patientBehaviour = GetComponent<PatientBehaviour>();
         StartWandering();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (patientBehaviour == null || patientBehaviour.Data == null)
+            return;
+
+        // Check if patient is Crazy - switch to chase mode
+        if (patientBehaviour.Data.CanBite)
+        {
+            UpdateChaseMode();
+            return;
+        }
+
+        // Normal wandering behavior
+        isChasing = false;
+        chaseTarget = null;
+
         stateTimer -= Time.deltaTime;
 
         if (isWandering)
@@ -52,6 +77,87 @@ public class PatientWander : MonoBehaviour
                 StartWandering();
             }
         }
+    }
+
+    void UpdateChaseMode()
+    {
+        // Find a target if we don't have one
+        if (chaseTarget == null || !chaseTarget.Data.CanBeBitten)
+        {
+            FindBiteTarget();
+        }
+
+        // If we still don't have a target, wander randomly
+        if (chaseTarget == null)
+        {
+            isChasing = false;
+            stateTimer -= Time.deltaTime;
+            if (isWandering)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, crazyMoveSpeed * Time.deltaTime);
+                if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
+                {
+                    StartIdling();
+                }
+            }
+            else if (stateTimer <= 0)
+            {
+                StartWandering();
+            }
+            return;
+        }
+
+        // Chase the target
+        isChasing = true;
+        Vector3 targetPos = chaseTarget.transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
+
+        // Check if close enough to bite
+        float distance = Vector3.Distance(transform.position, targetPos);
+        if (distance <= biteRadius)
+        {
+            PerformBite();
+        }
+    }
+
+    void FindBiteTarget()
+    {
+        PatientBehaviour[] allPatients = FindObjectsByType<PatientBehaviour>(FindObjectsSortMode.None);
+        System.Collections.Generic.List<PatientBehaviour> validTargets = new();
+
+        foreach (PatientBehaviour p in allPatients)
+        {
+            // Don't target self, and only target patients that can be bitten (level 0, 1, 2)
+            if (p != patientBehaviour && p.Data != null && p.Data.CanBeBitten)
+            {
+                validTargets.Add(p);
+            }
+        }
+
+        if (validTargets.Count > 0)
+        {
+            // Pick a random valid target
+            int randomIndex = UnityEngine.Random.Range(0, validTargets.Count);
+            chaseTarget = validTargets[randomIndex];
+            Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} targeting patient {chaseTarget.Data.Id}");
+        }
+        else
+        {
+            chaseTarget = null;
+        }
+    }
+
+    void PerformBite()
+    {
+        if (chaseTarget == null || chaseTarget.Data == null)
+            return;
+
+        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
+        chaseTarget.Data.OnBitten();
+
+        // Find next target
+        chaseTarget = null;
+        FindBiteTarget();
     }
 
     void StartWandering()
