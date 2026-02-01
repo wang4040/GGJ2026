@@ -75,6 +75,7 @@ public class PatientWander : MonoBehaviour
 
         if (isWandering)
         {
+            OnFlip(targetPosition);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
@@ -135,6 +136,7 @@ public class PatientWander : MonoBehaviour
             stateTimer -= Time.deltaTime;
             if (isWandering)
             {
+                OnFlip(targetPosition);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, crazyMoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
                 {
@@ -153,6 +155,7 @@ public class PatientWander : MonoBehaviour
         if (animator != null)
             animator.SetBool("isWalking", true);
         Vector3 targetPos = chaseTarget.transform.position;
+        OnFlip(targetPos);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
 
         // Check if close enough to bite
@@ -235,11 +238,26 @@ public class PatientWander : MonoBehaviour
     void PickRandomTarget()
     {
         float halfWidth = boundarySize.x / 2f;
-        float halfDepth = boundarySize.y / 2f;  
+        float halfDepth = boundarySize.y / 2f;
 
         float randomX = Random.Range(boundaryCenter.x - halfWidth, boundaryCenter.x + halfWidth);
         float randomZ = Random.Range(boundaryCenter.y - halfDepth, boundaryCenter.y + halfDepth);
 
         targetPosition = new Vector3(randomX, transform.position.y, randomZ);
+    }
+
+    void OnFlip(Vector3 targetPos)
+    {
+        // Flip sprite based on movement direction
+        if (targetPos.x < transform.position.x)
+        {
+            // Moving left - flip to face left
+            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
+        }
+        else if (targetPos.x > transform.position.x)
+        {
+            // Moving right - face right
+            transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
+        }
     }
 }
