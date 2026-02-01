@@ -163,6 +163,7 @@ public class PatientBehaviour : MonoBehaviour
                 Debug.Log($"[GRACE] Patient {Data.Id} grace period ended - EXPLODING!");
                 if (GetComponentInChildren<Animator>() != null)
                 {
+                    SoundSys.PlaySound("explode");
                     GetComponentInChildren<Animator>().Play("Explode");
                 }
                 if (GetComponent<PatientWander>() != null)

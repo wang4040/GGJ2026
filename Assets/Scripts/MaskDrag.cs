@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using PatientSystem;
 
 public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -116,6 +117,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 // Apply mask to patient
                 PatientBehaviour patient = hitInfo.collider.gameObject.GetComponent<PatientBehaviour>();
+                SoundSys.PlaySound(patient.Data.Type == PatientType.Child ? "wear_mask_child" : "wear_mask_old");
                 patient.Data.ApplyMask();
                 maskCount--;
                 maskCountText.text = "x" + maskCount.ToString();

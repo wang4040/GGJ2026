@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour // Singleton
         {
             Instance = this;
             //DontDestroyOnLoad(gameObject);
+            SoundSys.PlaySound("bgm_loop", loop: true);
         }
         else
         {

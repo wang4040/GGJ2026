@@ -56,6 +56,8 @@ public class IncineratorRoom : MonoBehaviour
     {
         // start incineration process
         IsIncinerating = true;
+        SoundSys.PlaySound("death", volume: 0.5f);
+        SoundSys.PlaySound("incinerate");
         GameObject.FindFirstObjectByType<IncineratorCD>().StartIncineratorCooldown(SingleIncineratorDuration);
         yield return new WaitForSeconds(SingleIncineratorDuration);
 
