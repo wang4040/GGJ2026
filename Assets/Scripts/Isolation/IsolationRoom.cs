@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using PatientSystem;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +17,7 @@ public class IsolationRoom : MonoBehaviour
     public bool IsActive = true;
     public int Count_BuildingClicked = 0; // may not be used
     public bool IsIsolating = false;
+    public Patient CurrentPatient = null;
 
     void Start()
     {
@@ -60,14 +63,16 @@ public class IsolationRoom : MonoBehaviour
             return;
         if (other.CompareTag("Child") || other.CompareTag("Old"))
         {
-            if (IsIsolating)
+            if (IsIsolating || CurrentPatient != null)
             {
                 Debug.LogWarning("Isolation room is currently busy.");
                 return;
             }
+
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
             if (StartIsolate(patientB))
             {
+                CurrentPatient = patientB.Data;
                 Debug.Log(
                     $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
                 );
@@ -81,9 +86,14 @@ public class IsolationRoom : MonoBehaviour
             return;
         if (other.CompareTag("Child") || other.CompareTag("Old"))
         {
-            if (!IsIsolating)
+            if (
+                !IsIsolating
+                || (
+                    CurrentPatient != null
+                    && (other.GetComponent<PatientBehaviour>().Data.Id != CurrentPatient.Id)
+                )
+            )
             {
-                Debug.LogWarning("Isolation room is empty.");
                 return;
             }
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
@@ -92,6 +102,7 @@ public class IsolationRoom : MonoBehaviour
                 Debug.Log(
                     $"Patient {patientB.Data.Id} ended isolation in Isolation Room #{Index}."
                 );
+                CurrentPatient = null;
             }
         }
     }
@@ -124,6 +135,7 @@ public class IsolationRoom : MonoBehaviour
             $"Isolation Room #{Index}\n"
             + $"Active: {IsActive}\n"
             // + $"Building: {Count_BuildingClicked}/{TotalBuildingClicks}\n"
+            + $"Current Patient: {(CurrentPatient != null ? CurrentPatient.Id.ToString() : "None")}\n"
             + $"Is Isolating: {IsIsolating}\n";
 
         GUIStyle style = new GUIStyle();
