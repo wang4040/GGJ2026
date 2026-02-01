@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b4eb08cb328811246b1b0b45bcf760ea
+guid: 1fd09ffa52e369f4193a7c4975ad82fc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -63,16 +63,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 2
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: young_walk_03_0
+      name: young_bark_base_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af202dd5017b1c4887c28c8446645f2
-      internalID: -2106366908
+      spriteID: 978785b1fea3a97448bcd2efeb79d2b0
+      internalID: 2014486320
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_1
+      name: young_bark_base_1
       rect:
         serializedVersion: 2
         x: 200
@@ -147,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15a24f511f3d82a42a2d9073ee371a30
-      internalID: -1237481816
+      spriteID: 5d07a296e591282419c42bc98c40f801
+      internalID: -539530398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_2
+      name: young_bark_base_2
       rect:
         serializedVersion: 2
         x: 400
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 138e664d960769147afc3ad478d296cd
-      internalID: -1207381824
+      spriteID: dc6fb1e49b4346d4dbe2eef3a083f55a
+      internalID: 1262178627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_3
+      name: young_bark_base_3
       rect:
         serializedVersion: 2
         x: 0
@@ -191,14 +191,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 023d4bb2efa97c346a2bb2896625e64f
-      internalID: 1773484934
+      spriteID: d180f5a49d39f2f41b51ded22c5b1cdf
+      internalID: -767202657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_4
+      name: young_bark_base_4
       rect:
         serializedVersion: 2
         x: 200
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbfd5e467b11f434b8be91a88430e60d
-      internalID: -1813117327
+      spriteID: 8fa284b5ff8d2304d93c51c191e02b17
+      internalID: 210643703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_5
+      name: young_bark_base_5
       rect:
         serializedVersion: 2
         x: 400
@@ -235,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5538810725d2b46a77e1efdc96e231
-      internalID: 1609293832
+      spriteID: 19ee731478acf7a4c9106a980e55059c
+      internalID: 1404233302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_6
+      name: young_bark_base_6
       rect:
         serializedVersion: 2
         x: 0
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66ea439f98d89b64eb82e1bdf07d02d7
-      internalID: -1559004914
+      spriteID: 97cc1320bb01dc847b5e08fc5e94ac92
+      internalID: 449187352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_7
+      name: young_bark_base_7
       rect:
         serializedVersion: 2
         x: 200
@@ -279,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a456519ef22b524484d0d66103257df
-      internalID: -1332344340
+      spriteID: b648645984d311b4bb9f65a13406a7de
+      internalID: 1587635715
       vertices: []
       indices: 
       edges: []
@@ -289,7 +289,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0ddf0d4c8f0707c4e906b503456a0e18
+    spriteID: 3ed93b70b5c52f549beff80478c2e40b
     internalID: 0
     vertices: []
     indices: 
@@ -299,14 +299,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      young_walk_03_0: -2106366908
-      young_walk_03_1: -1237481816
-      young_walk_03_2: -1207381824
-      young_walk_03_3: 1773484934
-      young_walk_03_4: -1813117327
-      young_walk_03_5: 1609293832
-      young_walk_03_6: -1559004914
-      young_walk_03_7: -1332344340
+      young_bark_base_0: 2014486320
+      young_bark_base_1: -539530398
+      young_bark_base_2: 1262178627
+      young_bark_base_3: -767202657
+      young_bark_base_4: 210643703
+      young_bark_base_5: 1404233302
+      young_bark_base_6: 449187352
+      young_bark_base_7: 1587635715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b4eb08cb328811246b1b0b45bcf760ea
+guid: 12013420fcc895741b2cd94649a0e128
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -63,16 +63,16 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 2
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,7 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: young_walk_03_0
+      name: old_bark_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,14 +125,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1af202dd5017b1c4887c28c8446645f2
-      internalID: -2106366908
+      spriteID: 9e8495541524b944aabf6f2ff9207b48
+      internalID: 475496857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_1
+      name: old_bark_1
       rect:
         serializedVersion: 2
         x: 200
@@ -147,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15a24f511f3d82a42a2d9073ee371a30
-      internalID: -1237481816
+      spriteID: 639a5ed65b9f3bc498a394413fc5c116
+      internalID: 1125044029
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_2
+      name: old_bark_2
       rect:
         serializedVersion: 2
         x: 400
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 138e664d960769147afc3ad478d296cd
-      internalID: -1207381824
+      spriteID: dd13322165b07df42abb226bbbbb68e8
+      internalID: -1776212682
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_3
+      name: old_bark_3
       rect:
         serializedVersion: 2
         x: 0
@@ -191,14 +191,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 023d4bb2efa97c346a2bb2896625e64f
-      internalID: 1773484934
+      spriteID: 5de30399e0e90454ab457ec8da46af84
+      internalID: -949704968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_4
+      name: old_bark_4
       rect:
         serializedVersion: 2
         x: 200
@@ -213,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbfd5e467b11f434b8be91a88430e60d
-      internalID: -1813117327
+      spriteID: 9b3ec741c2d44904dbd8dea5e9eafb0e
+      internalID: -857278218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_5
+      name: old_bark_5
       rect:
         serializedVersion: 2
         x: 400
@@ -235,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f5538810725d2b46a77e1efdc96e231
-      internalID: 1609293832
+      spriteID: 8b2bdd02fc015814e9a0aa92fce4625d
+      internalID: -1551661698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: young_walk_03_6
+      name: old_bark_6
       rect:
         serializedVersion: 2
         x: 0
@@ -257,30 +257,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66ea439f98d89b64eb82e1bdf07d02d7
-      internalID: -1559004914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: young_walk_03_7
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 200
-        height: 200
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a456519ef22b524484d0d66103257df
-      internalID: -1332344340
+      spriteID: 7f6cc5c29b8401c479f8f1c481f7867c
+      internalID: 1768569441
       vertices: []
       indices: 
       edges: []
@@ -289,7 +267,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0ddf0d4c8f0707c4e906b503456a0e18
+    spriteID: afb2b42c356136f4bae42d550e5944a7
     internalID: 0
     vertices: []
     indices: 
@@ -299,14 +277,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      young_walk_03_0: -2106366908
-      young_walk_03_1: -1237481816
-      young_walk_03_2: -1207381824
-      young_walk_03_3: 1773484934
-      young_walk_03_4: -1813117327
-      young_walk_03_5: 1609293832
-      young_walk_03_6: -1559004914
-      young_walk_03_7: -1332344340
+      old_bark_0: 475496857
+      old_bark_1: 1125044029
+      old_bark_2: -1776212682
+      old_bark_3: -949704968
+      old_bark_4: -857278218
+      old_bark_5: -1551661698
+      old_bark_6: 1768569441
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
