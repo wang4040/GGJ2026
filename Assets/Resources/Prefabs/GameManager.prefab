@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2878011091050608141}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8883832043283172243
@@ -48,11 +49,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDebugMode: 1
   CurrentState: 0
+  BigEventInterval: 10
+  BigGameEvents: []
+  CurrentBigEventIndex: 0
   globalTimer: 0
-  ChildPrefab: {fileID: 2663772822605082589, guid: 5af6cbe7708e1364f945214fafa6f7db, type: 3}
-  OldPrefab: {fileID: 2663772822605082589, guid: 4692ab4e8d099684c983019ad250fb73, type: 3}
+  ChildPrefab: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
+  OldPrefab: {fileID: 8960250627986795746, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
+  PatientSpawnPoint: {fileID: 2878011091050608141}
+  WanderPatientProportion: 0.4
   OutlineMaterial2D: {fileID: 2100000, guid: 1d384c4e37f1ea543a5e70d9c769e3fb, type: 2}
   HallInfectionRate: 0.3
+  NewPatientType: 0
+  TimerDuration: 10
+  GracePeriod: 8
+  MaskMultiplier: 0.5
+  StartingInfectionLevel: 0
 --- !u!114 &1400679303325860048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a622fc7ed5927ab44acb4d741e1dcfa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsolationRooms:
-  - {fileID: 0}
+  IsolationRooms: []
   RoomCapacity: 1
   SingleIsolationDuration: 2
   RoomBuildingClicks: 20
@@ -84,9 +94,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1278b4a6aa563334bbb071e247a93dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IncineratorRooms:
-  - {fileID: 0}
+  IncineratorRooms: []
   RoomCapacity: 1
   SingleIncineratorDuration: 2
   RoomBuildingClicks: 20
   Count_Incinerated: 0
+--- !u!1 &3167948106651444166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2878011091050608141}
+  m_Layer: 0
+  m_Name: PatientSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2878011091050608141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167948106651444166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7906023614652847002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

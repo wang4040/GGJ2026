@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 public struct BigGameEvent
 {
     public int Index;
-    public int Num_newPatients;
-    public int Num_newSeverePatients;
+    public int NumNewNormalPatients;
+    public int NumNewSlightPatients;
+    public int NumNewMediumPatients;
+    public int NumNewSeverePatients;
     public float IntervalToNextEvent;
 }
 
@@ -112,10 +114,8 @@ public class GameManager : MonoBehaviour // Singleton
             globalTimer += Time.deltaTime;
             if (globalTimer >= BigEventInterval)
             {
-                //BigGameEventManager.Instance.TriggerBigGameEvent(CurrentBigEventIndex);
                 RegisterPatientForBigEvent(BigGameEvents[CurrentBigEventIndex]);
-                BigEventInterval =
-                    BigGameEvents[CurrentBigEventIndex].IntervalToNextEvent;
+                BigEventInterval = BigGameEvents[CurrentBigEventIndex].IntervalToNextEvent;
                 CurrentBigEventIndex++;
                 if (CurrentBigEventIndex >= BigGameEvents.Count)
                 {
@@ -147,62 +147,54 @@ public class GameManager : MonoBehaviour // Singleton
     #endregion
 
     #region Patient Management
-    public void RegisterPatients(int count = 1)
+    public void RegisterPatient(Level level)
+    {
+        int typeIndex = Random.Range(0, 1); // 0 for Child, 1 for Old
+        GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
+        GameObject initedPatientObj = Instantiate(
+            prefab,
+            PatientSpawnPoint.position,
+            PatientSpawnPoint.rotation
+        );
+        Patient newPatient = initedPatientObj.GetComponent<PatientBehaviour>().Data;
+        newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
+        newPatient.TimerDuration = TimerDuration;
+        newPatient.GracePeriod = GracePeriod;
+        newPatient.MaskMultiplier = MaskMultiplier;
+        newPatient.Level = level;
+        
+        // Apply force in the direction PatientSpawnPoint is facing
+        Rigidbody rb = initedPatientObj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(PatientSpawnPoint.forward * 2f, ForceMode.Impulse);
+        }
+    }
+    public void RegisterSomePatients(int count = 1)
     {
         for (int i = 0; i < count; i++)
         {
-            int typeIndex = Random.Range(0, 1);
-            GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
-            Patient newPatient = Instantiate(
-                    prefab,
-                    PatientSpawnPoint.position,
-                    PatientSpawnPoint.rotation
-                )
-                .GetComponent<PatientBehaviour>()
-                .Data;
-            newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
-            newPatient.TimerDuration = TimerDuration;
-            newPatient.GracePeriod = GracePeriod;
-            newPatient.MaskMultiplier = MaskMultiplier;
-            newPatient.Level = StartingInfectionLevel;
+            RegisterPatient(StartingInfectionLevel);
         }
     }
 
     public void RegisterPatientForBigEvent(BigGameEvent bigEvent)
     {
-        for (int i = 0; i < bigEvent.Num_newPatients; i++)
+        for (int i = 0; i < bigEvent.NumNewNormalPatients; i++)
         {
-            int typeIndex = Random.Range(0, 1);
-            GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
-            Patient newPatient = Instantiate(
-                    prefab,
-                    PatientSpawnPoint.position,
-                    PatientSpawnPoint.rotation
-                )
-                .GetComponent<PatientBehaviour>()
-                .Data;
-            newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
-            newPatient.TimerDuration = TimerDuration;
-            newPatient.GracePeriod = GracePeriod;
-            newPatient.MaskMultiplier = MaskMultiplier;
-            newPatient.Level = StartingInfectionLevel;
+            RegisterPatient(Level.Normal);
         }
-        for (int i = 0; i < bigEvent.Num_newSeverePatients; i++)
+        for (int i = 0; i < bigEvent.NumNewSlightPatients; i++)
         {
-            int typeIndex = Random.Range(0, 1);
-            GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
-            Patient newPatient = Instantiate(
-                    prefab,
-                    PatientSpawnPoint.position,
-                    PatientSpawnPoint.rotation
-                )
-                .GetComponent<PatientBehaviour>()
-                .Data;
-            newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
-            newPatient.TimerDuration = TimerDuration;
-            newPatient.GracePeriod = GracePeriod;
-            newPatient.MaskMultiplier = MaskMultiplier;
-            newPatient.Level = Level.Severe;
+            RegisterPatient(Level.Slight);
+        }
+        for (int i = 0; i < bigEvent.NumNewMediumPatients; i++)
+        {
+            RegisterPatient(Level.Medium);
+        }
+        for (int i = 0; i < bigEvent.NumNewSeverePatients; i++)
+        {
+            RegisterPatient(Level.Severe);
         }
     }
     #endregion
@@ -211,11 +203,11 @@ public class GameManager : MonoBehaviour // Singleton
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            RegisterPatients();
+            RegisterPatient(StartingInfectionLevel);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            RegisterPatients();
+            RegisterPatient(StartingInfectionLevel);
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
