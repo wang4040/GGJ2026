@@ -309,7 +309,6 @@ namespace PatientSystem
         {
             if (IsInIncinerator)
                 return;
-
             Room = Room.Hall;
             StopDragging();
         }

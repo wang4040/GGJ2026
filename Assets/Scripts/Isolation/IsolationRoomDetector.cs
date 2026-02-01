@@ -29,6 +29,14 @@ public class IsolationRoomDetector : MonoBehaviour
         if (closestRoom != null)
         {
             transform.position = closestRoom.transform.position;
+            PatientBehaviour patientB = GetComponent<PatientBehaviour>();
+            if (patientB != null)
+            {
+                patientB.Data.InIsolation();
+                Debug.Log(
+                    $"Invoke InIsolation for Patient {patientB.Data.Id}."
+                );
+            }
         }
         return closestRoom;
     }

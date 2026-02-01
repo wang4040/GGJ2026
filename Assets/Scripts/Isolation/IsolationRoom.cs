@@ -50,6 +50,8 @@ public class IsolationRoom : MonoBehaviour
         if (patientB != null)
         {
             patientB.Data.OutIsolation();
+            Debug.Log($"Patient exited isolation state for room {this.Index}.");
+
             IsIsolating = false;
             return true;
         }
@@ -99,13 +101,15 @@ public class IsolationRoom : MonoBehaviour
                 return;
             }
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
-            if (EndIsolate(patientB))
+            IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
+            if (detector != null && detector.DetectedIsolationRooms != null && patientB != null)
             {
-                IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
-                detector?.DetectedIsolationRooms.Remove(this);
-                Debug.Log(
-                    $"Patient {patientB.Data.Id} ended isolation in Isolation Room #{Index}."
-                );
+                //EndIsolate(patientB);
+                detector.DetectedIsolationRooms.Remove(this);
+                if (detector.DetectedIsolationRooms.Count <= 1)
+                {
+                    EndIsolate(patientB);
+                }
                 CurrentPatient = null;
             }
         }
