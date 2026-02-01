@@ -232,7 +232,7 @@ namespace PatientSystem
         // Increase infection level by one. Returns false if unable to increase.
         public bool IncreaseLevel()
         {
-            if (currentLevel >= Level.Exploded)
+            if (currentLevel >= Level.Crazy)
                 return false;
 
             // Normal -> Slight -> Medium -> Severe -> Crazy -> Exploded
