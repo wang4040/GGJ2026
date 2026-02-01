@@ -38,6 +38,12 @@ public class PatientWander : MonoBehaviour
     // Animator reference
     private Animator animator;
 
+    // Bark state tracking (Crazy patients bark before crawling)
+    private bool hasBarked = false;
+    private bool isBarking = false;
+    public float barkDuration = 1f;
+    private float barkTimer = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,9 +65,11 @@ public class PatientWander : MonoBehaviour
             return;
         }
 
-        // Normal wandering behavior
+        // Normal wandering behavior - reset chase state
         isChasing = false;
         chaseTarget = null;
+        hasBarked = false;
+        isBarking = false;
 
         stateTimer -= Time.deltaTime;
 
@@ -85,6 +93,35 @@ public class PatientWander : MonoBehaviour
 
     void UpdateChaseMode()
     {
+        // Handle bark animation before crawling (only once when becoming Crazy)
+        if (!hasBarked)
+        {
+            if (!isBarking)
+            {
+                // Start barking
+                isBarking = true;
+                barkTimer = barkDuration;
+                if (animator != null)
+                {
+                    animator.SetBool("isBark", true);
+                    animator.SetBool("isWalking", false);
+                }
+                Debug.Log($"[BARK] Crazy patient {patientBehaviour.Data.Id} starts barking!");
+            }
+
+            // Wait for bark to finish
+            barkTimer -= Time.deltaTime;
+            if (barkTimer <= 0f)
+            {
+                hasBarked = true;
+                isBarking = false;
+                if (animator != null)
+                    animator.SetBool("isBark", false);
+                Debug.Log($"[BARK] Crazy patient {patientBehaviour.Data.Id} finished barking, now crawling!");
+            }
+            return; // Don't move while barking
+        }
+
         // Find a target if we don't have one
         if (chaseTarget == null || !chaseTarget.Data.CanBeBitten)
         {
@@ -157,6 +194,13 @@ public class PatientWander : MonoBehaviour
     {
         if (chaseTarget == null || chaseTarget.Data == null)
             return;
+
+        // Trigger bite animation
+        if (animator != null)
+        {
+            animator.SetBool("isBite", true);
+            animator.SetBool("isWalking", false);
+        }
 
         Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
         chaseTarget.Data.OnBitten();
