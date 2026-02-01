@@ -123,10 +123,13 @@ public class PatientWander : MonoBehaviour
     {
         crazyIdle = true;
         animator.Play("CrazyIdle");
+        SoundSys.PlaySound("start_crazy", volume: 0.5f);
         yield return new WaitForSeconds(crazyIdlDuration);
         animator.Play("Bark");
+        SoundSys.PlaySound("bark", volume: 0.5f);
         yield return new WaitForSeconds(barkDuration);
         animator.Play("CrazyCrawl");
+        SoundSys.PlaySound("chase", volume: 0.5f);
         tryChase = true;
     }
 
@@ -263,6 +266,7 @@ public class PatientWander : MonoBehaviour
     public void Explode()
     {
         stop = true;
+        SoundSys.PlaySound("death", volume: 0.5f);
         Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
         chaseTarget.GetComponent<PatientWander>().stop = false;
         chaseTarget.GetComponent<PatientWander>().StartWandering();
@@ -275,6 +279,7 @@ public class PatientWander : MonoBehaviour
     IEnumerator WaitThenExplode()
     {
         yield return new WaitForSeconds(1.5f);
+        SoundSys.PlaySound("explode", delay: 1f);
         animator.Play("Explode");
         patientBehaviour.Data.Level = Level.Exploded;
     }
