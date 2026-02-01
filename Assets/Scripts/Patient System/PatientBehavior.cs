@@ -16,6 +16,13 @@ public class PatientBehaviour : MonoBehaviour
     [SerializeField]
     private PatientWander wander;
 
+    // Mask animator controllers for different patient types
+    [Header("Mask Animator Controllers")]
+    [SerializeField]
+    private RuntimeAnimatorController childMaskAnimator;
+    [SerializeField]
+    private RuntimeAnimatorController oldMaskAnimator;
+
     // Animator reference
     private Animator animator;
 
@@ -28,6 +35,11 @@ public class PatientBehaviour : MonoBehaviour
 
     // Track last level for animator updates
     private Level lastAnimatorLevel;
+
+    // Mask gameobject reference and state tracking
+    private GameObject maskObject;
+    private Animator maskAnimator;
+    private bool lastHasMask = false;
 
     void Awake()
     {
@@ -59,6 +71,27 @@ public class PatientBehaviour : MonoBehaviour
         //    wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
         //}
 
+        // Set mask animator based on patient type and initialize mask as inactive
+        Transform maskTransform = transform.Find("mask");
+        if (maskTransform != null)
+        {
+            maskObject = maskTransform.gameObject;
+            maskObject.SetActive(false); // Initialize mask as inactive
+
+            maskAnimator = maskTransform.GetComponent<Animator>();
+            if (maskAnimator != null)
+            {
+                if (type == PatientType.Child && childMaskAnimator != null)
+                {
+                    maskAnimator.runtimeAnimatorController = childMaskAnimator;
+                }
+                else if (type == PatientType.Old && oldMaskAnimator != null)
+                {
+                    maskAnimator.runtimeAnimatorController = oldMaskAnimator;
+                }
+            }
+        }
+
         // Initialize timer with patient's timer duration
         tickTimer = Data.TimerDuration;
     }
@@ -86,6 +119,29 @@ public class PatientBehaviour : MonoBehaviour
         {
             animator.SetInteger("level", (int)Data.Level);
             lastAnimatorLevel = Data.Level;
+        }
+
+        // Update mask visibility when HasMask changes
+        if (maskObject != null && Data.HasMask != lastHasMask)
+        {
+            maskObject.SetActive(Data.HasMask);
+            lastHasMask = Data.HasMask;
+        }
+
+        // Sync mask animator isWalking with main animator
+        if (maskAnimator != null && animator != null && Data.HasMask)
+        {
+            maskAnimator.SetBool("isWalking", animator.GetBool("isWalking"));
+        }
+
+        // Countdown mask timer and remove mask when expired
+        if (Data.HasMask)
+        {
+            Data.MaskTimer -= Time.deltaTime;
+            if (Data.MaskTimer <= 0f)
+            {
+                Data.RemoveMask();
+            }
         }
 
         // Stop processing if exploded or incinerated
