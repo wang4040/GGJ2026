@@ -347,6 +347,10 @@ namespace PatientSystem
 
         public float GetRecoveryRate()
         {
+            // Patients can only recover in Isolation room
+            if (Room != Room.Isolation)
+                return 0f;
+
             switch (currentLevel)
             {
                 case Level.Slight:
