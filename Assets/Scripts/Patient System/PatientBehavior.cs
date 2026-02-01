@@ -31,6 +31,24 @@ public class PatientBehaviour : MonoBehaviour
 
     void Awake()
     {
+        // Get animator reference
+        animator = GetComponentInChildren<Animator>();
+        lastAnimatorLevel = initialLevel;
+    }
+
+    void OnDestroy()
+    {
+        // Remove from registry when GameObject is destroyed
+        if (Data != null)
+        {
+            Patient.Remove(Data.Id);
+        }
+    }
+
+    void Start()
+    {
+
+
         // Determine type from tag
         PatientType type;
         if (CompareTag("Child"))
@@ -50,27 +68,12 @@ public class PatientBehaviour : MonoBehaviour
         // Create the patient data
         Data = new Patient(type, initialLevel);
         wander = GetComponent<PatientWander>();
-        if (wander)
+        if (wander != null)
         {
+            wander.StartIdling();
             wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
         }
 
-        // Get animator reference
-        animator = GetComponent<Animator>();
-        lastAnimatorLevel = initialLevel;
-    }
-
-    void OnDestroy()
-    {
-        // Remove from registry when GameObject is destroyed
-        if (Data != null)
-        {
-            Patient.Remove(Data.Id);
-        }
-    }
-
-    void Start()
-    {
         // Initialize timer with patient's timer duration
         tickTimer = Data.TimerDuration;
     }

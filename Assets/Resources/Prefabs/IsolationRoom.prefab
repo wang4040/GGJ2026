@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7339992573021539202}
   - component: {fileID: 6091433988193475372}
   - component: {fileID: 4467463815600368333}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: milkcow_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5767357257683462336}
   - component: {fileID: 5034537497927563027}
   - component: {fileID: 2256453748786998828}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IsolationRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 0
-  IsActive: 1
+  IsActive: 0
   Count_BuildingClicked: 0
   IsIsolating: 0
 --- !u!114 &5034537497927563027

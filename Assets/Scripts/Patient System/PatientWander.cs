@@ -48,7 +48,7 @@ public class PatientWander : MonoBehaviour
     void Start()
     {
         patientBehaviour = GetComponent<PatientBehaviour>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         StartWandering();
     }
 
@@ -222,7 +222,7 @@ public class PatientWander : MonoBehaviour
             animator.SetBool("isWalking", true);
     }
 
-    void StartIdling()
+    public void StartIdling()
     {
         isWandering = false;
         stateTimer = Random.Range(minIdleTime, maxIdleTime);
