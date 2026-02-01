@@ -84,36 +84,32 @@ public class IsolationRoom : MonoBehaviour
         }
     }
 
-    // private void OnTriggerStay(Collider other)
-    // {
-    //     if (!IsActive)
-    //         return;
-    //     if (other.CompareTag("Child") || other.CompareTag("Old"))
-    //     {
-    //         if (
-    //             !IsIsolating
-    //             || (
-    //                 CurrentPatient != null
-    //                 && (other.GetComponent<PatientBehaviour>().Data.Id != CurrentPatient.Id)
-    //             )
-    //         )
-    //         {
-    //             return;
-    //         }
-    //         PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
-    //         IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
-    //         if (detector != null && detector.DetectedIsolationRooms != null && patientB != null)
-    //         {
-    //             //EndIsolate(patientB);
-    //             detector.DetectedIsolationRooms.Remove(this);
-    //             if (detector.DetectedIsolationRooms.Count <= 1 && Input.GetMouseButton(0))
-    //             {
-    //                 EndIsolate(patientB);
-    //             }
-    //             CurrentPatient = null;
-    //         }
-    //     }
-    // }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!IsActive)
+            return;
+        if (other.CompareTag("Child") || other.CompareTag("Old"))
+        {
+            PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
+            if (patientB == null)
+                return;
+
+            // If isolating but CurrentPatient was cleared (e.g., spurious OnTriggerExit on mouse release), restore it
+            if (IsIsolating && CurrentPatient == null)
+            {
+                CurrentPatient = patientB.Data;
+            }
+
+            // Ensure patient remains in isolation state while physically in the room
+            if (IsIsolating && CurrentPatient != null && CurrentPatient.Id == patientB.Data.Id)
+            {
+                if (patientB.Data.Room != Room.Isolation)
+                {
+                    patientB.Data.InIsolation();
+                }
+            }
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
