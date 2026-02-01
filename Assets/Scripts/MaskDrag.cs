@@ -47,7 +47,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             targetCamera = Camera.main;
         parentCanvas = GetComponentInParent<Canvas>();
         maskCount = startingMasks;
-        maskCountText.text = maskCount.ToString();
+        maskCountText.text = "x" + maskCount.ToString();
     }
 
     void Update()
@@ -118,7 +118,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 PatientBehaviour patient = hitInfo.collider.gameObject.GetComponent<PatientBehaviour>();
                 patient.Data.ApplyMask();
                 maskCount--;
-                maskCountText.text = maskCount.ToString();
+                maskCountText.text = "x" + maskCount.ToString();
             }
         }
 
@@ -174,7 +174,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void AddMasks(int count)
     {
         maskCount += count;
-        maskCountText.text = maskCount.ToString();
+        maskCountText.text = "x" + maskCount.ToString();
         if (maskCount > 0)
         {
             GetComponent<Image>().color = Color.white; // Indicate masks are available
@@ -192,7 +192,7 @@ public class MaskDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         if (fillImage != null)
         {
-            Vector3 newScale = new Vector3(fillImage.localScale.x, 1f - (float) maskClickCount / (float) clicksPerMask, fillImage.localScale.z);
+            Vector3 newScale = new Vector3(fillImage.localScale.x, 1 + 2 * (float) maskClickCount / (float) clicksPerMask, fillImage.localScale.z);
             fillImage.localScale = newScale;
         }
     }
