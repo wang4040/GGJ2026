@@ -66,6 +66,9 @@ public class GameManager : MonoBehaviour // Singleton
     private float globalTimer = 0f;
     private bool isTimerRunning = false;
     private bool isPaused = false;
+    
+    [Header("Control Flags")]
+    public bool startGameFlag = false;
 
     [Header("Patient Settings")]
     public GameObject ChildPrefab;
@@ -159,6 +162,14 @@ public class GameManager : MonoBehaviour // Singleton
     private void Update()
     {
         NumAllPatients = Patient.GetAllPatients().Count;
+        
+        // Check start game flag
+        if (startGameFlag && CurrentState == GameState.MainMenu)
+        {
+            StartGame();
+            startGameFlag = false;
+        }
+        
         if (IsDebugMode)
         {
             Testing();
@@ -188,7 +199,11 @@ public class GameManager : MonoBehaviour // Singleton
                 DayCount++;
             }
         }
-
+        
+        if(NumAllPatients == 0 && CurrentState == GameState.Playing)
+        {
+            EndGame();
+        }
         if (isTimerRunning && CurrentState == GameState.Tutorial)
         {
             globalTimer += Time.deltaTime;
@@ -249,6 +264,7 @@ public class GameManager : MonoBehaviour // Singleton
     {
         isTimerRunning = false;
         CurrentState = GameState.GameOver;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void PauseGame()

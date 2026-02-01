@@ -148,6 +148,7 @@ public class IsolationRoom : MonoBehaviour
             return;
 
         Count_BuildingClicked++;
+        IsolationRoomManager.Instance.OnIsolationRoomBuilding(Index, Count_BuildingClicked / (float)TotalBuildingClicks);
         if (Count_BuildingClicked >= TotalBuildingClicks)
         {
             IsActive = true;

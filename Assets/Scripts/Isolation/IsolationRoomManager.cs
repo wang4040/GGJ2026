@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class IsolationRoomManager : MonoBehaviour // Singleton
 {
     public static IsolationRoomManager Instance;
     public IsolationRoom[] IsolationRooms;
+    public IsolationWorldSpaceUI[] IsolationRoomUIs;
 
     void Awake()
     {
@@ -31,12 +33,24 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     [Header("State")]
     public int Count_Isolated = 0;
 
+    public void OnIsolationRoomBuilding(int index, float process)
+    {
+        if (process >= 1f)
+        {
+            IsolationRoomUIs[index].IsActive = true;
+            IsolationRoomUIs[index].SetUIActive(process);
+        }
+    }
+
     void Start()
     {
         IsolationRooms = FindObjectsByType<IsolationRoom>(FindObjectsSortMode.None);
+        IsolationRoomUIs = FindObjectsByType<IsolationWorldSpaceUI>(FindObjectsSortMode.None);
         for (int i = 0; i < IsolationRooms.Length; i++)
         {
             IsolationRooms[i].Index = i;
+            IsolationRoomUIs[i].Index = i;
+            IsolationRoomUIs[i].IsActive = IsolationRooms[i].IsActive;
         }
     }
 
