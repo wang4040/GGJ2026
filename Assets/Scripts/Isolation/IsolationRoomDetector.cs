@@ -5,25 +5,28 @@ public class IsolationRoomDetector : MonoBehaviour
 {
     public List<IsolationRoom> DetectedIsolationRooms;
 
+    [Tooltip("Maximum distance to snap to an isolation room center")]
+    public float SnapDistance = 5f;
+
     public IsolationRoom GetClosestIsolationRoom()
     {
-        if (DetectedIsolationRooms == null || DetectedIsolationRooms.Count == 0)
+        // Check all isolation rooms from manager, not just detected ones
+        // This avoids race conditions where OnTriggerExit clears the list before we can snap
+        if (IsolationRoomManager.Instance == null || IsolationRoomManager.Instance.IsolationRooms == null)
         {
             return null;
         }
 
-        Debug.Log(
-            $"Start to find the closest isolation room."
-        );
+        Debug.Log($"Start to find the closest isolation room.");
         IsolationRoom closestRoom = null;
         float closestDistance = float.MaxValue;
 
-        foreach (IsolationRoom room in DetectedIsolationRooms)
+        foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
         {
-            if (room == null) continue;
+            if (room == null || !room.IsActive) continue;
 
             float distance = Vector3.Distance(transform.position, room.transform.position);
-            if (distance < closestDistance)
+            if (distance < closestDistance && distance <= SnapDistance)
             {
                 closestDistance = distance;
                 closestRoom = room;
@@ -31,19 +34,16 @@ public class IsolationRoomDetector : MonoBehaviour
         }
         if (closestRoom != null)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                Vector3 targetPos = new Vector3(
-                    closestRoom.transform.position.x, 
-                    transform.position.y, 
-                    closestRoom.transform.position.z
-                );
-                Debug.Log(
-                    $"Moving patient {GetComponent<PatientBehaviour>().Data.Id} to closest isolation room #{closestRoom.Index} at position {targetPos}."
-                );
-                rb.MovePosition(targetPos);
-            }
+            Vector3 targetPos = new Vector3(
+                closestRoom.transform.position.x,
+                transform.position.y,
+                closestRoom.transform.position.z
+            );
+            Debug.Log(
+                $"Snapping patient {GetComponent<PatientBehaviour>().Data.Id} to isolation room #{closestRoom.Index} at position {targetPos}."
+            );
+            // Use transform.position for immediate snap (MovePosition doesn't work well outside FixedUpdate)
+            transform.position = targetPos;
             PatientBehaviour patientB = GetComponent<PatientBehaviour>();
             // if (patientB != null)
             // {
