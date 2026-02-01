@@ -13,4 +13,9 @@ public class ExplodeEvent : MonoBehaviour
     {
         
     }
+
+    public void OnExplode()
+    {
+        GetComponentInParent<PatientWander>().Explode();
+    }
 }

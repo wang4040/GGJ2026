@@ -34,7 +34,7 @@ public class PatientWander : MonoBehaviour
     // Chase mode for Crazy patients
     private PatientBehaviour patientBehaviour;
     private PatientBehaviour chaseTarget;
-    private bool isChasing = false;
+    public bool isChasing = false;
 
     // Animator reference
     private Animator animator;
@@ -48,6 +48,8 @@ public class PatientWander : MonoBehaviour
     private bool crazyIdle = false;
     private bool tryChase = false;
 
+    public bool stop = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -59,11 +61,16 @@ public class PatientWander : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (stop)
+        {
+            return;
+        }
+
         if (patientBehaviour == null || patientBehaviour.Data == null)
             return;
 
         // Check if patient is Crazy - switch to chase mode
-        if (patientBehaviour.Data.CanBite)
+        if (patientBehaviour.Data.CanBite || (patientBehaviour.Data.Level == Level.Exploded))
         {
             if (!crazyIdle) StartCoroutine(WaitThenBark());
             if (tryChase) UpdateChaseMode();
@@ -181,26 +188,12 @@ public class PatientWander : MonoBehaviour
     {
         if (chaseTarget == null || chaseTarget.Data == null)
             return;
-
-        tryChase = false;
-
-        // Trigger bite animation
-        if (animator != null)
-        {
-            animator.SetBool("isBite", true);
-            animator.SetBool("isWalking", false);
-        }
-
-        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
-        chaseTarget.Data.OnBitten();
-
-        // Crazy patient explodes after biting
-        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} explodes after biting!");
-        patientBehaviour.Data.Level = Level.Exploded;
-        chaseTarget = null;
+        chaseTarget.GetComponent<PatientWander>().stop = true;
+        chaseTarget.GetComponentInChildren<Animator>()?.SetBool("isWalking", false);
+        animator.Play("Bite");
     }
 
-    void StartWandering()
+    public void StartWandering()
     {
         isWandering = true;
         stateTimer = Random.Range(minWanderTime, maxWanderTime);
@@ -234,9 +227,35 @@ public class PatientWander : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((LayerMask.LayerToName(collision.collider.gameObject.layer) == "Patient") && patientBehaviour.Data.CanBite)
+        if (collision.gameObject.GetComponent<PatientBehaviour>() == chaseTarget && patientBehaviour.Data.CanBite && isChasing)
         {
+            Debug.Log("Collision detected with chase target!");
+            tryChase = false;
             PerformBite();
         }
+        else
+        {
+            Debug.Log("patientBehavior.Data.CanBite: " + patientBehaviour.Data.CanBite);
+            Debug.Log("isChasing: " + isChasing);
+        }
+    }
+
+    public void Explode()
+    {
+        stop = true;
+        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
+        chaseTarget.GetComponent<PatientWander>().stop = false;
+        chaseTarget.GetComponent<PatientWander>().StartWandering();
+        chaseTarget.Data.OnBitten();
+        chaseTarget = null;
+
+        StartCoroutine(WaitThenExplode());
+    }
+
+    IEnumerator WaitThenExplode()
+    {
+        yield return new WaitForSeconds(1.5f);
+        animator.Play("Explode");
+        patientBehaviour.Data.Level = Level.Exploded;
     }
 }
