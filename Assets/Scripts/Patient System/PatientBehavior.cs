@@ -32,6 +32,10 @@ public class PatientBehaviour : MonoBehaviour
     // Grace period timer for Crazy patients
     private float gracePeriodTimer;
     private bool isInGracePeriod = false;
+    
+
+    public Room CurrentRoom;
+    
 
     // Track last level for animator updates
     private Level lastAnimatorLevel;
@@ -113,7 +117,7 @@ public class PatientBehaviour : MonoBehaviour
     {
         if (Data == null)
             return;
-
+        CurrentRoom = Data.Room;
         // Update animator level parameter when level changes (including Exploded for explosion animation)
         if (
             animator != null /*&& Data.Level != lastAnimatorLevel*/
