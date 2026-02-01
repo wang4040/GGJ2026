@@ -77,15 +77,19 @@ public class PatientBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Data == null || Data.Level == Level.Exploded || Data.IsInIncinerator)
+        if (Data == null)
             return;
 
-        // Update animator level parameter when level changes
+        // Update animator level parameter when level changes (including Exploded for explosion animation)
         if (animator != null && Data.Level != lastAnimatorLevel)
         {
             animator.SetInteger("level", (int)Data.Level);
             lastAnimatorLevel = Data.Level;
         }
+
+        // Stop processing if exploded or incinerated
+        if (Data.Level == Level.Exploded || Data.IsInIncinerator)
+            return;
 
         // Handle grace period for Crazy patients
         if (Data.Level == Level.Crazy)
