@@ -155,9 +155,10 @@ public class PatientWander : MonoBehaviour
         Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
         chaseTarget.Data.OnBitten();
 
-        // Find next target
+        // Crazy patient explodes after biting
+        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} explodes after biting!");
+        patientBehaviour.Data.Level = Level.Exploded;
         chaseTarget = null;
-        FindBiteTarget();
     }
 
     void StartWandering()
