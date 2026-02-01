@@ -21,7 +21,7 @@ namespace PatientSystem
 
         public static float DefaultChildTimer = 5f; // Time between infection ticks for children
         public static float DefaultOldTimer = 5f; // Time between infection ticks for old
-        public static float DefaultGracePeriod = 8f; // Time before severe patient can explode
+        public static float DefaultGracePeriod = 10f; // Time before severe patient can explode
         public static float DefaultMaskMultiplier = 0.5f; // Mask reduces infection chance by 50%
 
         // ----------------------------------------------------

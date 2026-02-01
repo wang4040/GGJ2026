@@ -112,6 +112,14 @@ public class PatientBehaviour : MonoBehaviour
             {
                 // Grace period over - explode!
                 Debug.Log($"[GRACE] Patient {Data.Id} grace period ended - EXPLODING!");
+                if (GetComponentInChildren<Animator>() != null)
+                {
+                    GetComponentInChildren<Animator>().Play("Explode");
+                }
+                if (GetComponent<PatientWander>() != null)
+                {
+                    GetComponent<PatientWander>().stop = true;
+                }
                 Data.Level = Level.Exploded;
                 return;
             }
