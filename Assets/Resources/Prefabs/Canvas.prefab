@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 2597825126888038707}
   - component: {fileID: 7063191070399605700}
   - component: {fileID: 7314785174907487398}
+  - component: {fileID: 7730773829016658442}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -429,6 +430,24 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7730773829016658442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010174525046346320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058c6bca450baaf4a9e1ee0c260ec947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 0}
+  canvas: {fileID: 2597825126888038707}
+  canvasRect: {fileID: 8903517855371799723}
+  trackerUIPrefab: {fileID: 3101341720595165200, guid: 72da6fa79dc0b2342a8a3ce907127376, type: 3}
+  offset: {x: 0, y: 0}
+  hideOffScreen: 1
 --- !u!1 &7540128669533512068
 GameObject:
   m_ObjectHideFlags: 0
