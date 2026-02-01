@@ -1746,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Patient_mask (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8108383061857181759, guid: 6ef8b99f18016f64198818b93b0bd0ad, type: 3}
+      propertyPath: initialLevel
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
