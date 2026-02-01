@@ -193,23 +193,7 @@ namespace PatientSystem
             if (currentLevel >= Level.Exploded)
                 return false;
 
-            // Severe patients must wait for grace period, then explode (skip Crazy)
-            if (currentLevel == Level.Severe)
-            {
-                if (!GracePeriodDone)
-                    return false;
-                
-                Level = Level.Exploded;
-                return true;
-            }
-
-            // Crazy patients explode immediately
-            if (currentLevel == Level.Crazy)
-            {
-                Level = Level.Exploded;
-                return true;
-            }
-
+            // Normal -> Slight -> Medium -> Severe -> Crazy -> Exploded
             Level = currentLevel + 1;
             return true;
         }
