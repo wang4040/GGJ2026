@@ -157,10 +157,14 @@ namespace PatientSystem
         // Mask
         // ----------------------------------------------------
 
-        // Apply a mask to the patient. Returns false if already masked.
+        // Apply a mask to the patient. 
         public bool ApplyMask()
         {
             if (HasMask)
+                return false;
+
+            // Only level 0, 1, 2 can wear mask
+            if (currentLevel > Level.Medium)
                 return false;
 
             HasMask = true;
