@@ -49,47 +49,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDebugMode: 1
   CurrentState: 0
-  DayInterval: 10
-  NumNewPatientsPerDay: 5
-  BigEventInterval: 20
+  DayInterval: 24
+  DayCount: 0
+  NumNewPatientsPerDay: 2
+  BigEventInterval: 24
   BigGameEvents:
-  - Index: 0
-    NumNewNormalPatients: 5
-    NumNewSlightPatients: 4
+  - NumNewNormalPatients: 2
+    NumNewSlightPatients: 3
     NumNewMediumPatients: 0
     NumNewSeverePatients: 0
-    IntervalToNextEvent: 20
-  - Index: 1
-    NumNewNormalPatients: 5
+    IntervalToNextEvent: 48
+  - NumNewNormalPatients: 2
     NumNewSlightPatients: 3
-    NumNewMediumPatients: 2
+    NumNewMediumPatients: 1
     NumNewSeverePatients: 0
-    IntervalToNextEvent: 20
-  - Index: 1
-    NumNewNormalPatients: 4
+    IntervalToNextEvent: 48
+  - NumNewNormalPatients: 2
+    NumNewSlightPatients: 2
+    NumNewMediumPatients: 1
+    NumNewSeverePatients: 1
+    IntervalToNextEvent: 48
+  - NumNewNormalPatients: 1
     NumNewSlightPatients: 1
     NumNewMediumPatients: 2
-    NumNewSeverePatients: 1
-    IntervalToNextEvent: 20
-  - Index: 1
-    NumNewNormalPatients: 4
-    NumNewSlightPatients: 3
-    NumNewMediumPatients: 2
     NumNewSeverePatients: 2
-    IntervalToNextEvent: 20
+    IntervalToNextEvent: 48
   CurrentBigEventIndex: 0
   globalTimer: 0
   ChildPrefab: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
   OldPrefab: {fileID: 8960250627986795746, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
   PatientSpawnPoint: {fileID: 2878011091050608141}
   WanderPatientProportion: 0.4
+  NumAllPatients: 0
+  NumNormalPatients: 0
+  NumSlightPatients: 0
+  NumMediumPatients: 0
+  NumSeverePatients: 0
+  NumCrazyPatients: 0
+  NumExplodedPatients: 0
+  NumIncineratedPatients: 0
   OutlineMaterial2D: {fileID: 2100000, guid: 1d384c4e37f1ea543a5e70d9c769e3fb, type: 2}
   HallInfectionRate: 0.3
-  NewPatientType: 0
-  TimerDuration: 10
-  GracePeriod: 8
+  NewPatientType: 1
+  TimerDuration: 2
+  GracePeriod: 10
   MaskMultiplier: 0.5
   StartingInfectionLevel: 0
+  TutorialInstructionUI: {fileID: 0}
+  TutorialPatientInterval: 5
+  MaxTutorialDuration: 90
+  patientsTracker: {fileID: 0}
+  TutorialPatientLevels:
+  - Description: Normal Infection
+    Instruction: Wear them the masks.
+    PatientLevel: 0
+  - Description: Slight Infection
+    Instruction: Wear them the masks, drag them to the isolation rooms.
+    PatientLevel: 1
+  - Description: Medium Infection
+    Instruction: Wear them the masks, drag them to the isolation rooms.
+    PatientLevel: 2
+  - Description: Severe Infection
+    Instruction: Drag them to the isolation rooms immediately!!
+    PatientLevel: 3
+  - Description: Crazy Infection
+    Instruction: They are wasted, drag them to the incinerator room immediately!!
+    PatientLevel: 4
 --- !u!114 &1400679303325860048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +131,7 @@ MonoBehaviour:
   RoomCapacity: 1
   SingleIsolationDuration: 2
   RoomBuildingClicks: 20
-  InfectionRate: 0.1
+  InfectionRate: 0.3
   Count_Isolated: 0
 --- !u!114 &591372283005257651
 MonoBehaviour:

@@ -44,7 +44,7 @@ Animator:
   m_GameObject: {fileID: 4402346212046830760}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9eae0443744f62040bd378857e5897dd, type: 2}
+  m_Controller: {fileID: 9100000, guid: a85b6bc42ae2dbb4ebaea94c71a22c46, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -363,12 +363,15 @@ MonoBehaviour:
   moveSpeed: 2
   crazyMoveSpeed: 4
   biteRadius: 1
+  chaseTarget: {fileID: 0}
   isChasing: 0
   crazyIdlDuration: 4
   hasBarked: 0
   isBarking: 0
   barkDuration: 1
+  tryChase: 0
   stop: 0
+  CanBite: 0
 --- !u!114 &7129166766482210317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DetectedIsolationRooms: []
+  SnapDistance: 5
 --- !u!1001 &2416228906870632198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,7 +397,7 @@ PrefabInstance:
     - target: {fileID: 7385521332798163343, guid: 32a14f9ae8c92e543aed86f0fd52cc28, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: c96e55c71d23f144ebf135a0a346e1bb, type: 2}
+      objectReference: {fileID: 9100000, guid: 06ce378dd47ec7f48b3f1d8a981bdca7, type: 2}
     - target: {fileID: 7873629924373656271, guid: 32a14f9ae8c92e543aed86f0fd52cc28, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.7248
