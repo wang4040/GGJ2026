@@ -1057,63 +1057,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4363723301265444172, guid: 577734ae0ce128845a1c994c33688edd, type: 3}
   m_PrefabInstance: {fileID: 202075469}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &423443302
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_Name
-      value: PatientChild
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7133382766043331149, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
 --- !u!1001 &473775557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1314,6 +1257,38 @@ PrefabInstance:
       propertyPath: TutorialInstructionUI
       value: 
       objectReference: {fileID: 6020268645058201024}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[0].Instruction
+      value: Wear them the masks.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[1].Instruction
+      value: Wear them the masks, drag them to the isolation rooms.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[2].Instruction
+      value: Wear them the masks, drag them to the isolation rooms.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[3].Instruction
+      value: Drag them to the isolation rooms immediately!!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[4].Description
+      value: Crazy Infection
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[4].Instruction
+      value: They are wasted, drag them to the incinerator room immediately!!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialPatientLevels.Array.data[4].PatientLevel
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5254,67 +5229,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &737147488501187912
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5185490239917713033, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 06ce378dd47ec7f48b3f1d8a981bdca7, type: 2}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 9.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6882718569277968303, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8960250627986795746, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
-      propertyPath: m_Name
-      value: PatientOld
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d1df5e1a2be0d1044baac676e29b2801, type: 3}
 --- !u!1001 &6020268645058201022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5678,8 +5592,6 @@ SceneRoots:
   - {fileID: 97340855}
   - {fileID: 213258001}
   - {fileID: 1417569959}
-  - {fileID: 737147488501187912}
-  - {fileID: 423443302}
   - {fileID: 6020268645058201022}
   - {fileID: 1050774504}
   - {fileID: 77176029}

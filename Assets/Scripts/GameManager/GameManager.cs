@@ -100,10 +100,12 @@ public class GameManager : MonoBehaviour // Singleton
     public float MaxTutorialDuration = 90f;
     public PatientsTrakerOnUI patientsTracker;
     public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
-        new TutorialSample { Description = "Normal Infection", Instruction = "Normal Infection", PatientLevel = Level.Normal },
-        new TutorialSample { Description = "Slight Infection", Instruction = "Slight Infection", PatientLevel = Level.Slight },
-        new TutorialSample { Description = "Medium Infection", Instruction = "Medium Infection", PatientLevel = Level.Medium },
-        new TutorialSample { Description = "Severe Infection", Instruction = "Severe Infection", PatientLevel = Level.Severe },
+        new TutorialSample { Description = "Normal Infection", Instruction = "Wear them the masks.", PatientLevel = Level.Normal },
+        new TutorialSample { Description = "Slight Infection", Instruction = "Wear them the masks, drag them to the isolation rooms.", PatientLevel = Level.Slight },
+        new TutorialSample { Description = "Medium Infection", Instruction = "Wear them the masks, drag them to the isolation rooms.", PatientLevel = Level.Medium },
+        new TutorialSample { Description = "Severe Infection", Instruction = "Drag them to the isolation rooms immediately!!", PatientLevel = Level.Severe },
+        new TutorialSample { Description = "Crazy Infection", Instruction = "They are wasted, drag them to the incinerator room immediately!!", PatientLevel = Level.Crazy },
+
     };
 
     #region Main Game Loop
