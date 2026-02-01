@@ -32,7 +32,11 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
 
     void Start()
     {
-        
+        IncineratorRooms = FindObjectsByType<IncineratorRoom>(FindObjectsSortMode.None);
+        for (int i = 0; i < IncineratorRooms.Length; i++)
+        {
+            IncineratorRooms[i].Index = i;
+        }
     }
 
     void Update() { }

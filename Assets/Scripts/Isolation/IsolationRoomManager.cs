@@ -31,7 +31,14 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     [Header("State")]
     public int Count_Isolated = 0;
 
-    void Start() { }
+    void Start()
+    {
+        IsolationRooms = FindObjectsByType<IsolationRoom>(FindObjectsSortMode.None);
+        for (int i = 0; i < IsolationRooms.Length; i++)
+        {
+            IsolationRooms[i].Index = i;
+        }
+    }
 
     void Update() { }
 
