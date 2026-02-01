@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour // Singleton
     [SerializeField]
     private float globalTimer = 0f;
     private bool isTimerRunning = false;
+    private bool isPaused = false;
 
     [Header("Patient Settings")]
     public int PatientsInScene = 0;
@@ -212,6 +213,30 @@ public class GameManager : MonoBehaviour // Singleton
         CurrentState = GameState.GameOver;
     }
 
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
     public void ResetGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -293,6 +318,10 @@ public class GameManager : MonoBehaviour // Singleton
         if (Input.GetKeyDown(KeyCode.R))
         {
             ResetGame();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TogglePause();
         }
     }
 }
