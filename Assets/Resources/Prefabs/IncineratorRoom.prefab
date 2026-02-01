@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Index: 0
-  IsActive: 1
+  IsActive: 0
   Count_IncineratedPatients: 0
   Count_BuildingClicked: 0
   IsIncinerating: 0

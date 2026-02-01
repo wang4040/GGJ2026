@@ -3,6 +3,7 @@ using UnityEngine;
 public class IsolationRoomManager : MonoBehaviour // Singleton
 {
     public static IsolationRoomManager Instance;
+    public IsolationRoom[] IsolationRooms;
 
     void Awake()
     {
@@ -32,4 +33,5 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     void Start() { }
 
     void Update() { }
+
 }
