@@ -5,6 +5,7 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
 {
     public static IncineratorRoomManager Instance;
     public IncineratorRoom[] IncineratorRooms;
+
     void Awake()
     {
         if (Instance == null)

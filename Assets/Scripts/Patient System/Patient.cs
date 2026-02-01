@@ -19,10 +19,10 @@ namespace PatientSystem
         // Default Configuration Values
         // ----------------------------------------------------
 
-        public static float DefaultChildTimer = 10f;       // Time between infection ticks for children
-        public static float DefaultOldTimer = 10f;         // Time between infection ticks for old
-        public static float DefaultGracePeriod = 8f;       // Time before severe patient can explode
-        public static float DefaultMaskMultiplier = 0.5f;  // Mask reduces infection chance by 50%
+        public static float DefaultChildTimer = 5f; // Time between infection ticks for children
+        public static float DefaultOldTimer = 5f; // Time between infection ticks for old
+        public static float DefaultGracePeriod = 8f; // Time before severe patient can explode
+        public static float DefaultMaskMultiplier = 0.5f; // Mask reduces infection chance by 50%
 
         // ----------------------------------------------------
         // Patient Registry
@@ -157,7 +157,7 @@ namespace PatientSystem
         // Mask
         // ----------------------------------------------------
 
-        // Apply a mask to the patient. 
+        // Apply a mask to the patient.
         public bool ApplyMask()
         {
             if (HasMask)
@@ -235,7 +235,6 @@ namespace PatientSystem
             return true;
         }
 
-
         // Decrease infection level by one. Returns false if unable to decrease.
         public bool DecreaseLevel()
         {
@@ -255,7 +254,7 @@ namespace PatientSystem
         // Dragging
         // ----------------------------------------------------
         public void OnDragging()
-        {   
+        {
             IsDragging = true;
         }
 
@@ -301,7 +300,7 @@ namespace PatientSystem
         {
             if (IsInIncinerator)
                 return;
-            
+
             Room = Room.Isolation;
             StopDragging();
         }
@@ -310,7 +309,7 @@ namespace PatientSystem
         {
             if (IsInIncinerator)
                 return;
-            
+
             Room = Room.Hall;
             StopDragging();
         }
@@ -332,15 +331,15 @@ namespace PatientSystem
             switch (currentLevel)
             {
                 case Level.Normal:
-                    return 0.3f;  // 30% chance to get infected
+                    return 0.3f; // 30% chance to get infected
                 case Level.Slight:
-                    return 0.4f;  
+                    return 0.4f;
                 case Level.Medium:
-                    return 0.5f;  
+                    return 0.5f;
                 case Level.Severe:
-                    return 0.7f;  
+                    return 0.7f;
                 case Level.Crazy:
-                    return 0.9f;  // 90% chance to explode
+                    return 0.9f; // 90% chance to explode
                 default:
                     return 0.5f;
             }
@@ -351,15 +350,15 @@ namespace PatientSystem
             switch (currentLevel)
             {
                 case Level.Slight:
-                    return 0.5f;  // 50% chance to recover
+                    return 0.5f; // 50% chance to recover
                 case Level.Medium:
-                    return 0.3f;  
+                    return 0.3f;
                 case Level.Severe:
-                    return 0.15f; 
+                    return 0.15f;
                 case Level.Crazy:
-                    return 0.05f; 
+                    return 0.05f;
                 default:
-                    return 0f;    // Normal can't recover further
+                    return 0f; // Normal can't recover further
             }
         }
 

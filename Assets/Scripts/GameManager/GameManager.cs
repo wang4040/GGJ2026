@@ -46,7 +46,9 @@ public class GameManager : MonoBehaviour // Singleton
     public bool IsDebugMode = false;
 #endif
     public GameState CurrentState = GameState.MainMenu;
-    public float BigEventInterval = 10f;
+    public float DayInterval = 10f;
+    public int NumNewPatientsPerDay = 5;
+    public float BigEventInterval = 20f;
     public List<BigGameEvent> BigGameEvents;
     public int CurrentBigEventIndex = 0;
 
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour // Singleton
 
     [Header("New Patient Parameters")]
     public PatientType NewPatientType = PatientType.Child;
-    public float TimerDuration = 10f;
+    public float TimerDuration = 5f;
     public float GracePeriod = 8f;
     public float MaskMultiplier = 0.5f;
     public Level StartingInfectionLevel = Level.Normal;
@@ -112,6 +114,11 @@ public class GameManager : MonoBehaviour // Singleton
         if (isTimerRunning && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
+            if (globalTimer % DayInterval < Time.deltaTime)
+            {
+                RegisterSomePatients(NumNewPatientsPerDay);
+            }
+
             if (globalTimer >= BigEventInterval)
             {
                 RegisterPatientForBigEvent(BigGameEvents[CurrentBigEventIndex]);
