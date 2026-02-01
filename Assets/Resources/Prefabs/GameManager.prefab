@@ -50,7 +50,31 @@ MonoBehaviour:
   IsDebugMode: 1
   CurrentState: 0
   BigEventInterval: 10
-  BigGameEvents: []
+  BigGameEvents:
+  - Index: 0
+    NumNewNormalPatients: 6
+    NumNewSlightPatients: 4
+    NumNewMediumPatients: 0
+    NumNewSeverePatients: 0
+    IntervalToNextEvent: 10
+  - Index: 1
+    NumNewNormalPatients: 5
+    NumNewSlightPatients: 3
+    NumNewMediumPatients: 2
+    NumNewSeverePatients: 0
+    IntervalToNextEvent: 6
+  - Index: 1
+    NumNewNormalPatients: 4
+    NumNewSlightPatients: 1
+    NumNewMediumPatients: 2
+    NumNewSeverePatients: 1
+    IntervalToNextEvent: 6
+  - Index: 1
+    NumNewNormalPatients: 3
+    NumNewSlightPatients: 3
+    NumNewMediumPatients: 2
+    NumNewSeverePatients: 2
+    IntervalToNextEvent: 6
   CurrentBigEventIndex: 0
   globalTimer: 0
   ChildPrefab: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
