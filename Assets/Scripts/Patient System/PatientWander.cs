@@ -35,10 +35,14 @@ public class PatientWander : MonoBehaviour
     private PatientBehaviour chaseTarget;
     private bool isChasing = false;
 
+    // Animator reference
+    private Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         patientBehaviour = GetComponent<PatientBehaviour>();
+        animator = GetComponent<Animator>();
         StartWandering();
     }
 
@@ -109,6 +113,8 @@ public class PatientWander : MonoBehaviour
 
         // Chase the target
         isChasing = true;
+        if (animator != null)
+            animator.SetBool("isWalking", true);
         Vector3 targetPos = chaseTarget.transform.position;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
 
@@ -167,12 +173,19 @@ public class PatientWander : MonoBehaviour
         stateTimer = Random.Range(minWanderTime, maxWanderTime);
         PickRandomTarget();
 
+        // Update animator
+        if (animator != null)
+            animator.SetBool("isWalking", true);
     }
 
     void StartIdling()
     {
         isWandering = false;
         stateTimer = Random.Range(minIdleTime, maxIdleTime);
+
+        // Update animator
+        if (animator != null)
+            animator.SetBool("isWalking", false);
     }
 
     void PickRandomTarget()

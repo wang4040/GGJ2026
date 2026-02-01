@@ -16,12 +16,18 @@ public class PatientBehaviour : MonoBehaviour
     [SerializeField]
     private PatientWander wander;
 
+    // Animator reference
+    private Animator animator;
+
     // Timer for infection ticks
     private float tickTimer;
 
     // Grace period timer for Crazy patients
     private float gracePeriodTimer;
     private bool isInGracePeriod = false;
+
+    // Track last level for animator updates
+    private Level lastAnimatorLevel;
 
     void Awake()
     {
@@ -48,6 +54,10 @@ public class PatientBehaviour : MonoBehaviour
         {
             wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
         }
+
+        // Get animator reference
+        animator = GetComponent<Animator>();
+        lastAnimatorLevel = initialLevel;
     }
 
     void OnDestroy()
@@ -69,6 +79,13 @@ public class PatientBehaviour : MonoBehaviour
     {
         if (Data == null || Data.Level == Level.Exploded || Data.IsInIncinerator)
             return;
+
+        // Update animator level parameter when level changes
+        if (animator != null && Data.Level != lastAnimatorLevel)
+        {
+            animator.SetInteger("level", (int)Data.Level);
+            lastAnimatorLevel = Data.Level;
+        }
 
         // Handle grace period for Crazy patients
         if (Data.Level == Level.Crazy)
