@@ -87,6 +87,7 @@ public class PatientWander : MonoBehaviour
 
         if (isWandering)
         {
+            OnFlip(targetPosition);
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
@@ -129,6 +130,7 @@ public class PatientWander : MonoBehaviour
             stateTimer -= Time.deltaTime;
             if (isWandering)
             {
+                OnFlip(targetPosition);
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, crazyMoveSpeed * Time.deltaTime);
                 if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
                 {
@@ -147,6 +149,7 @@ public class PatientWander : MonoBehaviour
         if (animator != null)
             animator.SetBool("isWalking", true);
         Vector3 targetPos = chaseTarget.transform.position;
+        OnFlip(targetPos);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
 
         // Check if close enough to bite
@@ -257,5 +260,20 @@ public class PatientWander : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         animator.Play("Explode");
         patientBehaviour.Data.Level = Level.Exploded;
+    }
+
+    void OnFlip(Vector3 targetPos)
+    {
+        // Flip sprite based on movement direction
+        if (targetPos.x < transform.position.x)
+        {
+            // Moving left - flip to face left
+            transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
+        }
+        else if (targetPos.x > transform.position.x)
+        {
+            // Moving right - face right
+            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
+        }
     }
 }
