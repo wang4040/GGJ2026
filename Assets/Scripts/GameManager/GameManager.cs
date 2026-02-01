@@ -301,7 +301,8 @@ public class GameManager : MonoBehaviour // Singleton
     #region Patient Management
     public void RegisterPatient(Level level)
     {
-        int typeIndex = Random.Range(0, 1); // 0 for Child, 1 for Old
+        float typeIndex = Random.Range(0f, 1f); // 0 for Child, 1 for Old
+        Debug.Log($"Registering new patient of typeIndex {typeIndex} with level {level}");
         GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
         GameObject initedPatientObj = Instantiate(
             prefab,
@@ -325,7 +326,7 @@ public class GameManager : MonoBehaviour // Singleton
 
     public int RegisterPatientAndGetId(Level level)
     {
-        int typeIndex = Random.Range(0, 1); // 0 for Child, 1 for Old
+        float typeIndex = Random.Range(0f, 1f); // 0 for Child, 1 for Old
         GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
         GameObject initedPatientObj = Instantiate(
             prefab,

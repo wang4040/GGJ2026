@@ -1309,10 +1309,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1400679303325860048, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: InfectionRate
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 1757058416671822070, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -1358,121 +1354,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: DayInterval
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: GracePeriod
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TimerDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: NewPatientType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: patientsTracker
       value: 
       objectReference: {fileID: 6020268645058201023}
     - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigEventInterval
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: NumNewPatientsPerDay
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: TutorialInstructionUI
       value: 
       objectReference: {fileID: 6020268645058201024}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].IntervalToNextEvent
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].IntervalToNextEvent
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].IntervalToNextEvent
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].IntervalToNextEvent
-      value: 48
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[0].Instruction
-      value: Wear them the masks.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[1].Instruction
-      value: Wear them the masks, drag them to the isolation rooms.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[2].Instruction
-      value: Wear them the masks, drag them to the isolation rooms.
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[3].Instruction
-      value: Drag them to the isolation rooms immediately!!
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[4].Description
-      value: Crazy Infection
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[4].Instruction
-      value: They are wasted, drag them to the incinerator room immediately!!
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].NumNewNormalPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[0].NumNewSlightPatients
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].NumNewMediumPatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[1].NumNewNormalPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewMediumPatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewNormalPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[2].NumNewSlightPatients
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewNormalPatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: BigGameEvents.Array.data[3].NumNewSlightPatients
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
-      propertyPath: TutorialPatientLevels.Array.data[4].PatientLevel
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
