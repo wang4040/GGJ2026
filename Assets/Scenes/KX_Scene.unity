@@ -237,7 +237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1967980524466333614, guid: c1fe3a0faed332947859b147bd42af04, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.87
+      value: -21.75
       objectReference: {fileID: 0}
     - target: {fileID: 1967980524466333614, guid: c1fe3a0faed332947859b147bd42af04, type: 3}
       propertyPath: m_LocalPosition.y
@@ -495,13 +495,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842445361}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.33, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 16.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1842445365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,6 +736,42 @@ PrefabInstance:
       propertyPath: ChildPrefab
       value: 
       objectReference: {fileID: 4943200368050682249, guid: b3ef94fdbaba25c4585de82fbe96c6f9, type: 3}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: StartingInfectionLevel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[1].Index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[0].Num_newPatients
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[1].Num_newPatients
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[0].IntervalToNextEvent
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[1].IntervalToNextEvent
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[0].Num_newSeverePatients
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: BigGameEvents.Array.data[1].Num_newSeverePatients
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -751,7 +787,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1967980524466333614, guid: c1fe3a0faed332947859b147bd42af04, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.05
+      value: -21.93
       objectReference: {fileID: 0}
     - target: {fileID: 1967980524466333614, guid: c1fe3a0faed332947859b147bd42af04, type: 3}
       propertyPath: m_LocalPosition.y
