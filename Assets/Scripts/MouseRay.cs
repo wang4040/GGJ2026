@@ -17,9 +17,11 @@ public class MouseRay : MonoBehaviour
     [Tooltip("Draw the ray in the Scene view for debugging.")]
     public bool debugRay = true;
 
+    [SerializeField]
     private Transform draggedTransform;
     private Rigidbody draggedRigidbody;
     private bool draggedWasKinematic;
+    [SerializeField]
     private bool isDragging;
     private OutlinePatient currPatientOutline;
     private OutlinePatient currIsolationOutline;
@@ -59,6 +61,7 @@ public class MouseRay : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     // Start dragging this transform
+                    isDragging = true;
                     draggedTransform = hitInfo.collider.transform;
                     draggedTransform.GetComponent<PatientBehaviour>().Data.OnDragging();
 
@@ -146,18 +149,24 @@ public class MouseRay : MonoBehaviour
             else
             {
                 // Mouse released without using GetMouseButtonUp path; end drag
-                draggedTransform.GetComponent<PatientBehaviour>().Data.StopDragging();
+                draggedTransform.GetComponent<PatientBehaviour>()?.Data.StopDragging();
+                draggedTransform.GetComponent<IsolationRoomDetector>()?.GetClosestIsolationRoom();
                 EndDrag();
             }
         }
 
-        // End drag on mouse up
-        if (Input.GetMouseButtonUp(0) && isDragging && draggedTransform != null)
-        {
-            draggedTransform.GetComponent<PatientBehaviour>()?.Data.StopDragging();
-            draggedTransform.GetComponent<IsolationRoomDetector>()?.GetClosestIsolationRoom();
-            EndDrag();
-        }
+        // // End drag on mouse up
+        // if (Input.GetMouseButtonUp(0) && isDragging && draggedTransform != null)
+        // {
+        //     Debug.Log("Mouse button released, ending drag.");
+        //     draggedTransform.GetComponent<PatientBehaviour>()?.Data.StopDragging();
+        //     draggedTransform.GetComponent<IsolationRoomDetector>()?.GetClosestIsolationRoom();
+        //     EndDrag();
+        // }
+        // else if (Input.GetMouseButtonUp(0))
+        // {
+        //     Debug.Log("isDragging: " + isDragging + ", draggedTransform: " + (draggedTransform != null));
+        // }
     }
 
     // Compute intersection of ray with horizontal plane y = targetY.

@@ -12,6 +12,9 @@ public class IsolationRoomDetector : MonoBehaviour
             return null;
         }
 
+        Debug.Log(
+            $"Start to find the closest isolation room."
+        );
         IsolationRoom closestRoom = null;
         float closestDistance = float.MaxValue;
 
@@ -28,15 +31,30 @@ public class IsolationRoomDetector : MonoBehaviour
         }
         if (closestRoom != null)
         {
-            transform.position = closestRoom.transform.position;
-            PatientBehaviour patientB = GetComponent<PatientBehaviour>();
-            if (patientB != null)
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                patientB.Data.InIsolation();
-                Debug.Log(
-                    $"Invoke InIsolation for Patient {patientB.Data.Id}."
+                Vector3 targetPos = new Vector3(
+                    closestRoom.transform.position.x, 
+                    transform.position.y, 
+                    closestRoom.transform.position.z
                 );
+                Debug.Log(
+                    $"Moving patient {GetComponent<PatientBehaviour>().Data.Id} to closest isolation room #{closestRoom.Index} at position {targetPos}."
+                );
+                rb.MovePosition(targetPos);
             }
+            PatientBehaviour patientB = GetComponent<PatientBehaviour>();
+            // if (patientB != null)
+            // {
+            //     patientB.Data.InIsolation();
+            //     Debug.Log(
+            //         $"Invoke InIsolation for Patient {patientB.Data.Id}."
+            //     );
+            // }
+            Debug.Log(
+                $"Closest isolation room for Patient {patientB.Data.Id} is Isolation Room #{closestRoom.Index}."
+            );
         }
         return closestRoom;
     }

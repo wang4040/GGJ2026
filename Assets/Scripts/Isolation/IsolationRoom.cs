@@ -84,6 +84,37 @@ public class IsolationRoom : MonoBehaviour
         }
     }
 
+    // private void OnTriggerStay(Collider other)
+    // {
+    //     if (!IsActive)
+    //         return;
+    //     if (other.CompareTag("Child") || other.CompareTag("Old"))
+    //     {
+    //         if (
+    //             !IsIsolating
+    //             || (
+    //                 CurrentPatient != null
+    //                 && (other.GetComponent<PatientBehaviour>().Data.Id != CurrentPatient.Id)
+    //             )
+    //         )
+    //         {
+    //             return;
+    //         }
+    //         PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
+    //         IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
+    //         if (detector != null && detector.DetectedIsolationRooms != null && patientB != null)
+    //         {
+    //             //EndIsolate(patientB);
+    //             detector.DetectedIsolationRooms.Remove(this);
+    //             if (detector.DetectedIsolationRooms.Count <= 1 && Input.GetMouseButton(0))
+    //             {
+    //                 EndIsolate(patientB);
+    //             }
+    //             CurrentPatient = null;
+    //         }
+    //     }
+    // }
+
     private void OnTriggerExit(Collider other)
     {
         if (!IsActive)
@@ -106,7 +137,7 @@ public class IsolationRoom : MonoBehaviour
             {
                 //EndIsolate(patientB);
                 detector.DetectedIsolationRooms.Remove(this);
-                if (detector.DetectedIsolationRooms.Count <= 1)
+                if (detector.DetectedIsolationRooms.Count <= 1 && Input.GetMouseButton(0))
                 {
                     EndIsolate(patientB);
                 }
