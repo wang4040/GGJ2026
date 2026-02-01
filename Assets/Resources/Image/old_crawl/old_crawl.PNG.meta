@@ -1,12 +1,20 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 21bf71e3d4703c742a53ad51b8127672
+=======
+guid: 28934da9ae192f643be5cb242ccff669
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
+<<<<<<< HEAD
     enableMipMap: 0
+=======
+    enableMipMap: 1
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,6 +45,7 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
+<<<<<<< HEAD
     wrapU: 1
     wrapV: 1
     wrapW: 0
@@ -46,15 +55,32 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 0
+=======
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 1
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
+<<<<<<< HEAD
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
+=======
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 0
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -93,6 +119,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
   - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
@@ -197,11 +224,20 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+=======
+  spriteSheet:
+    serializedVersion: 2
+    sprites: []
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
     outline: []
     customData: 
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: 376dc8a08c0069f4e962c90e6e92cb99
+=======
+    spriteID: 
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
     internalID: 0
     vertices: []
     indices: 
@@ -210,11 +246,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
+<<<<<<< HEAD
     nameFileIdTable:
       old_crawl_0: 217333919
       old_crawl_1: 2031921128
       old_crawl_2: -1574513910
       old_crawl_3: 51774968
+=======
+    nameFileIdTable: {}
+>>>>>>> 2d6d5b73a0e1d0c451beec0bba2ea322c486387f
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

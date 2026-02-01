@@ -42,7 +42,7 @@ namespace PatientSystem
         // ----------------------------------------------------
 
         public int Id { get; private set; }
-        public PatientType Type { get; private set; }
+        public PatientType Type { get; set; }
         public bool HasMask { get; private set; }
         public bool GracePeriodDone { get; private set; }
         public bool IsDragging { get; private set; } = false;
