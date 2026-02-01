@@ -60,6 +60,15 @@ public class MouseRay : MonoBehaviour
                     draggedTransform = hitInfo.collider.transform;
                     draggedTransform.GetComponent<PatientBehaviour>().Data.OnDragging();
 
+                    foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
+                    {
+                        room.GetComponent<OutlinePatient>()?.OutlineObject();
+                    }
+                    foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+                    {
+                        room.GetComponent<OutlinePatient>()?.OutlineObject();
+                    }
+
                     // Lock Y to current world Y of the object
                     lockedY = draggedTransform.position.y;
 
@@ -157,6 +166,15 @@ public class MouseRay : MonoBehaviour
 
     private void EndDrag()
     {
+        foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
+        {
+            room.GetComponent<OutlinePatient>()?.RemoveOutline();
+        }
+        foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+        {
+            room.GetComponent<OutlinePatient>()?.RemoveOutline();
+        }
+
         if (draggedRigidbody != null)
         {
             draggedRigidbody.isKinematic = draggedWasKinematic;

@@ -26,4 +26,5 @@ public class OutlinePatient : MonoBehaviour
         SpriteRenderer renderer = this.GetComponentInChildren<SpriteRenderer>();
         renderer.material = originalMaterial;
     }
+
 }

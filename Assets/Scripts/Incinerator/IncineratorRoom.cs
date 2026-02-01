@@ -36,6 +36,14 @@ public class IncineratorRoom : MonoBehaviour
         if (patientB != null)
         {
             Count_IncineratedPatients++;
+            foreach (IsolationRoom room in IsolationRoomManager.Instance.IsolationRooms)
+            {
+                room.GetComponent<OutlinePatient>()?.RemoveOutline();
+            }
+            foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+            {
+                room.GetComponent<OutlinePatient>()?.RemoveOutline();
+            }
             Destroy(patientB.gameObject);
             StartCoroutine(Incinerate());
             return true;
