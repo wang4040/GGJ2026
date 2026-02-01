@@ -43,9 +43,8 @@ public class PatientBehaviour : MonoBehaviour
 
     void Awake()
     {
-        // Get animator reference
-        animator = GetComponentInChildren<Animator>();
         lastAnimatorLevel = initialLevel;
+
         // Determine type from tag
         PatientType type;
         if (CompareTag("Child"))
@@ -62,23 +61,14 @@ public class PatientBehaviour : MonoBehaviour
             type = PatientType.Old;
         }
 
-        // Create the patient data
-        Data = new Patient(type, initialLevel);
-        //wander = GetComponent<PatientWander>();
-        //if (wander != null)
-        //{
-        //    wander.StartIdling();
-        //    wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
-        //}
-
-        // Set mask animator based on patient type and initialize mask as inactive
+        // Find and setup mask FIRST (disable it before getting main animator)
         Transform maskTransform = transform.Find("mask");
         if (maskTransform != null)
         {
             maskObject = maskTransform.gameObject;
+            maskAnimator = maskTransform.GetComponent<Animator>();
             maskObject.SetActive(false); // Initialize mask as inactive
 
-            maskAnimator = maskTransform.GetComponent<Animator>();
             if (maskAnimator != null)
             {
                 if (type == PatientType.Child && childMaskAnimator != null)
@@ -91,6 +81,18 @@ public class PatientBehaviour : MonoBehaviour
                 }
             }
         }
+
+        // Get main animator reference AFTER disabling mask (so it doesn't pick up mask animator)
+        animator = GetComponentInChildren<Animator>();
+
+        // Create the patient data
+        Data = new Patient(type, initialLevel);
+        //wander = GetComponent<PatientWander>();
+        //if (wander != null)
+        //{
+        //    wander.StartIdling();
+        //    wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
+        //}
 
         // Initialize timer with patient's timer duration
         tickTimer = Data.TimerDuration;
@@ -126,9 +128,15 @@ public class PatientBehaviour : MonoBehaviour
         {
             maskObject.SetActive(Data.HasMask);
             lastHasMask = Data.HasMask;
+
+            // Immediately sync mask animator when mask becomes active
+            if (Data.HasMask && maskAnimator != null && animator != null)
+            {
+                maskAnimator.SetBool("isWalking", animator.GetBool("isWalking"));
+            }
         }
 
-        // Sync mask animator isWalking with main animator
+        // Continuously sync mask animator isWalking with main animator
         if (maskAnimator != null && animator != null && Data.HasMask)
         {
             maskAnimator.SetBool("isWalking", animator.GetBool("isWalking"));
