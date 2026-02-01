@@ -56,6 +56,7 @@ public class IncineratorRoom : MonoBehaviour
     {
         // start incineration process
         IsIncinerating = true;
+        GameObject.FindFirstObjectByType<IncineratorCD>().StartIncineratorCooldown(SingleIncineratorDuration);
         yield return new WaitForSeconds(SingleIncineratorDuration);
 
         // incineration complete
