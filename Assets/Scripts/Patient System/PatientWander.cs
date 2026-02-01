@@ -69,6 +69,16 @@ public class PatientWander : MonoBehaviour
         if (patientBehaviour == null || patientBehaviour.Data == null)
             return;
 
+        // Patients in Isolation room just idle, no wandering
+        if (patientBehaviour.Data.Room == Room.Isolation)
+        {
+            if (isWandering)
+            {
+                StartIdling();
+            }
+            return;
+        }
+
         // Check if patient is Crazy - switch to chase mode
         if (patientBehaviour.Data.CanBite || (patientBehaviour.Data.Level == Level.Exploded))
         {
