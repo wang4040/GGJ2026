@@ -1,5 +1,5 @@
-using UnityEngine;
 using PatientSystem;
+using UnityEngine;
 
 public class PatientSystemTest : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class PatientSystemTest : MonoBehaviour
         PatientEvents.OnExploded += OnPatientExploded;
 
         // Log all patients in scene
-        PatientBehaviour[] patients = FindObjectsOfType<PatientBehaviour>();
+        PatientBehaviour[] patients = FindObjectsByType<PatientBehaviour>(FindObjectsSortMode.None);
         Debug.Log($"[TEST] Found {patients.Length} patients - time is flowing");
         foreach (var p in patients)
         {

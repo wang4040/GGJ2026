@@ -236,7 +236,6 @@ public class GameManager : MonoBehaviour // Singleton
         newPatient.GracePeriod = GracePeriod;
         newPatient.MaskMultiplier = MaskMultiplier;
         newPatient.Level = level;
-        
         // Apply force in the direction PatientSpawnPoint is facing
         Rigidbody rb = initedPatientObj.GetComponent<Rigidbody>();
         if (rb != null)
@@ -267,7 +266,6 @@ public class GameManager : MonoBehaviour // Singleton
         RegisterSomePatients(bigEvent.NumNewSlightPatients, Level.Slight);
         RegisterSomePatients(bigEvent.NumNewMediumPatients, Level.Medium);
         RegisterSomePatients(bigEvent.NumNewSeverePatients, Level.Severe);
-        
     }
     #endregion
 

@@ -1,16 +1,16 @@
-using UnityEngine;
-using PatientSystem;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using PatientSystem;
+using UnityEngine;
 
 public class InfectionManager : MonoBehaviour
 {
-    [SerializeField] private float explosionRadius = 5f;
+    [SerializeField]
+    private float explosionRadius = 5f;
 
     void OnEnable()
     {
         PatientEvents.OnExploded += HandleExplosion;
-
     }
 
     void OnDisable()
@@ -30,13 +30,13 @@ public class InfectionManager : MonoBehaviour
         Vector3 explosionCenter = exploded.transform.position;
 
         // For all patients in the range increase their infection level
-        PatientBehaviour[] allPatients = FindObjectsOfType<PatientBehaviour>();
+        PatientBehaviour[] allPatients = FindObjectsByType<PatientBehaviour>( FindObjectsSortMode.None);
         foreach (PatientBehaviour patientBehaviour in allPatients)
         {
             // Skip the exploded patient itself
             if (patientBehaviour.Data.Id == explodedPatientID)
                 continue;
-            
+
             // Skip all patients that are already exploded or incinerating
             if (patientBehaviour.Data.Level >= Level.Exploded)
                 continue;
@@ -48,12 +48,13 @@ public class InfectionManager : MonoBehaviour
                 patientBehaviour.Data.IncreaseLevel();
             }
         }
-
     }
 
     private PatientBehaviour FindPatientBehaviourById(int patientId)
     {
-        PatientBehaviour[] allPatients = FindObjectsOfType<PatientBehaviour>();
+        PatientBehaviour[] allPatients = FindObjectsByType<PatientBehaviour>(
+            FindObjectsSortMode.None
+        );
         foreach (PatientBehaviour patient in allPatients)
         {
             if (patient.Data != null && patient.Data.Id == patientId)
