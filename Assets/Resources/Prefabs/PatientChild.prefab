@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 9217519654171650728}
   - component: {fileID: 5254858739148124833}
   - component: {fileID: 2412219666310203251}
+  - component: {fileID: 6314263597999661294}
   m_Layer: 3
   m_Name: PatientChild
   m_TagString: Child
@@ -242,6 +243,19 @@ MonoBehaviour:
   isBarking: 0
   barkDuration: 1
   stop: 0
+--- !u!114 &6314263597999661294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943200368050682249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8a2d8bdff9266458d3371a419a8b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DetectedIsolationRooms: []
 --- !u!1001 &3329244913910690078
 PrefabInstance:
   m_ObjectHideFlags: 0

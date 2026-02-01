@@ -73,6 +73,8 @@ public class IsolationRoom : MonoBehaviour
             if (StartIsolate(patientB))
             {
                 CurrentPatient = patientB.Data;
+                IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
+                detector?.DetectedIsolationRooms.Add(this);
                 // Debug.Log(
                 //     $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
                 // );
@@ -99,6 +101,8 @@ public class IsolationRoom : MonoBehaviour
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
             if (EndIsolate(patientB))
             {
+                IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
+                detector?.DetectedIsolationRooms.Remove(this);
                 Debug.Log(
                     $"Patient {patientB.Data.Id} ended isolation in Isolation Room #{Index}."
                 );
