@@ -45,12 +45,12 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     void Start()
     {
         IsolationRooms = FindObjectsByType<IsolationRoom>(FindObjectsSortMode.None);
-        IsolationRoomUIs = FindObjectsByType<IsolationWorldSpaceUI>(FindObjectsSortMode.None);
+        //IsolationRoomUIs = FindObjectsByType<IsolationWorldSpaceUI>(FindObjectsSortMode.None);
         for (int i = 0; i < IsolationRooms.Length; i++)
         {
             IsolationRooms[i].Index = i;
-            IsolationRoomUIs[i].Index = i;
-            IsolationRoomUIs[i].IsActive = IsolationRooms[i].IsActive;
+            //IsolationRoomUIs[i].Index = i;
+            //IsolationRoomUIs[i].IsActive = IsolationRooms[i].IsActive;
         }
     }
 
