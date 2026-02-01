@@ -16,13 +16,6 @@ public class PatientBehaviour : MonoBehaviour
     [SerializeField]
     private PatientWander wander;
 
-    // Mask animator controllers for different patient types
-    [Header("Mask Animator Controllers")]
-    [SerializeField]
-    private RuntimeAnimatorController childMaskAnimator;
-    [SerializeField]
-    private RuntimeAnimatorController oldMaskAnimator;
-
     // Animator reference
     private Animator animator;
 
@@ -72,18 +65,6 @@ public class PatientBehaviour : MonoBehaviour
             maskObject = maskTransform.gameObject;
             maskAnimator = maskTransform.GetComponent<Animator>();
             maskObject.SetActive(false); // Initialize mask as inactive
-
-            if (maskAnimator != null)
-            {
-                if (type == PatientType.Child && childMaskAnimator != null)
-                {
-                    maskAnimator.runtimeAnimatorController = childMaskAnimator;
-                }
-                else if (type == PatientType.Old && oldMaskAnimator != null)
-                {
-                    maskAnimator.runtimeAnimatorController = oldMaskAnimator;
-                }
-            }
         }
 
         // Get main animator reference AFTER disabling mask (so it doesn't pick up mask animator)
