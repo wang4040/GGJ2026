@@ -965,6 +965,11 @@ PrefabInstance:
       addedObject: {fileID: 87176095}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577734ae0ce128845a1c994c33688edd, type: 3}
+--- !u!1 &329251191 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 198295323892291051, guid: 769912010f8f1e94d9783ca22203a960, type: 3}
+  m_PrefabInstance: {fileID: 6020268645058201022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &373561710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1323,10 @@ PrefabInstance:
       propertyPath: patientsTracker
       value: 
       objectReference: {fileID: 1985142117}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: TutorialInstructionUI
+      value: 
+      objectReference: {fileID: 329251191}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

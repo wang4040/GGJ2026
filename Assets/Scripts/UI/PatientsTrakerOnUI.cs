@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 using PatientSystem;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PatientsTrakerOnUI : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PatientsTrakerOnUI : MonoBehaviour
 
     private bool isTracking = false;
     public Dictionary<int, GameObject> patientUIMarkers = new Dictionary<int, GameObject>();
+    public UnityEngine.UI.Button skipButton;
 
     void Start()
     {
@@ -33,6 +35,11 @@ public class PatientsTrakerOnUI : MonoBehaviour
         if (canvas == null)
         {
             canvas = GetComponent<Canvas>();
+        }
+
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(GameManager.Instance.EndTutorial);
         }
 
         // Subscribe to patient events
@@ -64,7 +71,9 @@ public class PatientsTrakerOnUI : MonoBehaviour
             Patient patient = kvp.Value;
 
             // Find the patient's GameObject in the scene
-            PatientBehaviour[] allPatientBehaviours = FindObjectsByType<PatientBehaviour>(FindObjectsSortMode.None);
+            PatientBehaviour[] allPatientBehaviours = FindObjectsByType<PatientBehaviour>(
+                FindObjectsSortMode.None
+            );
             PatientBehaviour targetPatient = null;
 
             foreach (var pb in allPatientBehaviours)
@@ -133,7 +142,9 @@ public class PatientsTrakerOnUI : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
             screenPos,
-            canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : targetCamera,
+            canvas != null && canvas.renderMode == RenderMode.ScreenSpaceOverlay
+                ? null
+                : targetCamera,
             out canvasPos
         );
 

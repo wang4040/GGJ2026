@@ -19,6 +19,7 @@ public struct BigGameEvent
 public struct TutorialSample
 {
     public string Description;
+    public string Instruction;
     public Level PatientLevel;
 }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour // Singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -94,14 +95,15 @@ public class GameManager : MonoBehaviour // Singleton
     public Level StartingInfectionLevel = Level.Normal;
 
     [Header("Tutorial Settings")]
+    public GameObject TutorialInstructionUI;
     public float TutorialPatientInterval = 5f;
     public float MaxTutorialDuration = 90f;
     public PatientsTrakerOnUI patientsTracker;
     public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
-        new TutorialSample { Description = "Normal Infection", PatientLevel = Level.Normal },
-        new TutorialSample { Description = "Slight Infection", PatientLevel = Level.Slight },
-        new TutorialSample { Description = "Medium Infection", PatientLevel = Level.Medium },
-        new TutorialSample { Description = "Severe Infection", PatientLevel = Level.Severe },
+        new TutorialSample { Description = "Normal Infection", Instruction = "Normal Infection", PatientLevel = Level.Normal },
+        new TutorialSample { Description = "Slight Infection", Instruction = "Slight Infection", PatientLevel = Level.Slight },
+        new TutorialSample { Description = "Medium Infection", Instruction = "Medium Infection", PatientLevel = Level.Medium },
+        new TutorialSample { Description = "Severe Infection", Instruction = "Severe Infection", PatientLevel = Level.Severe },
     };
 
     #region Main Game Loop
@@ -119,6 +121,9 @@ public class GameManager : MonoBehaviour // Singleton
         {
             PatientSpawnPoint = this.transform;
         }
+        TutorialInstructionUI.SetActive(false);
+        //patientsTracker.gameObject.SetActive(false);
+        //TutorialInstructionUI.SetActive(false);
     }
 
     private void OnDestroy()
@@ -138,6 +143,10 @@ public class GameManager : MonoBehaviour // Singleton
         NumSeverePatients = counts.ContainsKey(Level.Severe) ? counts[Level.Severe] : 0;
         NumCrazyPatients = counts.ContainsKey(Level.Crazy) ? counts[Level.Crazy] : 0;
         NumExplodedPatients = counts.ContainsKey(Level.Exploded) ? counts[Level.Exploded] : 0;
+        // if (patientsTracker != null)
+        // {
+        //     patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
+        // }
     }
 
     void HandlePatientExploded(int patientId)
@@ -152,7 +161,6 @@ public class GameManager : MonoBehaviour // Singleton
         {
             Testing();
         }
-        
         if (isTimerRunning && CurrentState == GameState.Playing && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
@@ -194,6 +202,7 @@ public class GameManager : MonoBehaviour // Singleton
         isTimerRunning = true;
         globalTimer = 0f;
         CurrentState = GameState.Tutorial;
+        TutorialInstructionUI.SetActive(true);
         patientsTracker.StartTracking();
         StartCoroutine(TutorialPatientSpawn());
     }
@@ -208,6 +217,11 @@ public class GameManager : MonoBehaviour // Singleton
             {
                 patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
             }
+            TMPro.TextMeshProUGUI instructionText = TutorialInstructionUI.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            if(instructionText != null)
+            {
+                instructionText.text = TutorialPatientLevels[i].Instruction;
+            }
             if (i < TutorialPatientLevels.Length - 1)
             {
                 yield return new WaitForSeconds(TutorialPatientInterval);
@@ -217,7 +231,8 @@ public class GameManager : MonoBehaviour // Singleton
 
     public void EndTutorial()
     {
-        patientsTracker.StopTracking();
+        // patientsTracker.StopTracking();
+        // TutorialInstructionUI.SetActive(false);
         ResetGame();
     }
     public void StartGame()
@@ -259,6 +274,21 @@ public class GameManager : MonoBehaviour // Singleton
 
     public void ResetGame()
     {
+        // Clear all static patient data
+        Patient.Reset();
+        
+        // Reset game state
+        globalTimer = 0f;
+        isTimerRunning = false;
+        isPaused = false;
+        DayCount = 0;
+        CurrentBigEventIndex = 0;
+        CurrentState = GameState.MainMenu;
+        
+        // Stop all coroutines
+        StopAllCoroutines();
+        
+        // Reload scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
