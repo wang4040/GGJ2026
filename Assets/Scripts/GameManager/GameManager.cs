@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour // Singleton
     [Header("Tutorial Settings")]
     public float TutorialPatientInterval = 5f;
     public float MaxTutorialDuration = 90f;
+    public PatientsTrakerOnUI patientsTracker;
     public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
         new TutorialSample { Description = "Normal Infection", PatientLevel = Level.Normal },
         new TutorialSample { Description = "Slight Infection", PatientLevel = Level.Slight },
@@ -151,11 +152,7 @@ public class GameManager : MonoBehaviour // Singleton
         {
             Testing();
         }
-
-        if (globalTimer % DayInterval < Time.deltaTime)
-        {
-            DayCount++;
-        }
+        
         if (isTimerRunning && CurrentState == GameState.Playing && BigGameEvents.Count > 0)
         {
             globalTimer += Time.deltaTime;
@@ -178,13 +175,14 @@ public class GameManager : MonoBehaviour // Singleton
                     RegisterSomePatients(NumNewPatientsPerDay, StartingInfectionLevel);
                     Debug.Log("Normal patient influx triggered.");
                 }
+                DayCount++;
             }
         }
 
         if (isTimerRunning && CurrentState == GameState.Tutorial)
         {
             globalTimer += Time.deltaTime;
-            if (globalTimer >= MaxTutorialDuration || NumAllPatients == 0)
+            if (globalTimer >= MaxTutorialDuration)
             {
                 EndTutorial();
             }
@@ -196,6 +194,7 @@ public class GameManager : MonoBehaviour // Singleton
         isTimerRunning = true;
         globalTimer = 0f;
         CurrentState = GameState.Tutorial;
+        patientsTracker.StartTracking();
         StartCoroutine(TutorialPatientSpawn());
     }
 
@@ -203,7 +202,12 @@ public class GameManager : MonoBehaviour // Singleton
     {
         for (int i = 0; i < TutorialPatientLevels.Length; i++)
         {
-            RegisterPatient(TutorialPatientLevels[i].PatientLevel);
+            int patientId = RegisterPatientAndGetId(TutorialPatientLevels[i].PatientLevel);
+            // Update tracker UI with description
+            if (patientsTracker != null)
+            {
+                patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
+            }
             if (i < TutorialPatientLevels.Length - 1)
             {
                 yield return new WaitForSeconds(TutorialPatientInterval);
@@ -213,9 +217,9 @@ public class GameManager : MonoBehaviour // Singleton
 
     public void EndTutorial()
     {
+        patientsTracker.StopTracking();
         ResetGame();
     }
-
     public void StartGame()
     {
         isTimerRunning = true;
@@ -284,6 +288,31 @@ public class GameManager : MonoBehaviour // Singleton
             rb.AddForce(PatientSpawnPoint.forward * 2f, ForceMode.Impulse);
         }
     }
+
+    public int RegisterPatientAndGetId(Level level)
+    {
+        int typeIndex = Random.Range(0, 1); // 0 for Child, 1 for Old
+        GameObject prefab = (typeIndex < 0.5f) ? ChildPrefab : OldPrefab;
+        GameObject initedPatientObj = Instantiate(
+            prefab,
+            PatientSpawnPoint.position,
+            PatientSpawnPoint.rotation
+        );
+
+        Patient newPatient = initedPatientObj.GetComponent<PatientBehaviour>().Data;
+        newPatient.Type = (typeIndex < 0.5f) ? PatientType.Child : PatientType.Old;
+        newPatient.TimerDuration = TimerDuration;
+        newPatient.GracePeriod = GracePeriod;
+        newPatient.MaskMultiplier = MaskMultiplier;
+        newPatient.Level = level;
+        // Apply force in the direction PatientSpawnPoint is facing
+        Rigidbody rb = initedPatientObj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(PatientSpawnPoint.forward * 2f, ForceMode.Impulse);
+        }
+        return newPatient.Id;
+    }
     public void RegisterSomePatients(int count = 1, Level level = Level.Normal)
     {
         StartCoroutine(RegisterPatientsWithDelay(count, level));
@@ -338,6 +367,14 @@ public class GameManager : MonoBehaviour // Singleton
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TogglePause();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            StartTutorial();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            EndTutorial();
         }
     }
 }
