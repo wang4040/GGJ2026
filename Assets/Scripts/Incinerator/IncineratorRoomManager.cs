@@ -45,5 +45,6 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
     public void RegisterSucessfulIncineration()
     {
         Count_Incinerated++;
+        GameManager.Instance.NumIncineratedPatients = Count_Incinerated;
     }
 }
