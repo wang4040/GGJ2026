@@ -67,11 +67,20 @@ public class GameManager : MonoBehaviour // Singleton
     private bool isPaused = false;
 
     [Header("Patient Settings")]
-    public int PatientsInScene = 0;
     public GameObject ChildPrefab;
     public GameObject OldPrefab;
     public Transform PatientSpawnPoint;
     public float WanderPatientProportion = 0.4f;
+
+    [Header("Patient Numbers")]
+    public int NumAllPatients;
+    public int NumNormalPatients;
+    public int NumSlightPatients;
+    public int NumMediumPatients;
+    public int NumSeverePatients;
+    public int NumCrazyPatients;
+    public int NumExplodedPatients;
+    public int NumIncineratedPatients;
 
     [Header("Parameters")]
     public Material OutlineMaterial2D;
@@ -121,6 +130,13 @@ public class GameManager : MonoBehaviour // Singleton
     void HandlePatientLevelChanged(int patientId, Level oldLevel, Level newLevel)
     {
         // A patient's level changed - notify listeners
+        var counts = Patient.GetPatientCountsByLevel();
+        NumNormalPatients = counts.ContainsKey(Level.Normal) ? counts[Level.Normal] : 0;
+        NumSlightPatients = counts.ContainsKey(Level.Slight) ? counts[Level.Slight] : 0;
+        NumMediumPatients = counts.ContainsKey(Level.Medium) ? counts[Level.Medium] : 0;
+        NumSeverePatients = counts.ContainsKey(Level.Severe) ? counts[Level.Severe] : 0;
+        NumCrazyPatients = counts.ContainsKey(Level.Crazy) ? counts[Level.Crazy] : 0;
+        NumExplodedPatients = counts.ContainsKey(Level.Exploded) ? counts[Level.Exploded] : 0;
     }
 
     void HandlePatientExploded(int patientId)
@@ -130,7 +146,7 @@ public class GameManager : MonoBehaviour // Singleton
 
     private void Update()
     {
-        PatientsInScene = Patient.GetAllPatients().Count;
+        NumAllPatients = Patient.GetAllPatients().Count;
         if (IsDebugMode)
         {
             Testing();
@@ -168,7 +184,7 @@ public class GameManager : MonoBehaviour // Singleton
         if (isTimerRunning && CurrentState == GameState.Tutorial)
         {
             globalTimer += Time.deltaTime;
-            if (globalTimer >= MaxTutorialDuration || PatientsInScene == 0)
+            if (globalTimer >= MaxTutorialDuration || NumAllPatients == 0)
             {
                 EndTutorial();
             }

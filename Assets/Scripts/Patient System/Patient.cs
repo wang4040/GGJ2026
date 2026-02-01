@@ -157,6 +157,39 @@ namespace PatientSystem
             nextId = 1;
         }
 
+        // Get count of patients by level
+        public static Dictionary<Level, int> GetPatientCountsByLevel()
+        {
+            Dictionary<Level, int> counts = new Dictionary<Level, int>();
+            // Initialize all levels with 0
+            foreach (Level level in System.Enum.GetValues(typeof(Level)))
+            {
+                counts[level] = 0;
+            }
+
+            // Count patients for each level
+            foreach (Patient patient in allPatients.Values)
+            {
+                counts[patient.Level]++;
+            }
+
+            return counts;
+        }
+
+        // Get count of patients at a specific level
+        public static int GetPatientCountByLevel(Level level)
+        {
+            int count = 0;
+            foreach (Patient patient in allPatients.Values)
+            {
+                if (patient.Level == level)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
         // ----------------------------------------------------
         // Mask
         // ----------------------------------------------------
