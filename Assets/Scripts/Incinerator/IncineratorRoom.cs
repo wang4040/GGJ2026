@@ -77,9 +77,9 @@ public class IncineratorRoom : MonoBehaviour
             PatientBehaviour patientB = other.GetComponent<PatientBehaviour>();
             if (StartIncinerate(patientB))
             {
-                Debug.Log(
-                    $"Patient {patientB.Data.Id} started incineration in Incinerator Room #{Index}."
-                );
+                // Debug.Log(
+                //     $"Patient {patientB.Data.Id} started incineration in Incinerator Room #{Index}."
+                // );
             }
         }
     }

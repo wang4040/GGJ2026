@@ -73,9 +73,9 @@ public class IsolationRoom : MonoBehaviour
             if (StartIsolate(patientB))
             {
                 CurrentPatient = patientB.Data;
-                Debug.Log(
-                    $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
-                );
+                // Debug.Log(
+                //     $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
+                // );
             }
         }
     }
@@ -116,7 +116,7 @@ public class IsolationRoom : MonoBehaviour
         if (Count_BuildingClicked >= TotalBuildingClicks)
         {
             IsActive = true;
-            Debug.Log($"Isolation Room #{Index} has been activated.");
+            //Debug.Log($"Isolation Room #{Index} has been activated.");
         }
     }
 
