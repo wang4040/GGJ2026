@@ -67,12 +67,12 @@ public class PatientBehaviour : MonoBehaviour
 
         // Create the patient data
         Data = new Patient(type, initialLevel);
-        wander = GetComponent<PatientWander>();
-        if (wander != null)
-        {
-            wander.StartIdling();
-            wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
-        }
+        //wander = GetComponent<PatientWander>();
+        //if (wander != null)
+        //{
+        //    wander.StartIdling();
+        //    wander.enabled = Random.value < GameManager.Instance.WanderPatientProportion ? true : false;
+        //}
 
         // Initialize timer with patient's timer duration
         tickTimer = Data.TimerDuration;
@@ -84,7 +84,7 @@ public class PatientBehaviour : MonoBehaviour
             return;
 
         // Update animator level parameter when level changes (including Exploded for explosion animation)
-        if (animator != null && Data.Level != lastAnimatorLevel)
+        if (animator != null /*&& Data.Level != lastAnimatorLevel*/)
         {
             animator.SetInteger("level", (int)Data.Level);
             lastAnimatorLevel = Data.Level;

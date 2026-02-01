@@ -4,6 +4,7 @@ using UnityEngine;
 using PatientSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+using System.Collections;
 
 public class PatientWander : MonoBehaviour
 {
@@ -39,10 +40,13 @@ public class PatientWander : MonoBehaviour
     private Animator animator;
 
     // Bark state tracking (Crazy patients bark before crawling)
-    private bool hasBarked = false;
-    private bool isBarking = false;
-    public float barkDuration = 1f;
+    public float crazyIdlDuration = 4f;
+    public bool hasBarked = false;
+    public bool isBarking = false;
+    public float barkDuration = 2f;
     private float barkTimer = 0f;
+    private bool crazyIdle = false;
+    private bool tryChase = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,7 +65,8 @@ public class PatientWander : MonoBehaviour
         // Check if patient is Crazy - switch to chase mode
         if (patientBehaviour.Data.CanBite)
         {
-            UpdateChaseMode();
+            if (!crazyIdle) StartCoroutine(WaitThenBark());
+            if (tryChase) UpdateChaseMode();
             return;
         }
 
@@ -91,37 +96,19 @@ public class PatientWander : MonoBehaviour
         }
     }
 
+    IEnumerator WaitThenBark()
+    {
+        crazyIdle = true;
+        animator.Play("CrazyIdle");
+        yield return new WaitForSeconds(crazyIdlDuration);
+        animator.Play("Bark");
+        yield return new WaitForSeconds(barkDuration);
+        animator.Play("CrazyCrawl");
+        tryChase = true;
+    }
+
     void UpdateChaseMode()
     {
-        // Handle bark animation before crawling (only once when becoming Crazy)
-        if (!hasBarked)
-        {
-            if (!isBarking)
-            {
-                // Start barking
-                isBarking = true;
-                barkTimer = barkDuration;
-                if (animator != null)
-                {
-                    animator.SetBool("isBark", true);
-                    animator.SetBool("isWalking", false);
-                }
-                Debug.Log($"[BARK] Crazy patient {patientBehaviour.Data.Id} starts barking!");
-            }
-
-            // Wait for bark to finish
-            barkTimer -= Time.deltaTime;
-            if (barkTimer <= 0f)
-            {
-                hasBarked = true;
-                isBarking = false;
-                if (animator != null)
-                    animator.SetBool("isBark", false);
-                Debug.Log($"[BARK] Crazy patient {patientBehaviour.Data.Id} finished barking, now crawling!");
-            }
-            return; // Don't move while barking
-        }
-
         // Find a target if we don't have one
         if (chaseTarget == null || !chaseTarget.Data.CanBeBitten)
         {
@@ -156,11 +143,11 @@ public class PatientWander : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
 
         // Check if close enough to bite
-        float distance = Vector3.Distance(transform.position, targetPos);
-        if (distance <= biteRadius)
-        {
-            PerformBite();
-        }
+        //float distance = Vector3.Distance(transform.position, targetPos);
+        //if (distance <= biteRadius)
+        //{
+        //    PerformBite();
+        //}
     }
 
     void FindBiteTarget()
@@ -194,6 +181,8 @@ public class PatientWander : MonoBehaviour
     {
         if (chaseTarget == null || chaseTarget.Data == null)
             return;
+
+        tryChase = false;
 
         // Trigger bite animation
         if (animator != null)
@@ -241,5 +230,13 @@ public class PatientWander : MonoBehaviour
         float randomZ = Random.Range(boundaryCenter.y - halfDepth, boundaryCenter.y + halfDepth);
 
         targetPosition = new Vector3(randomX, transform.position.y, randomZ);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((LayerMask.LayerToName(collision.collider.gameObject.layer) == "Patient") && patientBehaviour.Data.CanBite)
+        {
+            PerformBite();
+        }
     }
 }
