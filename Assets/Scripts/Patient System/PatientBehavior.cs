@@ -9,6 +9,9 @@ public class PatientBehaviour : MonoBehaviour
     // Optional: set initial level in Inspector
     [SerializeField] private Level initialLevel = Level.Normal;
 
+    // Timer for infection ticks
+    private float tickTimer;
+
     void Awake()
     {
         // Determine type from tag
@@ -37,6 +40,46 @@ public class PatientBehaviour : MonoBehaviour
         if (Data != null)
         {
             Patient.Remove(Data.Id);
+        }
+    }
+
+    void Start()
+    {
+        // Initialize timer with patient's timer duration
+        tickTimer = Data.TimerDuration;
+    }
+
+    void Update()
+    {
+        if (Data == null || Data.Level == Level.Exploded || Data.IsInIncinerator)
+            return;
+
+        // Countdown timer
+        tickTimer -= Time.deltaTime;
+
+        if (tickTimer <= 0f)
+        {
+            // Reset timer
+            tickTimer = Data.TimerDuration;
+
+            // Process infection tick - this will fire PatientEvents if level changes
+            float roomInfectionRate = GetRoomInfectionRate(Data.Room);
+            Data.ProcessInfectionTick(roomInfectionRate);
+        }
+    }
+
+    float GetRoomInfectionRate(Room room)
+    {
+        switch (room)
+        {
+            case Room.Hall:
+                return GameManager.Instance.HallInfectionRate;
+            case Room.Isolation:
+                return IsolationRoomManager.Instance.InfectionRate;
+            case Room.Incinerator:
+                return 0f; // No infection in incinerator
+            default:
+                return GameManager.Instance.HallInfectionRate;
         }
     }
 }

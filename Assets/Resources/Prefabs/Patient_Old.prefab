@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3715819181438488483}
   - component: {fileID: 6301195432739847756}
   - component: {fileID: 6809487622670987470}
+  - component: {fileID: 5410382016608351970}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -109,6 +110,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5410382016608351970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453852687359465666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e68f2478e68cef4bb50cb494f37332c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
 --- !u!1 &2663772822605082589
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3446121304778825556}
   - component: {fileID: 2749546730392359904}
-  - component: {fileID: 6550546285154347722}
   - component: {fileID: 1253622074629941151}
   - component: {fileID: 2994910632727758986}
   m_Layer: 0
@@ -158,19 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLevel: 0
---- !u!114 &6550546285154347722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2663772822605082589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e68f2478e68cef4bb50cb494f37332c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 5
 --- !u!65 &1253622074629941151
 BoxCollider:
   m_ObjectHideFlags: 0
