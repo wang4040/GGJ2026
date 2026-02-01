@@ -157,10 +157,14 @@ namespace PatientSystem
         // Mask
         // ----------------------------------------------------
 
-        // Apply a mask to the patient. Returns false if already masked.
+        // Apply a mask to the patient. 
         public bool ApplyMask()
         {
             if (HasMask)
+                return false;
+
+            // Only level 0, 1, 2 can wear mask
+            if (currentLevel > Level.Medium)
                 return false;
 
             HasMask = true;
@@ -181,6 +185,39 @@ namespace PatientSystem
                 return roomRate * MaskMultiplier;
             }
             return roomRate;
+        }
+
+        // ----------------------------------------------------
+        // Bite (Crazy patient attack)
+        // ----------------------------------------------------
+
+        /// <summary>
+        /// Returns true if this patient can be bitten (level 0, 1, or 2)
+        /// </summary>
+        public bool CanBeBitten
+        {
+            get { return currentLevel <= Level.Medium && currentLevel != Level.Exploded; }
+        }
+
+        /// <summary>
+        /// Returns true if this patient is Crazy and can bite others
+        /// </summary>
+        public bool CanBite
+        {
+            get { return currentLevel == Level.Crazy && !IsInIncinerator; }
+        }
+
+        /// <summary>
+        /// Called when this patient is bitten by a Crazy patient.
+        /// The bitten patient immediately becomes Severe.
+        /// </summary>
+        public void OnBitten()
+        {
+            if (!CanBeBitten)
+                return;
+
+            // Immediately become Severe
+            Level = Level.Severe;
         }
 
         // ----------------------------------------------------
