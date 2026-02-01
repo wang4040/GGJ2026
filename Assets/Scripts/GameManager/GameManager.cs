@@ -8,12 +8,18 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public struct BigGameEvent
 {
-    public int Index;
     public int NumNewNormalPatients;
     public int NumNewSlightPatients;
     public int NumNewMediumPatients;
     public int NumNewSeverePatients;
     public float IntervalToNextEvent;
+}
+
+[System.Serializable]
+public struct TutorialSample
+{
+    public string Description;
+    public Level PatientLevel;
 }
 
 public enum GameState
@@ -75,6 +81,15 @@ public class GameManager : MonoBehaviour // Singleton
     public float GracePeriod = 8f;
     public float MaskMultiplier = 0.5f;
     public Level StartingInfectionLevel = Level.Normal;
+
+    [Header("Tutorial Settings")]
+    public float TutorialPatientInterval = 5f;
+    public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
+        new TutorialSample { Description = "Normal Infection", PatientLevel = Level.Normal },
+        new TutorialSample { Description = "Slight Infection", PatientLevel = Level.Slight },
+        new TutorialSample { Description = "Medium Infection", PatientLevel = Level.Medium },
+        new TutorialSample { Description = "Severe Infection", PatientLevel = Level.Severe },
+    };
 
     #region Main Game Loop
     private void Start()
@@ -151,6 +166,19 @@ public class GameManager : MonoBehaviour // Singleton
         isTimerRunning = true;
         globalTimer = 0f;
         CurrentState = GameState.Tutorial;
+        StartCoroutine(TutorialPatientSpawn());
+    }
+
+    private IEnumerator TutorialPatientSpawn()
+    {
+        for (int i = 0; i < TutorialPatientLevels.Length; i++)
+        {
+            RegisterPatient(TutorialPatientLevels[i].PatientLevel);
+            if (i < TutorialPatientLevels.Length - 1)
+            {
+                yield return new WaitForSeconds(TutorialPatientInterval);
+            }
+        }
     }
 
     public void EndTutorial()
