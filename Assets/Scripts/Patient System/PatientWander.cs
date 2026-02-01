@@ -33,6 +33,7 @@ public class PatientWander : MonoBehaviour
 
     // Chase mode for Crazy patients
     private PatientBehaviour patientBehaviour;
+    [SerializeField]
     private PatientBehaviour chaseTarget;
     public bool isChasing = false;
 
@@ -46,9 +47,12 @@ public class PatientWander : MonoBehaviour
     public float barkDuration = 2f;
     private float barkTimer = 0f;
     private bool crazyIdle = false;
+    [SerializeField]
     private bool tryChase = false;
 
     public bool stop = false;
+
+    public bool CanBite;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,6 +65,7 @@ public class PatientWander : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CanBite = patientBehaviour.Data.CanBite;
         if (stop)
         {
             return;
@@ -172,7 +177,7 @@ public class PatientWander : MonoBehaviour
 
     void FindBiteTarget()
     {
-        PatientBehaviour[] allPatients = FindObjectsByType<PatientBehaviour>(FindObjectsSortMode.None);
+        PatientBehaviour[] allPatients = FindObjectsOfType<PatientBehaviour>();
         System.Collections.Generic.List<PatientBehaviour> validTargets = new();
 
         foreach (PatientBehaviour p in allPatients)
@@ -186,6 +191,7 @@ public class PatientWander : MonoBehaviour
 
         if (validTargets.Count > 0)
         {
+            Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} found {validTargets.Count} valid targets.");
             // Pick a random valid target
             int randomIndex = UnityEngine.Random.Range(0, validTargets.Count);
             chaseTarget = validTargets[randomIndex];
@@ -240,7 +246,8 @@ public class PatientWander : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<PatientBehaviour>() == chaseTarget && patientBehaviour.Data.CanBite && isChasing)
+        //Debug.Log("Collision detected!");
+        if (collision.gameObject.GetComponent<PatientBehaviour>()!=null && collision.gameObject.GetComponent<PatientBehaviour>() == chaseTarget && patientBehaviour.Data.CanBite && isChasing)
         {
             Debug.Log("Collision detected with chase target!");
             tryChase = false;

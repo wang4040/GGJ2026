@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour // Singleton
                 patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
             }
             TMPro.TextMeshProUGUI instructionText = TutorialInstructionUI.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            if(instructionText != null)
+            if (instructionText != null)
             {
                 instructionText.text = TutorialPatientLevels[i].Instruction;
             }
@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour // Singleton
         isTimerRunning = true;
         globalTimer = 0f;
         CurrentState = GameState.Playing;
+        RegisterSomePatients(5, Level.Normal);
     }
 
     public void EndGame()

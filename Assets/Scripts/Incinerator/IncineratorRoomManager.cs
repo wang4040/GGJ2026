@@ -11,7 +11,7 @@ public class IncineratorRoomManager : MonoBehaviour // Singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
