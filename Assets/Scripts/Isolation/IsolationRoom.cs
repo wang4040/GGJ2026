@@ -11,6 +11,7 @@ public class IsolationRoom : MonoBehaviour
     public static int Capacity = 1;
     public static int TotalBuildingClicks = 20;
     public static float SingleIsolationDuration = 2f;
+    public IsolationWorldSpaceUI roomUI;
 
     [Header("Instance State")]
     public int Index = 0;
@@ -28,6 +29,13 @@ public class IsolationRoom : MonoBehaviour
         else
         {
             Count_BuildingClicked = 0;
+        }
+
+        if (roomUI != null)
+        {
+            roomUI.IsActive = IsActive;
+            roomUI.Index = Index;
+            roomUI.SetUIActive(GetBuildingRate());
         }
     }
 

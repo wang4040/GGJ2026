@@ -5,9 +5,8 @@ public class IsolationWorldSpaceUI : MonoBehaviour
 {
     public int Index;
     public bool IsActive = true;
-    public GameObject isolationRoomUIPrefab;
 
-    public GameObject activeUI;
+    public GameObject inactiveUI;
     public TextMeshProUGUI buildingProgressText;
 
     public void SetUIActive(float process)
@@ -15,12 +14,12 @@ public class IsolationWorldSpaceUI : MonoBehaviour
         if (process >= 1f)
         {
             IsActive = true;
-            activeUI.SetActive(true);
+            inactiveUI.SetActive(false);
         }
         else
         {
             IsActive = false;
-            activeUI.SetActive(false);
+            inactiveUI.SetActive(true);
             buildingProgressText.text = $"{(int)(process * 100f)}%";
         }
     }
