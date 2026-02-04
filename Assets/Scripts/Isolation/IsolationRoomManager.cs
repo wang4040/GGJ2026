@@ -33,28 +33,34 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
     [Header("State")]
     public int Count_Isolated = 0;
 
-    public void OnIsolationRoomBuilding(int index, float process)
-    {
-        if (process >= 1f)
-        {
-            IsolationRoomUIs[index].IsActive = true;
-            IsolationRoomUIs[index].SetUIActive(process);
-        }
-    }
-
     void Start()
     {
-        IsolationRooms = FindObjectsByType<IsolationRoom>(FindObjectsSortMode.None);
-        // IsolationRoomUIs = FindObjectsByType<IsolationWorldSpaceUI>(FindObjectsSortMode.None);
-        for (int i = 0; i < IsolationRooms.Length; i++)
+        var roomsFound = FindObjectsByType<IsolationRoom>(FindObjectsSortMode.None);
+        IsolationRooms = new IsolationRoom[roomsFound.Length];
+        foreach (var room in roomsFound)
         {
-            IsolationRooms[i].Index = i;
-            IsolationRoomUIs[i] = IsolationRooms[i].roomUI;
-            // IsolationRoomUIs[i].Index = i;
-            // IsolationRoomUIs[i].IsActive = IsolationRooms[i].IsActive;
+            IsolationRooms[room.Index] = room;
         }
+        SetIsolationRoomsUI();
     }
 
     void Update() { }
 
+    public int GetActiveRoomsCount()
+    {
+        int count = 0;
+        foreach (var room in IsolationRooms)
+        {
+            if (room != null && room.IsActive)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public void SetIsolationRoomsUI()
+    {
+        StatManager.Instance.SetRoomText(GetActiveRoomsCount(), IsolationRooms.Length);
+    }
 }

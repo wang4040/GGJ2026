@@ -21,6 +21,7 @@ public class MouseRay : MonoBehaviour
     private Transform draggedTransform;
     private Rigidbody draggedRigidbody;
     private bool draggedWasKinematic;
+
     [SerializeField]
     private bool isDragging;
     private OutlinePatient currPatientOutline;
@@ -49,7 +50,11 @@ public class MouseRay : MonoBehaviour
             // Hovering over patient
             if (hitInfo.collider.gameObject.GetComponent<PatientBehaviour>() != null)
             {
-                if (currPatientOutline != null && currPatientOutline != hitInfo.collider.gameObject.GetComponent<OutlinePatient>())
+                if (
+                    currPatientOutline != null
+                    && currPatientOutline
+                        != hitInfo.collider.gameObject.GetComponent<OutlinePatient>()
+                )
                 {
                     // New outline target, remove old outline
                     currPatientOutline?.RemoveOutline();
@@ -69,7 +74,9 @@ public class MouseRay : MonoBehaviour
                     {
                         room.GetComponent<OutlinePatient>()?.OutlineObject();
                     }
-                    foreach (IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms)
+                    foreach (
+                        IncineratorRoom room in IncineratorRoomManager.Instance.IncineratorRooms
+                    )
                     {
                         room.GetComponent<OutlinePatient>()?.OutlineObject();
                     }
@@ -94,10 +101,17 @@ public class MouseRay : MonoBehaviour
                 }
             }
             // Hovering over isolation room
-            else if (hitInfo.collider.gameObject.GetComponent<IsolationRoom>() != null && !hitInfo.collider.gameObject.GetComponent<IsolationRoom>().IsActive)
+            else if (
+                hitInfo.collider.gameObject.GetComponent<IsolationRoom>() != null
+                && !hitInfo.collider.gameObject.GetComponent<IsolationRoom>().IsActive
+            )
             {
                 //Debug.Log("Hovering over inactive isolation room.");
-                if (currIsolationOutline != null && currIsolationOutline != hitInfo.collider.gameObject.GetComponent<OutlinePatient>())
+                if (
+                    currIsolationOutline != null
+                    && currIsolationOutline
+                        != hitInfo.collider.gameObject.GetComponent<OutlinePatient>()
+                )
                 {
                     // New outline target, remove old outline
                     currIsolationOutline?.RemoveOutline();
@@ -108,6 +122,7 @@ public class MouseRay : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0) && !isDragging)
                 {
+                    // Debug.Log("Clicking inactive isolation room to build.");
                     hitInfo.collider.gameObject.GetComponent<IsolationRoom>().ClickBuilding();
                 }
             }

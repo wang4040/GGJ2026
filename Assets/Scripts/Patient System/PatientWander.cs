@@ -1,18 +1,16 @@
+using System.Collections;
 using System.Numerics;
+using PatientSystem;
 using Unity.VisualScripting;
 using UnityEngine;
-using PatientSystem;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
-using System.Collections;
 
 public class PatientWander : MonoBehaviour
 {
-
     [Header("Boundary Settings")]
     public Vector2 boundaryCenter = Vector2.zero;
     public Vector2 boundarySize = new Vector2(50f, 50f);
-
 
     [Header("Timing")]
     public float minWanderTime = 2f;
@@ -33,6 +31,7 @@ public class PatientWander : MonoBehaviour
 
     // Chase mode for Crazy patients
     private PatientBehaviour patientBehaviour;
+
     [SerializeField]
     private PatientBehaviour chaseTarget;
     public bool isChasing = false;
@@ -47,6 +46,7 @@ public class PatientWander : MonoBehaviour
     public float barkDuration = 2f;
     private float barkTimer = 0f;
     private bool crazyIdle = false;
+
     [SerializeField]
     private bool tryChase = false;
 
@@ -87,8 +87,10 @@ public class PatientWander : MonoBehaviour
         // Check if patient is Crazy - switch to chase mode
         if (patientBehaviour.Data.CanBite || (patientBehaviour.Data.Level == Level.Exploded))
         {
-            if (!crazyIdle) StartCoroutine(WaitThenBark());
-            if (tryChase) UpdateChaseMode();
+            if (!crazyIdle)
+                StartCoroutine(WaitThenBark());
+            if (tryChase)
+                UpdateChaseMode();
             return;
         }
 
@@ -103,7 +105,11 @@ public class PatientWander : MonoBehaviour
         if (isWandering)
         {
             OnFlip(targetPosition);
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetPosition,
+                moveSpeed * Time.deltaTime
+            );
 
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
             {
@@ -149,7 +155,11 @@ public class PatientWander : MonoBehaviour
             if (isWandering)
             {
                 OnFlip(targetPosition);
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, crazyMoveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    targetPosition,
+                    crazyMoveSpeed * Time.deltaTime
+                );
                 if (Vector3.Distance(transform.position, targetPosition) < 0.1f || stateTimer <= 0)
                 {
                     StartIdling();
@@ -168,7 +178,11 @@ public class PatientWander : MonoBehaviour
             animator.SetBool("isWalking", true);
         Vector3 targetPos = chaseTarget.transform.position;
         OnFlip(targetPos);
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, crazyMoveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPos,
+            crazyMoveSpeed * Time.deltaTime
+        );
 
         // Check if close enough to bite
         //float distance = Vector3.Distance(transform.position, targetPos);
@@ -186,7 +200,12 @@ public class PatientWander : MonoBehaviour
         foreach (PatientBehaviour p in allPatients)
         {
             // Don't target self, only target patients that can be bitten, and not in Isolation room
-            if (p != patientBehaviour && p.Data != null && p.Data.CanBeBitten && p.Data.Room != Room.Isolation)
+            if (
+                p != patientBehaviour
+                && p.Data != null
+                && p.Data.CanBeBitten
+                && p.Data.Room != Room.Isolation
+            )
             {
                 validTargets.Add(p);
             }
@@ -194,11 +213,15 @@ public class PatientWander : MonoBehaviour
 
         if (validTargets.Count > 0)
         {
-            Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} found {validTargets.Count} valid targets.");
+            Debug.Log(
+                $"[BITE] Crazy patient {patientBehaviour.Data.Id} found {validTargets.Count} valid targets."
+            );
             // Pick a random valid target
             int randomIndex = UnityEngine.Random.Range(0, validTargets.Count);
             chaseTarget = validTargets[randomIndex];
-            Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} targeting patient {chaseTarget.Data.Id}");
+            Debug.Log(
+                $"[BITE] Crazy patient {patientBehaviour.Data.Id} targeting patient {chaseTarget.Data.Id}"
+            );
         }
         else
         {
@@ -239,7 +262,7 @@ public class PatientWander : MonoBehaviour
     void PickRandomTarget()
     {
         float halfWidth = boundarySize.x / 2f;
-        float halfDepth = boundarySize.y / 2f;  
+        float halfDepth = boundarySize.y / 2f;
 
         float randomX = Random.Range(boundaryCenter.x - halfWidth, boundaryCenter.x + halfWidth);
         float randomZ = Random.Range(boundaryCenter.y - halfDepth, boundaryCenter.y + halfDepth);
@@ -250,24 +273,31 @@ public class PatientWander : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log("Collision detected!");
-        if (collision.gameObject.GetComponent<PatientBehaviour>()!=null && collision.gameObject.GetComponent<PatientBehaviour>() == chaseTarget && patientBehaviour.Data.CanBite && isChasing)
+        if (
+            collision.gameObject.GetComponent<PatientBehaviour>() != null
+            && collision.gameObject.GetComponent<PatientBehaviour>() == chaseTarget
+            && patientBehaviour.Data.CanBite
+            && isChasing
+        )
         {
-            Debug.Log("Collision detected with chase target!");
+            //Debug.Log("Collision detected with chase target!");
             tryChase = false;
             PerformBite();
         }
-        else
-        {
-            Debug.Log("patientBehavior.Data.CanBite: " + patientBehaviour.Data.CanBite);
-            Debug.Log("isChasing: " + isChasing);
-        }
+        // else
+        // {
+        //     Debug.Log("patientBehavior.Data.CanBite: " + patientBehaviour.Data.CanBite);
+        //     Debug.Log("isChasing: " + isChasing);
+        // }
     }
 
     public void Explode()
     {
         stop = true;
         SoundSys.PlaySound("death", volume: 0.5f);
-        Debug.Log($"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!");
+        // Debug.Log(
+        //     $"[BITE] Crazy patient {patientBehaviour.Data.Id} bit patient {chaseTarget.Data.Id}!"
+        // );
         chaseTarget.GetComponent<PatientWander>().stop = false;
         chaseTarget.GetComponent<PatientWander>().StartWandering();
         chaseTarget.Data.OnBitten();

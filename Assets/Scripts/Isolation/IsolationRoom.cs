@@ -1,7 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using PatientSystem;
-
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +10,11 @@ public class IsolationRoom : MonoBehaviour
     public static int Capacity = 1;
     public static int TotalBuildingClicks = 20;
     public static float SingleIsolationDuration = 2f;
+
+    [Header("Parameters")]
     public IsolationWorldSpaceUI roomUI;
+    public GameObject availableVisual;
+    public GameObject isolatingVisual;
 
     [Header("Instance State")]
     public int Index = 0;
@@ -25,18 +28,22 @@ public class IsolationRoom : MonoBehaviour
         if (IsActive)
         {
             Count_BuildingClicked = TotalBuildingClicks;
+            availableVisual?.SetActive(true);
         }
         else
         {
             Count_BuildingClicked = 0;
+            availableVisual?.SetActive(false);
         }
+        isolatingVisual?.SetActive(IsIsolating);
 
-        if (roomUI != null)
+        if (roomUI == null)
         {
-            roomUI.IsActive = IsActive;
-            roomUI.Index = Index;
-            roomUI.SetUIActive(GetBuildingRate());
+            roomUI = GameObject
+                .Find("SingleRoomBuildingRate " + Index)
+                ?.GetComponent<IsolationWorldSpaceUI>();
         }
+        roomUI.SetUIActive(GetBuildingRate());
     }
 
     void Update() { }
@@ -47,6 +54,7 @@ public class IsolationRoom : MonoBehaviour
         {
             patientB.Data.InIsolation();
             IsIsolating = true;
+            isolatingVisual?.SetActive(IsIsolating);
             return true;
         }
         Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
@@ -61,6 +69,7 @@ public class IsolationRoom : MonoBehaviour
             Debug.Log($"Patient exited isolation state for room {this.Index}.");
 
             IsIsolating = false;
+            isolatingVisual?.SetActive(IsIsolating);
             return true;
         }
         Debug.LogWarning("PatientBehaviour component not found on the colliding object.");
@@ -85,9 +94,6 @@ public class IsolationRoom : MonoBehaviour
                 CurrentPatient = patientB.Data;
                 IsolationRoomDetector detector = other.GetComponent<IsolationRoomDetector>();
                 detector?.DetectedIsolationRooms.Add(this);
-                // Debug.Log(
-                //     $"Patient {patientB.Data.Id} started isolation in Isolation Room #{Index}."
-                // );
             }
         }
     }
@@ -102,13 +108,11 @@ public class IsolationRoom : MonoBehaviour
             if (patientB == null)
                 return;
 
-            // If isolating but CurrentPatient was cleared (e.g., spurious OnTriggerExit on mouse release), restore it
             if (IsIsolating && CurrentPatient == null)
             {
                 CurrentPatient = patientB.Data;
             }
 
-            // Ensure patient remains in isolation state while physically in the room
             if (IsIsolating && CurrentPatient != null && CurrentPatient.Id == patientB.Data.Id)
             {
                 if (patientB.Data.Room != Room.Isolation)
@@ -156,11 +160,17 @@ public class IsolationRoom : MonoBehaviour
             return;
 
         Count_BuildingClicked++;
-        IsolationRoomManager.Instance.OnIsolationRoomBuilding(Index, Count_BuildingClicked / (float)TotalBuildingClicks);
+        // IsolationRoomManager.Instance.OnIsolationRoomBuilding(
+        //     Index,
+        //     Count_BuildingClicked / (float)TotalBuildingClicks
+        // );
+        Debug.Log($"Clicked room");
+        roomUI.SetUIActive(GetBuildingRate());
         if (Count_BuildingClicked >= TotalBuildingClicks)
         {
             IsActive = true;
-            //Debug.Log($"Isolation Room #{Index} has been activated.");
+            availableVisual?.SetActive(true);
+            IsolationRoomManager.Instance.SetIsolationRoomsUI();
         }
     }
 
@@ -189,7 +199,6 @@ public class IsolationRoom : MonoBehaviour
 
         Handles.Label(labelPos, info, style);
 
-        // Draw a sphere to indicate status
         Gizmos.color = IsIsolating ? Color.yellow : (IsActive ? Color.blue : Color.gray);
         Gizmos.DrawWireSphere(transform.position, 0.5f);
     }

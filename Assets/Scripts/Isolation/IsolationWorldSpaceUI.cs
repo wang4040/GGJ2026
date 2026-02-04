@@ -3,23 +3,21 @@ using UnityEngine;
 
 public class IsolationWorldSpaceUI : MonoBehaviour
 {
-    public int Index;
-    public bool IsActive = true;
-
-    public GameObject inactiveUI;
     public TextMeshProUGUI buildingProgressText;
 
     public void SetUIActive(float process)
     {
         if (process >= 1f)
         {
-            IsActive = true;
-            inactiveUI.SetActive(false);
+            this.gameObject.SetActive(false);
+            return;
         }
         else
         {
-            IsActive = false;
-            inactiveUI.SetActive(true);
+            if (!this.gameObject.activeSelf)
+            {
+                this.gameObject.SetActive(true);
+            }
             buildingProgressText.text = $"{(int)(process * 100f)}%";
         }
     }

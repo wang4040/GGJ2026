@@ -3,23 +3,46 @@ using UnityEngine;
 
 public class StatManager : MonoBehaviour
 {
+    public static StatManager Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public TextMeshProUGUI CrawlingText;
     public TextMeshProUGUI DeadText;
     public TextMeshProUGUI DayText;
     public TextMeshProUGUI RoomText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    void Start() { }
 
     // Update is called once per frame
     void Update()
     {
-        CrawlingText.text = (GameManager.Instance.NumSeverePatients + GameManager.Instance.NumCrazyPatients).ToString() + "/" + (GameManager.Instance.NumAllPatients.ToString());
-        DeadText.text = (GameManager.Instance.NumIncineratedPatients + GameManager.Instance.NumExplodedPatients).ToString();
+        CrawlingText.text =
+            (
+                GameManager.Instance.NumSeverePatients + GameManager.Instance.NumCrazyPatients
+            ).ToString()
+            + "/"
+            + (GameManager.Instance.NumAllPatients.ToString());
+        DeadText.text = (
+            GameManager.Instance.NumIncineratedPatients + GameManager.Instance.NumExplodedPatients
+        ).ToString();
         DayText.text = GameManager.Instance.DayCount.ToString();
-        RoomText.text = IsolationRoomManager.Instance.IsolationRooms.Length.ToString() + "/12";
+        //RoomText.text = IsolationRoomManager.Instance.IsolationRooms.Length.ToString() + "/12";
+    }
+
+    public void SetRoomText(int currentRooms, int totalRooms)
+    {
+        RoomText.text = currentRooms.ToString() + "/" + totalRooms.ToString();
     }
 }

@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour // Singleton
     private float globalTimer = 0f;
     private bool isTimerRunning = false;
     private bool isPaused = false;
-    
+
     [Header("Control Flags")]
     public bool startGameFlag = false;
 
@@ -103,13 +103,38 @@ public class GameManager : MonoBehaviour // Singleton
     public float TutorialPatientInterval = 5f;
     public float MaxTutorialDuration = 90f;
     public PatientsTrakerOnUI patientsTracker;
-    public TutorialSample[] TutorialPatientLevels = new TutorialSample[] {
-        new TutorialSample { Description = "Normal Infection", Instruction = "Wear them the masks.", PatientLevel = Level.Normal },
-        new TutorialSample { Description = "Slight Infection", Instruction = "Wear them the masks, drag them to the isolation rooms.", PatientLevel = Level.Slight },
-        new TutorialSample { Description = "Medium Infection", Instruction = "Wear them the masks, drag them to the isolation rooms.", PatientLevel = Level.Medium },
-        new TutorialSample { Description = "Severe Infection", Instruction = "Drag them to the isolation rooms immediately!!", PatientLevel = Level.Severe },
-        new TutorialSample { Description = "Crazy Infection", Instruction = "They are wasted, drag them to the incinerator room immediately!!", PatientLevel = Level.Crazy },
-
+    public TutorialSample[] TutorialPatientLevels = new TutorialSample[]
+    {
+        new TutorialSample
+        {
+            Description = "Normal Infection",
+            Instruction = "Wear them the masks.",
+            PatientLevel = Level.Normal,
+        },
+        new TutorialSample
+        {
+            Description = "Slight Infection",
+            Instruction = "Wear them the masks, drag them to the isolation rooms.",
+            PatientLevel = Level.Slight,
+        },
+        new TutorialSample
+        {
+            Description = "Medium Infection",
+            Instruction = "Wear them the masks, drag them to the isolation rooms.",
+            PatientLevel = Level.Medium,
+        },
+        new TutorialSample
+        {
+            Description = "Severe Infection",
+            Instruction = "Drag them to the isolation rooms immediately!!",
+            PatientLevel = Level.Severe,
+        },
+        new TutorialSample
+        {
+            Description = "Crazy Infection",
+            Instruction = "They are wasted, drag them to the incinerator room immediately!!",
+            PatientLevel = Level.Crazy,
+        },
     };
 
     #region Main Game Loop
@@ -127,7 +152,10 @@ public class GameManager : MonoBehaviour // Singleton
         {
             PatientSpawnPoint = this.transform;
         }
-        TutorialInstructionUI.SetActive(false);
+        if (TutorialInstructionUI != null)
+        {
+            TutorialInstructionUI.SetActive(false);
+        }
         //patientsTracker.gameObject.SetActive(false);
         //TutorialInstructionUI.SetActive(false);
     }
@@ -163,14 +191,14 @@ public class GameManager : MonoBehaviour // Singleton
     private void Update()
     {
         NumAllPatients = Patient.GetAllPatients().Count;
-        
+
         // Check start game flag
         if (startGameFlag && CurrentState == GameState.MainMenu)
         {
             StartGame();
             startGameFlag = false;
         }
-        
+
         if (IsDebugMode)
         {
             Testing();
@@ -200,8 +228,8 @@ public class GameManager : MonoBehaviour // Singleton
                 DayCount++;
             }
         }
-        
-        if(NumAllPatients == 0 && CurrentState == GameState.Playing)
+
+        if (NumAllPatients == 0 && CurrentState == GameState.Playing)
         {
             EndGame();
         }
@@ -235,7 +263,8 @@ public class GameManager : MonoBehaviour // Singleton
             {
                 patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
             }
-            TMPro.TextMeshProUGUI instructionText = TutorialInstructionUI.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+            TMPro.TextMeshProUGUI instructionText =
+                TutorialInstructionUI.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             if (instructionText != null)
             {
                 instructionText.text = TutorialPatientLevels[i].Instruction;
@@ -253,6 +282,7 @@ public class GameManager : MonoBehaviour // Singleton
         // TutorialInstructionUI.SetActive(false);
         ResetGame();
     }
+
     public void StartGame()
     {
         isTimerRunning = true;
@@ -296,7 +326,7 @@ public class GameManager : MonoBehaviour // Singleton
     {
         // Clear all static patient data
         Patient.Reset();
-        
+
         // Reset game state
         globalTimer = 0f;
         isTimerRunning = false;
@@ -304,10 +334,10 @@ public class GameManager : MonoBehaviour // Singleton
         DayCount = 0;
         CurrentBigEventIndex = 0;
         CurrentState = GameState.MainMenu;
-        
+
         // Stop all coroutines
         StopAllCoroutines();
-        
+
         // Reload scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -364,6 +394,7 @@ public class GameManager : MonoBehaviour // Singleton
         }
         return newPatient.Id;
     }
+
     public void RegisterSomePatients(int count = 1, Level level = Level.Normal)
     {
         StartCoroutine(RegisterPatientsWithDelay(count, level));
