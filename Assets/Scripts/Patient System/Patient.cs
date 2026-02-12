@@ -33,6 +33,8 @@ namespace PatientSystem
         private static Dictionary<int, Patient> allPatients = new Dictionary<int, Patient>();
         private static int totalPatientsEver = 0; // Tracks total patients created for statistics
         private static int totalDeathsEver = 0; // Tracks total deaths for statistics
+        private static int totalExplodedEver = 0; // Tracks total explosions for statistics
+        private static int totalIncineratedEver = 0; // Tracks total incinerations for statistics
 
          // Get a patient by their ID
         // ----------------------------------------------------
@@ -158,9 +160,36 @@ namespace PatientSystem
             return totalDeathsEver;
         }
 
-        public static void RegisterNewDeath()
+        private static void RegisterNewDeath()
         {
             totalDeathsEver++;
+        }
+
+        public static int GetAllExplodedEver()
+        {
+            return totalExplodedEver;
+        }
+
+        public static void RegisterNewExplosion()
+        {
+            totalExplodedEver++;
+            RegisterNewDeath();
+        }
+
+        public static int GetAllIncineratedEver()
+        {
+            return totalIncineratedEver;
+        }
+
+        public static void RegisterNewIncineration(int patientId)
+        {
+            totalIncineratedEver++;
+            if (allPatients.ContainsKey(patientId))
+            {
+                allPatients[patientId].Level = Level.Exploded;
+                return;
+            }
+            RegisterNewDeath();
         }
 
         // Remove a patient from the registry
@@ -176,6 +205,8 @@ namespace PatientSystem
             nextId = 1;
             totalDeathsEver = 0; // Reset death count when resetting patients
             totalPatientsEver = 0; // Reset total patients count when resetting patients
+            totalExplodedEver = 0; // Reset total exploded count when resetting patients
+            totalIncineratedEver = 0; // Reset total incinerated count when resetting patients
         }
 
         // Get count of patients by level
@@ -372,13 +403,13 @@ namespace PatientSystem
             StopDragging();
         }
 
-        public void Incineration()
-        {
-            Room = Room.Incinerator;
-            IsInIncinerator = true;
-            IsDragging = false;
-            PatientEvents.Incinerated(Id);
-        }
+        // public void Incineration()
+        // {
+        //     Room = Room.Incinerator;
+        //     IsInIncinerator = true;
+        //     IsDragging = false;
+        //     PatientEvents.Incinerated(Id);
+        // }
 
         // ----------------------------------------------------
         // Infection Tick Calculator

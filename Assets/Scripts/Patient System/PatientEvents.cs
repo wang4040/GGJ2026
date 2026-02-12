@@ -15,13 +15,13 @@ namespace PatientSystem
 
         public static void Exploded(int id)
         {
-            Patient.RegisterNewDeath();
+            Patient.RegisterNewExplosion();
             OnExploded?.Invoke(id);
         }
 
         public static void Incinerated(int id)
         {
-            Patient.RegisterNewDeath();
+            Patient.RegisterNewIncineration(id);
             OnIncinerated?.Invoke(id);
         }
 
@@ -29,6 +29,7 @@ namespace PatientSystem
         {
             OnLevelChanged = null;
             OnExploded = null;
+            OnIncinerated = null;
         }
     }
 }

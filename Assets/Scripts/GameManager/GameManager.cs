@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour // Singleton
         NumMediumPatients = counts.ContainsKey(Level.Medium) ? counts[Level.Medium] : 0;
         NumSeverePatients = counts.ContainsKey(Level.Severe) ? counts[Level.Severe] : 0;
         NumCrazyPatients = counts.ContainsKey(Level.Crazy) ? counts[Level.Crazy] : 0;
-        NumExplodedPatients = counts.ContainsKey(Level.Exploded) ? counts[Level.Exploded] : 0;
+        NumExplodedPatients = Patient.GetAllExplodedEver();
         // if (patientsTracker != null)
         // {
         //     patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);

@@ -45,10 +45,13 @@ public class IncineratorRoom : MonoBehaviour
             {
                 room.GetComponent<OutlinePatient>()?.RemoveOutline();
             }
-            if (patientB.Data.Level == Level.Exploded)
-            {
-                PatientEvents.Incinerated(patientB.Data.Id);
-            }
+            // if (patientB.Data.Level == Level.Exploded)
+            // {
+            //     PatientEvents.Incinerated(patientB.Data.Id);
+            // }
+            int patientId = patientB.Data.Id;
+            PatientEvents.Incinerated(patientId);
+            StatManager.Instance.UpdateUI();
             Destroy(patientB.gameObject);
             StartCoroutine(Incinerate());
             return true;

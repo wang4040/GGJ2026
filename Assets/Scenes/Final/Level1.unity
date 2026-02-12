@@ -762,6 +762,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: NumDeadPatientsForEnding
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
