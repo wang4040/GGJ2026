@@ -15,11 +15,13 @@ namespace PatientSystem
 
         public static void Exploded(int id)
         {
+            Patient.RegisterNewDeath();
             OnExploded?.Invoke(id);
         }
 
         public static void Incinerated(int id)
         {
+            Patient.RegisterNewDeath();
             OnIncinerated?.Invoke(id);
         }
 

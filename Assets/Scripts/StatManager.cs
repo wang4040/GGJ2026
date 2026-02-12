@@ -1,3 +1,4 @@
+using PatientSystem;
 using TMPro;
 using UnityEngine;
 
@@ -26,17 +27,13 @@ public class StatManager : MonoBehaviour
     void Start() { }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateUI()
     {
-        CrawlingText.text =
-            (
-                GameManager.Instance.NumSeverePatients + GameManager.Instance.NumCrazyPatients
-            ).ToString()
-            + "/"
-            + (GameManager.Instance.NumAllPatients.ToString());
-        DeadText.text = (
-            GameManager.Instance.NumIncineratedPatients + GameManager.Instance.NumExplodedPatients
+        CrawlingText.text = (
+            GameManager.Instance.NumSeverePatients + GameManager.Instance.NumCrazyPatients
         ).ToString();
+        // + "/" + (Patient.GetAllPatientsEver().ToString());
+        DeadText.text = $"{Patient.GetAllDeathsEver()}" + "/" + $"{GameManager.Instance.NumDeadPatientsForEnding}";
         DayText.text = GameManager.Instance.DayCount.ToString();
         //RoomText.text = IsolationRoomManager.Instance.IsolationRooms.Length.ToString() + "/12";
     }

@@ -62,7 +62,7 @@ public class PatientsTrakerOnUI : MonoBehaviour
     void UpdatePatientMarkers()
     {
         // Get all patients
-        var allPatients = Patient.GetAllPatients();
+        var allPatients = Patient.GetAlivePatients();
 
         // Update or create markers for each patient
         foreach (var kvp in allPatients)

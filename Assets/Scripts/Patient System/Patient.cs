@@ -31,7 +31,10 @@ namespace PatientSystem
 
         private static int nextId = 1;
         private static Dictionary<int, Patient> allPatients = new Dictionary<int, Patient>();
+        private static int totalPatientsEver = 0; // Tracks total patients created for statistics
+        private static int totalDeathsEver = 0; // Tracks total deaths for statistics
 
+         // Get a patient by their ID
         // ----------------------------------------------------
         // Instance
         // ----------------------------------------------------
@@ -122,6 +125,7 @@ namespace PatientSystem
 
             // Register in global patient registry
             allPatients[Id] = this;
+            totalPatientsEver++;
         }
 
         // ----------------------------------------------------
@@ -139,9 +143,24 @@ namespace PatientSystem
         }
 
         // Get all registered patients
-        public static Dictionary<int, Patient> GetAllPatients()
+        public static Dictionary<int, Patient> GetAlivePatients()
         {
             return allPatients;
+        }
+
+        public static int GetAllPatientsEver()
+        {
+            return totalPatientsEver;
+        }
+
+        public static int GetAllDeathsEver()
+        {
+            return totalDeathsEver;
+        }
+
+        public static void RegisterNewDeath()
+        {
+            totalDeathsEver++;
         }
 
         // Remove a patient from the registry
@@ -155,6 +174,8 @@ namespace PatientSystem
         {
             allPatients.Clear();
             nextId = 1;
+            totalDeathsEver = 0; // Reset death count when resetting patients
+            totalPatientsEver = 0; // Reset total patients count when resetting patients
         }
 
         // Get count of patients by level

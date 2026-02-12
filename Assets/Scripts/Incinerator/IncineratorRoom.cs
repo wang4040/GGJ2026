@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using PatientSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -44,6 +45,10 @@ public class IncineratorRoom : MonoBehaviour
             {
                 room.GetComponent<OutlinePatient>()?.RemoveOutline();
             }
+            if (patientB.Data.Level == Level.Exploded)
+            {
+                PatientEvents.Incinerated(patientB.Data.Id);
+            }
             Destroy(patientB.gameObject);
             StartCoroutine(Incinerate());
             return true;
@@ -58,7 +63,9 @@ public class IncineratorRoom : MonoBehaviour
         IsIncinerating = true;
         SoundSys.PlaySound("death", volume: 0.5f);
         SoundSys.PlaySound("incinerate");
-        GameObject.FindFirstObjectByType<IncineratorCD>().StartIncineratorCooldown(SingleIncineratorDuration);
+        GameObject
+            .FindFirstObjectByType<IncineratorCD>()
+            .StartIncineratorCooldown(SingleIncineratorDuration);
         yield return new WaitForSeconds(SingleIncineratorDuration);
 
         // incineration complete
@@ -101,7 +108,9 @@ public class IncineratorRoom : MonoBehaviour
             + $"Is Incinerating: {IsIncinerating}";
 
         GUIStyle style = new GUIStyle();
-        style.normal.textColor = IsIncinerating ? Color.yellow : (IsActive ? Color.red : Color.gray);
+        style.normal.textColor = IsIncinerating
+            ? Color.yellow
+            : (IsActive ? Color.red : Color.gray);
         style.alignment = TextAnchor.MiddleCenter;
         style.fontSize = 12;
 

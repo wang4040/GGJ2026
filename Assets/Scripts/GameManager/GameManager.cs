@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour // Singleton
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
             SoundSys.PlaySound("bgm_loop", loop: true);
         }
         else
@@ -78,7 +77,8 @@ public class GameManager : MonoBehaviour // Singleton
     public float WanderPatientProportion = 0.4f;
 
     [Header("Patient Numbers")]
-    public int NumAllPatients;
+    public int NumDeadPatientsForEnding = 100;
+    public int NumAlivePatients;
     public int NumNormalPatients;
     public int NumSlightPatients;
     public int NumMediumPatients;
@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour // Singleton
         // Subscribe to patient events
         PatientEvents.OnLevelChanged += HandlePatientLevelChanged;
         PatientEvents.OnExploded += HandlePatientExploded;
+        PatientEvents.OnIncinerated += HandlePatientIncinerated;
         if (BigGameEvents == null)
         {
             BigGameEvents = new List<BigGameEvent>();
@@ -165,6 +166,7 @@ public class GameManager : MonoBehaviour // Singleton
         // Unsubscribe from patient events
         PatientEvents.OnLevelChanged -= HandlePatientLevelChanged;
         PatientEvents.OnExploded -= HandlePatientExploded;
+        PatientEvents.OnIncinerated -= HandlePatientIncinerated;
     }
 
     void HandlePatientLevelChanged(int patientId, Level oldLevel, Level newLevel)
@@ -181,6 +183,7 @@ public class GameManager : MonoBehaviour // Singleton
         // {
         //     patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
         // }
+        StatManager.Instance.UpdateUI();
     }
 
     void HandlePatientExploded(int patientId)
@@ -188,9 +191,14 @@ public class GameManager : MonoBehaviour // Singleton
         // Handle explosion
     }
 
+    void HandlePatientIncinerated(int patientId)
+    {
+        // Handle incineration
+    }
+
     private void Update()
     {
-        NumAllPatients = Patient.GetAllPatients().Count;
+        NumAlivePatients = Patient.GetAlivePatients().Count;
 
         // Check start game flag
         if (startGameFlag && CurrentState == GameState.MainMenu)
@@ -226,10 +234,14 @@ public class GameManager : MonoBehaviour // Singleton
                     Debug.Log("Normal patient influx triggered.");
                 }
                 DayCount++;
+                StatManager.Instance.UpdateUI();
             }
         }
 
-        if (NumAllPatients == 0 && CurrentState == GameState.Playing)
+        if (
+            Patient.GetAllDeathsEver() == NumDeadPatientsForEnding
+            && CurrentState == GameState.Playing
+        )
         {
             EndGame();
         }
