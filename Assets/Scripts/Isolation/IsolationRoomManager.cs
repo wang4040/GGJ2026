@@ -61,6 +61,6 @@ public class IsolationRoomManager : MonoBehaviour // Singleton
 
     public void SetIsolationRoomsUI()
     {
-        StatManager.Instance.SetRoomText(GetActiveRoomsCount(), IsolationRooms.Length);
+        UIManager.Instance.SetRoomText(GetActiveRoomsCount(), IsolationRooms.Length);
     }
 }

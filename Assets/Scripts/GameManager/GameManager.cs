@@ -61,11 +61,15 @@ public class GameManager : MonoBehaviour // Singleton
     public float BigEventInterval = 20f;
     public List<BigGameEvent> BigGameEvents;
     public int CurrentBigEventIndex = 0;
+    
+    [Header("Unity Events")]
+    public UnityEvent OnGamePaused;
+    public UnityEvent OnGameResumed;
 
     [SerializeField]
     private float globalTimer = 0f;
     private bool isTimerRunning = false;
-    private bool isPaused = false;
+    public bool IsPaused = false;
 
     [Header("Control Flags")]
     public bool startGameFlag = false;
@@ -183,7 +187,7 @@ public class GameManager : MonoBehaviour // Singleton
         // {
         //     patientsTracker.UpdateMarkerText(patientId, TutorialPatientLevels[i].Description);
         // }
-        StatManager.Instance.UpdateUI();
+        UIManager.Instance.UpdateUI();
     }
 
     void HandlePatientExploded(int patientId)
@@ -234,7 +238,7 @@ public class GameManager : MonoBehaviour // Singleton
                     Debug.Log("Normal patient influx triggered.");
                 }
                 DayCount++;
-                StatManager.Instance.UpdateUI();
+                UIManager.Instance.UpdateUI();
             }
         }
 
@@ -312,19 +316,21 @@ public class GameManager : MonoBehaviour // Singleton
 
     public void PauseGame()
     {
-        isPaused = true;
+        IsPaused = true;
         Time.timeScale = 0f;
+        OnGamePaused?.Invoke();
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
+        IsPaused = false;
         Time.timeScale = 1f;
+        OnGameResumed?.Invoke();
     }
 
     public void TogglePause()
     {
-        if (isPaused)
+        if (IsPaused)
         {
             ResumeGame();
         }
@@ -342,7 +348,7 @@ public class GameManager : MonoBehaviour // Singleton
         // Reset game state
         globalTimer = 0f;
         isTimerRunning = false;
-        isPaused = false;
+        IsPaused = false;
         DayCount = 0;
         CurrentBigEventIndex = 0;
         CurrentState = GameState.MainMenu;

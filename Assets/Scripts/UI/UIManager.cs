@@ -2,9 +2,9 @@ using PatientSystem;
 using TMPro;
 using UnityEngine;
 
-public class StatManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static StatManager Instance;
+    public static UIManager Instance;
 
     void Awake()
     {

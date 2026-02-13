@@ -51,7 +51,7 @@ public class IncineratorRoom : MonoBehaviour
             // }
             int patientId = patientB.Data.Id;
             PatientEvents.Incinerated(patientId);
-            StatManager.Instance.UpdateUI();
+            UIManager.Instance.UpdateUI();
             Destroy(patientB.gameObject);
             StartCoroutine(Incinerate());
             return true;

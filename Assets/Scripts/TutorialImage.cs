@@ -4,10 +4,11 @@ public class TutorialImage : MonoBehaviour
 {
     public GameObject tutorialImagePanel;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        tutorialImagePanel.SetActive(false);
+        GameManager.Instance.OnGamePaused.AddListener(ToggleTutorialImage);
+        GameManager.Instance.OnGameResumed.AddListener(ToggleTutorialImage);
     }
 
     // Update is called once per frame
@@ -19,10 +20,22 @@ public class TutorialImage : MonoBehaviour
         }
     }
 
-    public void OpenTutorialImage()
+    public void ToggleTutorialImage()
     {
-        tutorialImagePanel.SetActive(true);
+        if (!tutorialImagePanel.activeSelf)
+        {
+            tutorialImagePanel.SetActive(true);
+        }
+        else
+        {
+            tutorialImagePanel.SetActive(false);
+        }
     }
 
 
+    void OnDestroy()
+    {
+        GameManager.Instance.OnGamePaused.RemoveListener(ToggleTutorialImage);
+        GameManager.Instance.OnGameResumed.RemoveListener(ToggleTutorialImage);
+    }
 }
