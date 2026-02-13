@@ -314,6 +314,11 @@ public class GameManager : MonoBehaviour // Singleton
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public void PauseGame()
     {
         IsPaused = true;

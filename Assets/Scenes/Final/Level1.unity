@@ -702,6 +702,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
+      propertyPath: startGameFlag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883832043283172243, guid: 43a51d69aedca20428c23fd3cae858ca, type: 3}
       propertyPath: NumDeadPatientsForEnding
       value: 40
       objectReference: {fileID: 0}
@@ -1647,6 +1651,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3882746951097265025, guid: 769912010f8f1e94d9783ca22203a960, type: 3}
+      propertyPath: m_Name
+      value: DayText
+      objectReference: {fileID: 0}
     - target: {fileID: 3972895412650658735, guid: 769912010f8f1e94d9783ca22203a960, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1667,6 +1675,10 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 97340854}
+    - target: {fileID: 8261136960580168918, guid: 769912010f8f1e94d9783ca22203a960, type: 3}
+      propertyPath: m_Name
+      value: DayBG
+      objectReference: {fileID: 0}
     - target: {fileID: 8903517855371799723, guid: 769912010f8f1e94d9783ca22203a960, type: 3}
       propertyPath: m_Pivot.x
       value: 0

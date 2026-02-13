@@ -15,4 +15,9 @@ public class MenuManager : MonoBehaviour
     {
         CreditImg.SetActive(true);
     }
+
+    public void OnExitButtonPressed()
+    {
+        Application.Quit();
+    }
 }

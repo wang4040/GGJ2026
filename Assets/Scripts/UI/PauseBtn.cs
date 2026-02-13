@@ -10,18 +10,12 @@ public class PauseBtn : MonoBehaviour
     void Start()
     {
         pauseButton = GetComponent<UnityEngine.UI.Button>();
-        //pauseButton.onClick.AddListener(OnPauseClicked);
+        pauseButton.onClick.AddListener(GameManager.Instance.TogglePause);
         PauseIcon.SetActive(true);
         ResumeIcon.SetActive(false);
         GameManager.Instance.OnGamePaused.AddListener(updatePauseState);
         GameManager.Instance.OnGameResumed.AddListener(updatePauseState);
     }
-
-    // private void OnPauseClicked()
-    // {
-    //     GameManager.Instance.TogglePause();
-    //     updatePauseState();
-    // }
 
     private void updatePauseState()
     {
@@ -39,7 +33,7 @@ public class PauseBtn : MonoBehaviour
 
     private void OnDestroy()
     {
-        //pauseButton.onClick.RemoveAllListeners();
+        pauseButton.onClick.RemoveAllListeners();
         GameManager.Instance.OnGamePaused.RemoveListener(updatePauseState);
         GameManager.Instance.OnGameResumed.RemoveListener(updatePauseState);
     }
